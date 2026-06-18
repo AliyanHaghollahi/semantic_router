@@ -111,31 +111,50 @@ class QueryClassifier:
         top_label = max(prob_dict, key=prob_dict.get)
         top_conf  = float(prob_dict[top_label])
 
-        # Rule 2: Low-confidence handler
-        # Mixed gets lower mass by nature (ambiguous class) — trust it even at
-        # low confidence. For Environmental: only force-Personal when the query
-        # also has personal signals (privacy risk); pure env queries go to fog.
+        # Rule 2: Low-confidence semantic-evidence gate
+        # Accept uncertain predictions only when the query contains supporting
+        # structural/semantic evidence. Otherwise use the conservative
+        # Personal/Edge fallback for ambiguous or out-of-distribution input.
         if top_conf < self.confidence_threshold:
             latency = (time.perf_counter() - t0) * 1000
+            q = query.lower()
+
             logger.debug(
-                "Low confidence %.2f (top=%s) probs=%s", top_conf, top_label,
+                "Low confidence %.2f (top=%s) probs=%s",
+                top_conf,
+                top_label,
                 {k: f"{v:.2f}" for k, v in prob_dict.items()},
             )
+
+            has_personal = any(re.search(p, q) for p in self._PERSONAL_RE)
+            has_environmental = any(s in q for s in self._ENV_KEYWORDS)
+
             if top_label == "Mixed":
-                return ClassificationResult(
-                    label="Mixed", confidence=top_conf, latency_ms=latency,
-                    triggered_by="low_confidence_mixed", all_probs=prob_dict,
-                )
-            if top_label == "Environmental":
-                has_personal = any(re.search(p, query.lower()) for p in self._PERSONAL_RE)
-                if not has_personal:
+                if self._is_implicit_mixed(query) or self._is_explicit_mixed(query):
                     return ClassificationResult(
-                        label="Environmental", confidence=top_conf, latency_ms=latency,
-                        triggered_by="low_confidence_environmental", all_probs=prob_dict,
+                        label="Mixed",
+                        confidence=top_conf,
+                        latency_ms=latency,
+                        triggered_by="low_confidence_mixed_evidence",
+                        all_probs=prob_dict,
                     )
+
+            if top_label == "Environmental":
+                if has_environmental and not has_personal:
+                    return ClassificationResult(
+                        label="Environmental",
+                        confidence=top_conf,
+                        latency_ms=latency,
+                        triggered_by="low_confidence_environmental_evidence",
+                        all_probs=prob_dict,
+                    )
+
             return ClassificationResult(
-                label="Personal", confidence=top_conf, latency_ms=latency,
-                triggered_by="low_confidence_safe_default", all_probs=prob_dict,
+                label="Personal",
+                confidence=top_conf,
+                latency_ms=latency,
+                triggered_by="low_confidence_safe_default",
+                all_probs=prob_dict,
             )
 
         return ClassificationResult(
