@@ -1,0 +1,59 @@
+# Semantic Router Configuration
+# Copy to config.yaml and edit before running
+
+# ─── Deployment Mode ──────────────────────────────────────────────
+# simulation_mode: true  → mock LLMs, no Ollama needed (use until camera + AI HAT are connected)
+# simulation_mode: false → real Ollama on both fog (laptop) and edge (Pi)
+simulation_mode: false
+log_level: INFO
+
+# ─── Fog Server (laptop: 192.168.137.1) ───────────────────────────
+# Run on laptop:  python fog/server.py
+fog_server_url: "http://192.168.137.1:11435"
+fog_model: "gemma3:12b"
+fog_timeout_sec: 30
+
+# ─── Edge Model (Pi: 192.168.137.246, Ollama on localhost) ────────
+# Pi runs the full edge pipeline; Ollama is local to the Pi
+# TODO: swap edge_model for AI HAT (Hailo) inference when AI HAT is wired up
+edge_ollama_url: "http://localhost:11434"
+edge_model: "gemma3:4b"
+edge_timeout_sec: 20
+
+# ─── Classifier ───────────────────────────────────────────────────
+classifier_model: "all-MiniLM-L6-v2"     # SentenceTransformer base encoder
+classifier_backend: "minilm_lr"          # minilm_lr | cosine | setfit | fastfit
+classifier_confidence_threshold: 0.65    # Below this → low-confidence handler
+use_keyword_backstop: true               # Force-Edge on sensitive keywords
+
+# ─── Context Store ────────────────────────────────────────────────
+edge_db_path: "data/edge_context.db"
+fog_faiss_path: "data/fog_index.faiss"
+fog_metadata_path: "data/fog_metadata.json"
+
+# ─── Session ──────────────────────────────────────────────────────
+session_buffer_size: 10                  # Rolling window of last N turns
+session_inject_on_unresolvable: true     # Inject context when pronoun has no referent
+
+# ─── Privacy Rules ────────────────────────────────────────────────
+# These FORCE edge routing regardless of classifier output
+privacy_keywords:
+  - "my medication"
+  - "my prescription"
+  - "my blood pressure"
+  - "my health"
+  - "my doctor"
+  - "my appointment"
+  - "my passport"
+  - "my id"
+  - "my wallet"
+  - "my bank"
+  - "my insurance"
+  - "my diagnosis"
+  - "my contact"
+  - "my booking"
+  - "my flight"
+  - "my calendar"
+  - "my schedule"
+  - "my address"
+  - "my phone number"

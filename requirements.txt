@@ -1,0 +1,31 @@
+# Core ML
+sentence-transformers>=2.2.0
+scikit-learn>=1.3.0
+numpy>=1.24.0
+
+# NLP
+spacy>=3.6.0
+
+# Async HTTP (dispatch to fog)
+httpx>=0.25.0
+aiohttp>=3.9.0
+
+# Context stores
+faiss-cpu>=1.7.4      # or chromadb as alternative
+
+# API server (fog node)
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.66.0
+rich>=13.0.0          # pretty terminal output
+psutil>=5.9.0         # optional runtime memory metrics for research_benchmark.py
+
+# Optional: SetFit / FastFit (when available)
+# setfit>=1.0.0       # pip install setfit
+# fastfit>=0.1.0      # pip install fastfit  (NAACL 2024)
+
+# Optional: Ollama Python client
+# ollama>=0.1.0       # pip install ollama

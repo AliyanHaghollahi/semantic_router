@@ -1,0 +1,53 @@
+# Semantic Router Configuration
+# Copy to config.yaml and edit before running
+
+# ─── Deployment Mode ──────────────────────────────────────────────
+simulation_mode: true          # true = use mock LLMs, false = use Ollama
+log_level: INFO
+
+# ─── Fog Server ───────────────────────────────────────────────────
+fog_server_url: "http://localhost:11435"   # Change to your fog server IP, e.g. "http://192.168.1.50:11435"
+fog_model: "llama3.2-vision:11b"          # Model name on Ollama fog server
+fog_timeout_sec: 30
+
+# ─── Edge Model (Ollama on laptop) ────────────────────────────────
+edge_ollama_url: "http://localhost:11434"
+edge_model: "llama3.2:3b"
+edge_timeout_sec: 20
+
+# ─── Classifier ───────────────────────────────────────────────────
+classifier_model: "all-MiniLM-L6-v2"     # SentenceTransformer base
+classifier_confidence_threshold: 0.65    # Below this → default to Edge (privacy safe)
+use_keyword_backstop: true               # Force-Edge on sensitive keywords
+
+# ─── Context Store ────────────────────────────────────────────────
+edge_db_path: "data/edge_context.db"
+fog_faiss_path: "data/fog_index.faiss"
+fog_metadata_path: "data/fog_metadata.json"
+
+# ─── Session ──────────────────────────────────────────────────────
+session_buffer_size: 10                  # Rolling window of last N turns
+session_inject_on_unresolvable: true     # Inject context when pronoun has no referent
+
+# ─── Privacy Rules ────────────────────────────────────────────────
+# These FORCE edge routing regardless of classifier output
+privacy_keywords:
+  - "my medication"
+  - "my prescription"
+  - "my blood pressure"
+  - "my health"
+  - "my doctor"
+  - "my appointment"
+  - "my passport"
+  - "my id"
+  - "my wallet"
+  - "my bank"
+  - "my insurance"
+  - "my diagnosis"
+  - "my contact"
+  - "my booking"
+  - "my flight"
+  - "my calendar"
+  - "my schedule"
+  - "my address"
+  - "my phone number"

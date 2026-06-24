@@ -1,0 +1,5174 @@
+[
+  {
+    "query": "What is my blood pressure medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "How much Metformin do I take?",
+    "label": "Personal"
+  },
+  {
+    "query": "What are my allergies?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I allergic to penicillin?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my gate number for my flight today?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my doctor appointment?",
+    "label": "Personal"
+  },
+  {
+    "query": "What seat am I in on my flight?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my insurance plan ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "Can you read my passport number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my cardiology appointment?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have any meetings today?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my driver license expiration date?",
+    "label": "Personal"
+  },
+  {
+    "query": "Who is my cardiologist?",
+    "label": "Personal"
+  },
+  {
+    "query": "What food am I not allowed to eat?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my cholesterol medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "Call my mom",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my dietary restriction?",
+    "label": "Personal"
+  },
+  {
+    "query": "Read my upcoming calendar events",
+    "label": "Personal"
+  },
+  {
+    "query": "What medications do I take in the morning?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have diabetes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my health condition?",
+    "label": "Personal"
+  },
+  {
+    "query": "Show me my booking reference for the Dallas flight",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my boarding time?",
+    "label": "Personal"
+  },
+  {
+    "query": "Find the contact info for Dr. Martinez",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my next appointment location?",
+    "label": "Personal"
+  },
+  {
+    "query": "What does this sign say?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a pharmacy nearby?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is in front of me?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Where is the exit?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What building am I in?",
+    "label": "Environmental"
+  },
+  {
+    "query": "How far is the nearest hospital?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What color is the door to my left?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is this the right terminal?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What restaurant is nearby?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the label on this bottle say?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Which direction should I walk to reach the gate?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there stairs or an elevator here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is this object I am holding?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What floor am I on?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the pharmacy open right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the sign above the door say?",
+    "label": "Environmental"
+  },
+  {
+    "query": "How many steps are there in front of me?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the name of this store?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a bench nearby?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What time does this place close?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is this a one-way street?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What language is this sign written in?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the escalator going up or down?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there people blocking the path?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the nearest landmark?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What medication am I holding and is there a pharmacy nearby?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Am I allergic to anything on this menu?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is my gate and how do I get there?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What food is this and can I eat it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my prescription bottle and what does it say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is my doctor's office and am I going to the right floor?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What are the ingredients here and do any conflict with my allergies?",
+    "label": "Mixed"
+  },
+  {
+    "query": "My flight departs at 3 PM and where is the gate from here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Am I holding the right medication and where can I get water to take it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is my appointment and how far is this clinic from here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this shellfish and am I allergic to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is my insurance and does this pharmacy accept it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How long until my flight and is this the right terminal?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this pill look like and do I take this in the morning?",
+    "label": "Mixed"
+  },
+  {
+    "query": "I need to refill my prescription and where is the nearest CVS?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is my gate and is the moving walkway going in the right direction?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What dish is this and am I allowed to eat it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is my seat number and where is row 22 on this plane?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Can I take my medication here and is there a water fountain nearby?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is my appointment time and is this the right building?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What things are present on the counter?",
+    "label": "Environmental"
+  },
+  {
+    "query": "List all physical items nearby?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What items are on the couch?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there any cushions on the furniture?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What items are on the counter?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Which objects are located on the counter?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's in this box? I need an answer now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is in the cabinet? tell right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Do you see any toys on the table?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What items are placed on the table?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is lying on the floor?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you spot any toys around here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify what is on the restaurant table.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there any spoons here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there any beverage on the table?",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the office supplies on the table?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there glass bottles on the side shelf?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there anyone here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me about the objects here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's on the bed?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's on the desk?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the things on the desk?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the objects on the desk.",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the office supplies on the desk.",
+    "label": "Environmental"
+  },
+  {
+    "query": "List all physical items in sight asap",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are any storage boxes present here? I need to know quickly.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What material objects are here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there any coins present?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the things in this room.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Which items are visible in your surroundings?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What am I looking at right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you list what you see? I need an answer now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there any headphones around?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Which items are in view?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Which items are in view right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me now, what can you see?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the objects on the floor.",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the things on the floor.",
+    "label": "Environmental"
+  },
+  {
+    "query": "I need a definitive list of the objects on the floor right now. Do not delay.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me now: Are both shoes from my pair visible?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Enumerate all visible objects immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me now: what am I looking at?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What physical items are present here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is within your view?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's on the desk? Tell me without delay.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the items on the counter instantly.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the contents of this bowl.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What physical objects can be found here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Scan the room immediately and identify the items inside.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me right now, What visible items are in the area?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What material objects are present?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What can you see?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify all visible elements in the scene.",
+    "label": "Environmental"
+  },
+  {
+    "query": "List all objects that are visible.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What am I looking at right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "List all physical items in sight this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What can you see?",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the items on the table.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Enumerate all visible objects straight away.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What am I looking at right now? asap",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the items located here.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What things are present in this space?",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the items on the counter this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Enumerate all visible objects without delay.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is currently in front of me?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is present in this room?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What am I looking at right now? asap",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is hanging on the wall? asap",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the objects on the seat immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What objects can you see right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Which objects are visible? your immediate attention is required.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Quickly summarize the objects you detect.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is hanging on the wall?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What objects are visible in sight?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What am I looking at right now? I need an instant response.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there any cordless phones here? This is time-sensitive.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there tablets in this area?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Provide a list of all visible physical objects.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Summarize the objects you detect at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's on the patio? This is a high-priority request.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify what is in my line of sight.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you see any charger devices?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you locate a charger in this space right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the major objects here; time is of the essence.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is on the ground?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Name the primary objects in this scene.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Pinpoint the major objects here; this cannot wait.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you quickly identify a rolling backpack in this area?",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the primary objects present here immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the objects in this area; immediate action needed.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's on the desk right this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Enumerate all visible objects immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What objects are on the floor? I need to know right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the objects here immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the things on the counter at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Enumerate all visible objects without delay.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Give me a summary of my environment. This is urgent.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the items in this room without delay.",
+    "label": "Environmental"
+  },
+  {
+    "query": "List the items on the table right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's in my field of view? Tell me asap.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is in my field of view? Tell me asap.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Do you see any toys in the room right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the brand name now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the barcode number right away.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the expiration date this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is written on the package? Give me an instant response.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the expiration date immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the warning red label for me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the price tag at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the brand name this instant?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's written on the cover of this book? Let me know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the author's name immediately?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on my computer screen right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the brand name? I need to know this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the nutritional information say? Let me know immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the price right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on the medicine bottle without delay.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the note for me? Let me know at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read this cooking guideline immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on the microwave section now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the brand name this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on the screen right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the brand name immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the barcode number this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the expiration date at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the language of this text? Let me know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the price immediately?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What's the model number on this sign? Let me know right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on this T-shirt this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the brand name? Let me know at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the thermostat immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the label of the right button now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read what the emergency alert message says right this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What alert is written on the TV screen right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the text on this sheet immediately?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read item 8 on this paper at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the nutritional information say? I need to know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the barcode number this instant?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text printed on the medicine bottle.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the brand name visible here.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Transcribe the error message on the computer.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text displayed on my monitor.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the computer error message say?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the words on my screen?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the current time?",
+    "label": "Environmental"
+  },
+  {
+    "query": "State the battery percentage shown.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the cooking instructions provided.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the caution label say?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the warning text for me.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Transcribe the directions.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the English text on this document.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Which languages appear on this page?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the name of this magazine?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the specific date and edition of this magazine.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the questions aloud one by one.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the hint say?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Please read through each question.",
+    "label": "Environmental"
+  },
+  {
+    "query": "State the page number and the title.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the version date shown on the screen?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the title at the top of the screen.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the button labels in a clockwise order.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Transcribe the labels found below the screen.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What text is currently displayed on the screen?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the words on the TV screen.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What are the chapter title and number?",
+    "label": "Environmental"
+  },
+  {
+    "query": "State the page number.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the brand name.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text found on the packaging.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is written on the screen?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the current installation percentage?",
+    "label": "Environmental"
+  },
+  {
+    "query": "State the time shown on the mobile device.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the items listed on the screen's bottom bar.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Transcribe the text on my screen.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What time is displayed on the screen?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the date on this newspaper.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is written in this newspaper article?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read these cooking directions.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you see a brand name to read?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Transcribe these cooking guidelines.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is listed in the nutritional information?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the display say?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on my computer monitor.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the brand name?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the serial number of this appliance?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text written on the box.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify and read the brand.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the menu for this restaurant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What salad dressings are available?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the brand name right now?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you read the first four lines immediately?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read through these cooking tips now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on the safety section without delay.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on the microwave section at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the brand name this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the ISBN immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the brand name at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the text on the packaging immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the poster now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the date and time this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the nutrition facts for me right away.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Read the barcode immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the color of this seat?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What program is playing on the TV?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the room lit by natural light?",
+    "label": "Environmental"
+  },
+  {
+    "query": "How bright is the lighting in this room?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the socioeconomic status of this neighborhood.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is this neighborhood clean and well-kept?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Please describe the scene currently in front of me.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the subject of the photo I took?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the classroom clean and organized?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the lighting conditions in this classroom.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you tell if it is raining?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the area tidy and the grass recently mowed?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a clear picture on the TV?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the books on the top shelf neatly organized?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is it bright enough, or should I turn on a light?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the TV screen on or off?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the floor dusty or has it been cleaned?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the color of the carpet.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does the room appear neat or messy?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the closet door currently open?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Would you describe this room as organized or cluttered?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the closet doors shut tightly?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is located across the street?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the species of this tree.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the lights currently on in here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the contents of this room in great detail.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the pool clean and the area around it well-maintained?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the highway currently congested with traffic?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you see the picture in the frame above the sofa?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the lights in this room currently flipped on?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is this room tidy or disorganized?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is every object in its proper place?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is it cloudy, and do you predict rain soon?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is it currently raining, and is the ground wet?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What can be seen on the opposite side of the street?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Do you see a tree on the other side of the road?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the hairstyle of the person on TV.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the image in the frame over the TV.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the closet door shut all the way?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the room currently bright or dim?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What are the current weather conditions?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there snow on the balcony?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What type of weather is occurring?",
+    "label": "Environmental"
+  },
+  {
+    "query": "How much traffic is on the street according to the photo?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the pattern of the floor tiles?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you describe this piece of art?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What type of clouds are in the sky?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What time of day does it appear to be in this photo?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is this path a street or a pedestrian walkway?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the street busy or quiet?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What kind of buildings are across the road?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there cars in the parking lot?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there an obstruction between me and the parking lot?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a red car parked in the lot?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the door open all the way?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Which side of the door is the chair on, and what color is it?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the sky visible in this image?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What species of tree is shown?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the style of the landscaping.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the general mood or atmosphere?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the room's lights on or off?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the window blinds pulled shut?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is my position relative to the entrance?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the business currently open?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the surrounding landscape.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What kind of seating is this?",
+    "label": "Environmental"
+  },
+  {
+    "query": "How many people are in the vicinity?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you identify this tree type?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there any cars or trucks in view?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the material covering the ground.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the weather like?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you see any trucks?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the cloud formation in the sky.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What kind of vehicle is this?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the grass neatly trimmed?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Identify the types of trees in this image.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What style of seats are these?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the floor's color?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What genre or show is playing on the TV?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there water on the floor?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does the roof have a steep pitch?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a fence around the pavilion?",
+    "label": "Environmental"
+  },
+  {
+    "query": "How well-maintained is the landscaping?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the name of this specific tree?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the floor clear of obstacles for safe walking?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What are the estimated dimensions of this room?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the lawn in front of the building healthy and well-kept?",
+    "label": "Environmental"
+  },
+  {
+    "query": "How far is the walk to the apartment entrance?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a barrier between me and the tree?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the ground under the tree dirt, grass, or another material?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the highway clear or full of cars?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the gate across the highway currently open?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there an image on the TV screen?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the adjacent room dark or illuminated?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the door shut completely?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Do you see any content on the TV?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the TV currently displaying anything?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Has it become dark outside yet?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the weather sunny or cloudy right now? I need an immediate answer.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the sidewalk clear to walk on? Let me know this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Let me know right now if the driveway is shaded for parking or not.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me without delay if the driveway is clear or occupied.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me this second: is this store crowded or quiet?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Let me know immediately if the cashier is visible in this scene.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can I safely walk to the wooden drawer with my cane?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the heater currently turned on?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me at once: how even is the ground if I walk toward the chairs?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me now: how far is the wall from here?",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the sky tell you about the weather in the next hour? This is urgent.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Tell me immediately how the lawn area looks in front of the houses.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How long will it take to tidy up this room? I need to know right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Let me know this instant which part of this room is really messy.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Let me know at once if there are clouds in the sky or if it\u2019s clear.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How far do I have to walk to reach the trees? Answer immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Let me know right now if the sky is clear or cloudy.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can I walk over to the lawns, or is there a barrier? I need to know this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a fence between here and the backyard with the dog? Tell me now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Let me know without delay if the ground is dry and smooth enough to walk on.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Let me know this instant if you see a safe, clear path on this snowy ground.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How much snow is on the ground? Give me an immediate report.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the computer near the fan available? I need to know right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Could you tell me at once if the fan is on or off?",
+    "label": "Environmental"
+  },
+  {
+    "query": "How far am I from the TV? Answer immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the general brightness and lighting of the room right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is it safe to cross the street with my cane? This is a priority request.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How far am I from the fire hydrant? Tell me this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a black fence between the sidewalk and the grass? I need to know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the lawn well-maintained and green? Answer immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How bright is the hallway lighting? Tell me at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does the scene appear clean and well-maintained? Let me know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What material is the sidewalk made of? I need an instant assessment.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the grass in the main part of the yard dry and brown? Tell me now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the backyard fully enclosed by a tall fence? This is urgent.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the backyard primarily covered by a green lawn? Answer immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a clear sidewalk on the other side of the street? I need to know this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the street asphalt wet or dry? Tell me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What does the weather seem like? I need an immediate response.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there any red truck visible? Tell me this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the ground paved, dirt, or gravel? I need to know at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there any fences or barriers blocking access? Answer immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How close is the hedge to where I am? Tell me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the space wide enough to walk through? I need an instant answer.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does this look like a private or public space? Tell me this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a wooden deck or walkway here? Identify it now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does the ground feel dry or moist? I need to know immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How tall is the fence and what is the material? Report at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does it look safe for walking? Tell me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a road in front, and is it busy? Immediate attention required.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Do I have enough space to walk through the room safely? Tell me now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What room of a home does this appear to be? Answer this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Do the clouds look dangerous or stormy? I need to know immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is severe weather approaching? Give me an urgent update.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the digital display bright or dim? Tell me at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the device positioned upright or tilted? I need to know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the condition of the grass\u2014any cracks or debris? Report immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the material of the sidewalk? I need to know this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the surface material of the immediate path? Answer at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Am I currently at a street corner? Tell me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there an unobstructed path to the door? I need to know immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How far is the door from where I am sitting? Tell me this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What room of a home does this appear to be? Identify it now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there natural or artificial light? Tell me without delay.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is it bright or dark outside? I need an instant answer.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the surroundings around the car immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Describe the ground texture right in front of me this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What kind of building is this? I need to know at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is it raining, or has it just stopped? Tell me now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Immediately: are there any other cars visible in the lot?",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are there visible wires or cords on the floor? This is a priority.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is this an office or a study? Tell me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the rug a solid color or patterned? Answer at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the overall brightness of the room? I need an instant report.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the floor tile, carpet, or a rug? Tell me immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does the atmosphere feel cozy or minimalist? I need to know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the ground paved or grass? Tell me this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How close is the street to the buildings? Report at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Can you tell if it's daytime or nighttime? I need to know immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the path from the couch to the door clear? Tell me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How wide is the path? I need an instant assessment.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the path solid or does it shift underfoot? Tell me at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the water calm or rough? I need to know immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the path near me dirt or gravel? Report right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the sky clear or are there many clouds? Answer this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is there a sidewalk separating the street? I need to know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the hallway floor the same material? Tell me at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does the hallway turn a corner? Answer immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How high is the railing? Tell me this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What are the dimensions of the walking area? I need to know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the windows open or closed? Report immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How bright is the lighting in the room? Tell me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the ground where the toys are grass or dirt? Answer at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What material is the fence made of? I need to know immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does the room feel messy or organized? Tell me now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the blinds up or down? Report this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the floor hard or carpeted? I need an instant answer.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does the atmosphere feel busy or empty? Tell me right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How bright is the lighting? Answer immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What is the overall shape of the room? Tell me at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What section of the bookstore am I in? I need to know now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Does it sound busy or quiet? Report this second.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How long is the line to order food? Tell me immediately.",
+    "label": "Environmental"
+  },
+  {
+    "query": "How many people are behind the counter? I need to know right now.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Are the chairs occupied by people waiting? Answer at once.",
+    "label": "Environmental"
+  },
+  {
+    "query": "Is the main pathway clear of obstacles? Tell me this instant.",
+    "label": "Environmental"
+  },
+  {
+    "query": "What pills am I supposed to take right now?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current diagnosis?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many times a day do I take this medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "Does my health record show any recent changes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my doctor's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What conditions am I being treated for?",
+    "label": "Personal"
+  },
+  {
+    "query": "What does my prescription say?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I due for any vaccines?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my blood type?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have any upcoming lab tests scheduled?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time does my flight leave?",
+    "label": "Personal"
+  },
+  {
+    "query": "Which terminal is my flight departing from?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my hotel reservation number?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many bags am I allowed on my booking?",
+    "label": "Personal"
+  },
+  {
+    "query": "What seat did I book on this flight?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my ticket refundable?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my check-in time at the hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my frequent flyer number?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my driver's license expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my employee ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my student ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "Show me my health insurance details.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name on my credit card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my sister's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my meeting tomorrow?",
+    "label": "Personal"
+  },
+  {
+    "query": "Who is my emergency contact?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did I have scheduled for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "Remind me of my PIN number.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the address of my dentist?",
+    "label": "Personal"
+  },
+  {
+    "query": "Call my brother for me.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is this pill and do I take it in the morning?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this sign and tell me if this is my gate.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What food is this and is it on my dietary restriction list?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this label say and does it match my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right building for my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What floor is this and does it match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the pharmacy and do I need to refill my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What restaurant is this and am I allowed to eat here given my allergies?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the menu and tell me if there is anything I can eat.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my luggage and what does the tag say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this bottle and is this my medication?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is the nearest exit and is it close to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is it and will I make my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right bus and where does it go?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this tray and can I eat any of it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this seat number correct for my ticket?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What aisle is this and does the store have my brand of medication?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this document and tell me if it mentions my name.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this ATM working and do I have enough balance?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time does this place close and do I have time to get here from my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this object and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct entrance for my ticket type?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and does it affect my route to the gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Can I sit here and is my reservation for this section?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the price and do I have enough on my card?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is the pharmacy open and does it carry my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What bus stop is this and is it the one I need for my hotel?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this elevator going to the right floor for my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What color is this shirt and did I buy it before?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct form and does it have my name on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What pills am I supposed to take right now?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many times a day do I take this medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current diagnosis?",
+    "label": "Personal"
+  },
+  {
+    "query": "Does my health record show any recent changes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What conditions am I being treated for?",
+    "label": "Personal"
+  },
+  {
+    "query": "What does my prescription say?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I due for any vaccines?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my blood type?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have any upcoming lab tests?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my doctor's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next refill due?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the dosage on my prescription?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I taking any blood thinners?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did my last test results say?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is this medication on my list?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my cholesterol level from last checkup?",
+    "label": "Personal"
+  },
+  {
+    "query": "When did I last take my medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my primary care doctor?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my health insurance member ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have a prescription for this drug?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my patient ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "When was my last flu shot?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I supposed to take this on an empty stomach?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current weight from my health record?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my doctor change my dosage recently?",
+    "label": "Personal"
+  },
+  {
+    "query": "What pharmacy do I use?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my medication covered under my insurance?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my specialist?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my physical therapy session?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have a referral for this clinic?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time does my flight leave?",
+    "label": "Personal"
+  },
+  {
+    "query": "Which terminal is my flight departing from?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my hotel reservation number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What seat did I book on this flight?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my ticket refundable?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my check-in time at the hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my frequent flyer number?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many bags am I allowed on my booking?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my booking reference number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What airline am I flying with today?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my departure gate?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time do I need to board?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my flight on time?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my return flight date?",
+    "label": "Personal"
+  },
+  {
+    "query": "What hotel am I staying at tonight?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the address of my hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I book a window or aisle seat?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my car rental confirmation number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have travel insurance for this trip?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the check-out time of my hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my visa expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What countries can I visit with my passport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my travel itinerary for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I prepay for parking at the airport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my taxi booked for?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my driver's license expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my employee ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my student ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "Show me my health insurance details.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name on my credit card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my social security number last four digits?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my passport expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my library card number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my loyalty card number for this store?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my PIN for this account?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my membership number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What documents do I have on file?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my ID valid in this country?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the expiry date on my credit card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my bank account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my work badge ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my sister's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my meeting tomorrow?",
+    "label": "Personal"
+  },
+  {
+    "query": "Who is my emergency contact?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did I have scheduled for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "Call my brother for me.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the address of my dentist?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my mother's birthday?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next doctor appointment?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my supervisor's email?",
+    "label": "Personal"
+  },
+  {
+    "query": "Who is picking me up from the airport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my interview?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I have any reminders set for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my lawyer?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time does my gym class start?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next hair appointment?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did I name this contact?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my accountant's number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is there anything on my calendar this afternoon?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my lease renewal due?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my therapist's address?",
+    "label": "Personal"
+  },
+  {
+    "query": "What are my dietary restrictions again?",
+    "label": "Personal"
+  },
+  {
+    "query": "What size do I wear in shoes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my clothing size?",
+    "label": "Personal"
+  },
+  {
+    "query": "What language is my phone set to?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my home Wi-Fi password?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual coffee order?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my preferred seat on flights?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my gym membership number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What subscriptions do I currently have?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my Netflix password?",
+    "label": "Personal"
+  },
+  {
+    "query": "What are my saved addresses?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my default shipping address?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual pharmacy location?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my car license plate number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my vehicle insurance policy number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I a rewards member here?",
+    "label": "Personal"
+  },
+  {
+    "query": "What points do I have on my loyalty card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual taxi account?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my work ID badge number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I registered at this hospital?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current bank balance?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my paycheck arrive this week?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my credit card limit?",
+    "label": "Personal"
+  },
+  {
+    "query": "How much do I owe on my last bill?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my insurance claim go through?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my monthly rent amount?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my investment account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many reward points do I have?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my tax ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What pills am I supposed to take right now?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many times a day do I take this medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current diagnosis?",
+    "label": "Personal"
+  },
+  {
+    "query": "Does my health record show any recent changes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What conditions am I being treated for?",
+    "label": "Personal"
+  },
+  {
+    "query": "What does my prescription say?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I due for any vaccines?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my blood type?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have any upcoming lab tests?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my doctor's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next refill due?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the dosage on my prescription?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I taking any blood thinners?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did my last test results say?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is this medication on my list?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my cholesterol level from last checkup?",
+    "label": "Personal"
+  },
+  {
+    "query": "When did I last take my medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my primary care doctor?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my health insurance member ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have a prescription for this drug?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my patient ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "When was my last flu shot?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I supposed to take this on an empty stomach?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current weight from my health record?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my doctor change my dosage recently?",
+    "label": "Personal"
+  },
+  {
+    "query": "What pharmacy do I use?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my medication covered under my insurance?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my specialist?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my physical therapy session?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have a referral for this clinic?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time does my flight leave?",
+    "label": "Personal"
+  },
+  {
+    "query": "Which terminal is my flight departing from?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my hotel reservation number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What seat did I book on this flight?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my ticket refundable?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my check-in time at the hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my frequent flyer number?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many bags am I allowed on my booking?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my booking reference number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What airline am I flying with today?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my departure gate?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time do I need to board?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my flight on time?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my return flight date?",
+    "label": "Personal"
+  },
+  {
+    "query": "What hotel am I staying at tonight?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the address of my hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I book a window or aisle seat?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my car rental confirmation number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have travel insurance for this trip?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the check-out time of my hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my visa expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What countries can I visit with my passport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my travel itinerary for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I prepay for parking at the airport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my taxi booked for?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my driver's license expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my employee ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my student ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "Show me my health insurance details.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name on my credit card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my social security number last four digits?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my passport expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my library card number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my loyalty card number for this store?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my PIN for this account?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my membership number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What documents do I have on file?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my ID valid in this country?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the expiry date on my credit card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my bank account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my work badge ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my sister's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my meeting tomorrow?",
+    "label": "Personal"
+  },
+  {
+    "query": "Who is my emergency contact?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did I have scheduled for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "Call my brother for me.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the address of my dentist?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my mother's birthday?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next doctor appointment?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my supervisor's email?",
+    "label": "Personal"
+  },
+  {
+    "query": "Who is picking me up from the airport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my interview?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I have any reminders set for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my lawyer?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time does my gym class start?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next hair appointment?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did I name this contact?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my accountant's number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is there anything on my calendar this afternoon?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my lease renewal due?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my therapist's address?",
+    "label": "Personal"
+  },
+  {
+    "query": "What are my dietary restrictions again?",
+    "label": "Personal"
+  },
+  {
+    "query": "What size do I wear in shoes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my clothing size?",
+    "label": "Personal"
+  },
+  {
+    "query": "What language is my phone set to?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my home Wi-Fi password?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual coffee order?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my preferred seat on flights?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my gym membership number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What subscriptions do I currently have?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my Netflix password?",
+    "label": "Personal"
+  },
+  {
+    "query": "What are my saved addresses?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my default shipping address?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual pharmacy location?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my car license plate number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my vehicle insurance policy number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I a rewards member here?",
+    "label": "Personal"
+  },
+  {
+    "query": "What points do I have on my loyalty card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual taxi account?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my work ID badge number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I registered at this hospital?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current bank balance?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my paycheck arrive this week?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my credit card limit?",
+    "label": "Personal"
+  },
+  {
+    "query": "How much do I owe on my last bill?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my insurance claim go through?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my monthly rent amount?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my investment account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many reward points do I have?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my tax ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What pills am I supposed to take right now?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many times a day do I take this medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current diagnosis?",
+    "label": "Personal"
+  },
+  {
+    "query": "Does my health record show any recent changes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What conditions am I being treated for?",
+    "label": "Personal"
+  },
+  {
+    "query": "What does my prescription say?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I due for any vaccines?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my blood type?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have any upcoming lab tests?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my doctor's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next refill due?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the dosage on my prescription?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I taking any blood thinners?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did my last test results say?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is this medication on my list?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my cholesterol level from last checkup?",
+    "label": "Personal"
+  },
+  {
+    "query": "When did I last take my medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my primary care doctor?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my health insurance member ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have a prescription for this drug?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my patient ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "When was my last flu shot?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I supposed to take this on an empty stomach?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current weight from my health record?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my doctor change my dosage recently?",
+    "label": "Personal"
+  },
+  {
+    "query": "What pharmacy do I use?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my medication covered under my insurance?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my specialist?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my physical therapy session?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have a referral for this clinic?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time does my flight leave?",
+    "label": "Personal"
+  },
+  {
+    "query": "Which terminal is my flight departing from?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my hotel reservation number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What seat did I book on this flight?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my ticket refundable?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my check-in time at the hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my frequent flyer number?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many bags am I allowed on my booking?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my booking reference number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What airline am I flying with today?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my departure gate?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time do I need to board?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my flight on time?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my return flight date?",
+    "label": "Personal"
+  },
+  {
+    "query": "What hotel am I staying at tonight?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the address of my hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I book a window or aisle seat?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my car rental confirmation number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have travel insurance for this trip?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the check-out time of my hotel?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my visa expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What countries can I visit with my passport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my travel itinerary for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I prepay for parking at the airport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my taxi booked for?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my driver's license expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my employee ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my student ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "Show me my health insurance details.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name on my credit card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my social security number last four digits?",
+    "label": "Personal"
+  },
+  {
+    "query": "When does my passport expire?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my library card number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my loyalty card number for this store?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my PIN for this account?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my membership number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What documents do I have on file?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is my ID valid in this country?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the expiry date on my credit card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my bank account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my work badge ID?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my sister's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my meeting tomorrow?",
+    "label": "Personal"
+  },
+  {
+    "query": "Who is my emergency contact?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did I have scheduled for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "Call my brother for me.",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the address of my dentist?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my mother's birthday?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next doctor appointment?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my supervisor's email?",
+    "label": "Personal"
+  },
+  {
+    "query": "Who is picking me up from the airport?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time is my interview?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did I have any reminders set for today?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the name of my lawyer?",
+    "label": "Personal"
+  },
+  {
+    "query": "What time does my gym class start?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next hair appointment?",
+    "label": "Personal"
+  },
+  {
+    "query": "What did I name this contact?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my accountant's number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Is there anything on my calendar this afternoon?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my lease renewal due?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my therapist's address?",
+    "label": "Personal"
+  },
+  {
+    "query": "What are my dietary restrictions again?",
+    "label": "Personal"
+  },
+  {
+    "query": "What size do I wear in shoes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my clothing size?",
+    "label": "Personal"
+  },
+  {
+    "query": "What language is my phone set to?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my home Wi-Fi password?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual coffee order?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my preferred seat on flights?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my gym membership number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What subscriptions do I currently have?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my Netflix password?",
+    "label": "Personal"
+  },
+  {
+    "query": "What are my saved addresses?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my default shipping address?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual pharmacy location?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my car license plate number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my vehicle insurance policy number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I a rewards member here?",
+    "label": "Personal"
+  },
+  {
+    "query": "What points do I have on my loyalty card?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my usual taxi account?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my work ID badge number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I registered at this hospital?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current bank balance?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my paycheck arrive this week?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my credit card limit?",
+    "label": "Personal"
+  },
+  {
+    "query": "How much do I owe on my last bill?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "Did my insurance claim go through?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my monthly rent amount?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my investment account number?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many reward points do I have?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my tax ID number?",
+    "label": "Personal"
+  },
+  {
+    "query": "What pills am I supposed to take right now?",
+    "label": "Personal"
+  },
+  {
+    "query": "How many times a day do I take this medication?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my current diagnosis?",
+    "label": "Personal"
+  },
+  {
+    "query": "Does my health record show any recent changes?",
+    "label": "Personal"
+  },
+  {
+    "query": "What conditions am I being treated for?",
+    "label": "Personal"
+  },
+  {
+    "query": "What does my prescription say?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I due for any vaccines?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my blood type?",
+    "label": "Personal"
+  },
+  {
+    "query": "Do I have any upcoming lab tests?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is my doctor's phone number?",
+    "label": "Personal"
+  },
+  {
+    "query": "When is my next refill due?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is the dosage on my prescription?",
+    "label": "Personal"
+  },
+  {
+    "query": "Am I taking any blood thinners?",
+    "label": "Personal"
+  },
+  {
+    "query": "What is this pill and do I take it in the morning?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this label and tell me if this matches my prescription.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this bottle say and is it my medication?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What medication is this and does it conflict with what I take?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct dosage and is there a pharmacy nearby?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this tray and can I eat it given my allergies?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the ingredients here and tell me if I can have this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What food is this and is it on my dietary restriction list?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this shellfish and am I allergic to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is in this dish and do I have any allergies to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the nutrition label and tell me if this is safe for me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this menu say and is there anything I can eat?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the allergen information and check against my profile.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this gluten-free and do I need to avoid gluten?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the sugar content here and am I diabetic?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is my gate and how do I get there from here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What gate am I departing from and is this the right terminal?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this departure board and tell me if my flight is delayed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right terminal for my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and is it pointing to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is gate B12 and is that my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct boarding line for my ticket?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is shown here and will I make my boarding time?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right check-in counter for my airline?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this screen and tell me if my flight is listed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right building for my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What floor is this and does it match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this directory say and where is my doctor's office?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct room for my scheduled appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this sign and tell me if this is the cardiology department.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What department is this and is it where my appointment is?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this elevator going to the right floor for my visit?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the reception desk sign say and am I in the right place?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the entrance for my appointment type?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this door and is this my doctor's office?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this product and have I bought it before?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the price tag and tell me if I can afford this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What brand is this and is it the one I usually buy?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my usual size and what does the label say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this receipt and does it match what I ordered?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the aisle for my medication and what does the sign say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this coupon say and does it apply to what I am buying?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the item on my shopping list and what is the price?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the store directory and tell me where my item is.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the return policy here and did I buy this here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the pharmacy and do I need to refill my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is the nearest ATM and do I have enough cash?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What restaurant is this and am I allowed to eat here given my diet?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this bus going to my hotel and what is the bus number?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the name of this building and is this where I work?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What stop is this and is it the one near my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where does this path lead and is it the way to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right street and does it match my saved address?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this map show and where am I relative to my destination?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct entrance and what is written above the door?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this document and tell me if it mentions my name.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this form and do I need to fill it in?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my boarding pass and what does it say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this letter and tell me if it is addressed to me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this contract say and is it the one I signed?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is my name on this list and where am I on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this prescription label and tell me if it is mine.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this ticket say and is it valid for today?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my invoice and what is the total amount?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this tag and tell me if this is my luggage.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time does this place close and will I make it from my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the current time and am I late for my meeting?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How long is the queue and will I make my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the timetable say and does my train match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right platform and what time is the next train?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is it now and when does my prescription need to be taken?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the exit and will I reach my taxi on time?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the delay notice say and will it affect my connection?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the waiting area and how long until my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is check-in and am I at the right desk?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this object and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this seat taken and do I have a reservation here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and does it restrict my access?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Can I sit here and is my reservation for this section?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the price and do I have enough on my card?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is the pharmacy open and does it carry my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What bus stop is this and is it the one I need for my hotel?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What color is this item and did I order this color?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct form and does it have my name on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written here and does it match what I was told?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this machine and tell me which button to press for my selection.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right locker and what is the number?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on the board and is my name listed?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this chart and tell me if my result is normal.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this wristband say and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this pill and do I take it in the morning?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this label and tell me if this matches my prescription.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this bottle say and is it my medication?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What medication is this and does it conflict with what I take?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct dosage and is there a pharmacy nearby?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this tray and can I eat it given my allergies?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the ingredients here and tell me if I can have this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What food is this and is it on my dietary restriction list?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this shellfish and am I allergic to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is in this dish and do I have any allergies to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the nutrition label and tell me if this is safe for me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this menu say and is there anything I can eat?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the allergen information and check against my profile.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this gluten-free and do I need to avoid gluten?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the sugar content here and am I diabetic?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is my gate and how do I get there from here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What gate am I departing from and is this the right terminal?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this departure board and tell me if my flight is delayed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right terminal for my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and is it pointing to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is gate B12 and is that my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct boarding line for my ticket?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is shown here and will I make my boarding time?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right check-in counter for my airline?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this screen and tell me if my flight is listed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right building for my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What floor is this and does it match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this directory say and where is my doctor's office?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct room for my scheduled appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this sign and tell me if this is the cardiology department.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What department is this and is it where my appointment is?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this elevator going to the right floor for my visit?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the reception desk sign say and am I in the right place?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the entrance for my appointment type?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this door and is this my doctor's office?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this product and have I bought it before?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the price tag and tell me if I can afford this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What brand is this and is it the one I usually buy?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my usual size and what does the label say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this receipt and does it match what I ordered?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the aisle for my medication and what does the sign say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this coupon say and does it apply to what I am buying?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the item on my shopping list and what is the price?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the store directory and tell me where my item is.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the return policy here and did I buy this here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the pharmacy and do I need to refill my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is the nearest ATM and do I have enough cash?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What restaurant is this and am I allowed to eat here given my diet?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this bus going to my hotel and what is the bus number?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the name of this building and is this where I work?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What stop is this and is it the one near my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where does this path lead and is it the way to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right street and does it match my saved address?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this map show and where am I relative to my destination?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct entrance and what is written above the door?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this document and tell me if it mentions my name.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this form and do I need to fill it in?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my boarding pass and what does it say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this letter and tell me if it is addressed to me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this contract say and is it the one I signed?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is my name on this list and where am I on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this prescription label and tell me if it is mine.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this ticket say and is it valid for today?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my invoice and what is the total amount?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this tag and tell me if this is my luggage.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time does this place close and will I make it from my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the current time and am I late for my meeting?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How long is the queue and will I make my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the timetable say and does my train match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right platform and what time is the next train?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is it now and when does my prescription need to be taken?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the exit and will I reach my taxi on time?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the delay notice say and will it affect my connection?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the waiting area and how long until my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is check-in and am I at the right desk?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this object and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this seat taken and do I have a reservation here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and does it restrict my access?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Can I sit here and is my reservation for this section?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the price and do I have enough on my card?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is the pharmacy open and does it carry my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What bus stop is this and is it the one I need for my hotel?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What color is this item and did I order this color?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct form and does it have my name on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written here and does it match what I was told?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this machine and tell me which button to press for my selection.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right locker and what is the number?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on the board and is my name listed?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this chart and tell me if my result is normal.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this wristband say and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this pill and do I take it in the morning?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this label and tell me if this matches my prescription.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this bottle say and is it my medication?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What medication is this and does it conflict with what I take?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct dosage and is there a pharmacy nearby?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this tray and can I eat it given my allergies?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the ingredients here and tell me if I can have this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What food is this and is it on my dietary restriction list?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this shellfish and am I allergic to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is in this dish and do I have any allergies to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the nutrition label and tell me if this is safe for me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this menu say and is there anything I can eat?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the allergen information and check against my profile.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this gluten-free and do I need to avoid gluten?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the sugar content here and am I diabetic?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is my gate and how do I get there from here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What gate am I departing from and is this the right terminal?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this departure board and tell me if my flight is delayed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right terminal for my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and is it pointing to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is gate B12 and is that my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct boarding line for my ticket?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is shown here and will I make my boarding time?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right check-in counter for my airline?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this screen and tell me if my flight is listed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right building for my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What floor is this and does it match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this directory say and where is my doctor's office?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct room for my scheduled appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this sign and tell me if this is the cardiology department.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What department is this and is it where my appointment is?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this elevator going to the right floor for my visit?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the reception desk sign say and am I in the right place?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the entrance for my appointment type?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this door and is this my doctor's office?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this product and have I bought it before?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the price tag and tell me if I can afford this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What brand is this and is it the one I usually buy?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my usual size and what does the label say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this receipt and does it match what I ordered?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the aisle for my medication and what does the sign say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this coupon say and does it apply to what I am buying?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the item on my shopping list and what is the price?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the store directory and tell me where my item is.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the return policy here and did I buy this here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the pharmacy and do I need to refill my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is the nearest ATM and do I have enough cash?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What restaurant is this and am I allowed to eat here given my diet?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this bus going to my hotel and what is the bus number?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the name of this building and is this where I work?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What stop is this and is it the one near my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where does this path lead and is it the way to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right street and does it match my saved address?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this map show and where am I relative to my destination?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct entrance and what is written above the door?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this document and tell me if it mentions my name.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this form and do I need to fill it in?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my boarding pass and what does it say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this letter and tell me if it is addressed to me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this contract say and is it the one I signed?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is my name on this list and where am I on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this prescription label and tell me if it is mine.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this ticket say and is it valid for today?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my invoice and what is the total amount?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this tag and tell me if this is my luggage.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time does this place close and will I make it from my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the current time and am I late for my meeting?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How long is the queue and will I make my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the timetable say and does my train match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right platform and what time is the next train?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is it now and when does my prescription need to be taken?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the exit and will I reach my taxi on time?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the delay notice say and will it affect my connection?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the waiting area and how long until my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is check-in and am I at the right desk?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this object and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this seat taken and do I have a reservation here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and does it restrict my access?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Can I sit here and is my reservation for this section?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the price and do I have enough on my card?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is the pharmacy open and does it carry my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What bus stop is this and is it the one I need for my hotel?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What color is this item and did I order this color?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct form and does it have my name on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written here and does it match what I was told?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this machine and tell me which button to press for my selection.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right locker and what is the number?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on the board and is my name listed?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this chart and tell me if my result is normal.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this wristband say and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this pill and do I take it in the morning?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this label and tell me if this matches my prescription.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this bottle say and is it my medication?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What medication is this and does it conflict with what I take?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct dosage and is there a pharmacy nearby?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this tray and can I eat it given my allergies?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the ingredients here and tell me if I can have this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What food is this and is it on my dietary restriction list?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this shellfish and am I allergic to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is in this dish and do I have any allergies to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the nutrition label and tell me if this is safe for me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this menu say and is there anything I can eat?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the allergen information and check against my profile.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this gluten-free and do I need to avoid gluten?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the sugar content here and am I diabetic?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is my gate and how do I get there from here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What gate am I departing from and is this the right terminal?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this departure board and tell me if my flight is delayed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right terminal for my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and is it pointing to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is gate B12 and is that my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct boarding line for my ticket?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is shown here and will I make my boarding time?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right check-in counter for my airline?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this screen and tell me if my flight is listed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right building for my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What floor is this and does it match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this directory say and where is my doctor's office?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct room for my scheduled appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this sign and tell me if this is the cardiology department.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What department is this and is it where my appointment is?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this elevator going to the right floor for my visit?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the reception desk sign say and am I in the right place?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the entrance for my appointment type?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this door and is this my doctor's office?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this product and have I bought it before?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the price tag and tell me if I can afford this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What brand is this and is it the one I usually buy?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my usual size and what does the label say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this receipt and does it match what I ordered?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the aisle for my medication and what does the sign say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this coupon say and does it apply to what I am buying?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the item on my shopping list and what is the price?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the store directory and tell me where my item is.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the return policy here and did I buy this here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the pharmacy and do I need to refill my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is the nearest ATM and do I have enough cash?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What restaurant is this and am I allowed to eat here given my diet?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this bus going to my hotel and what is the bus number?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the name of this building and is this where I work?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What stop is this and is it the one near my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where does this path lead and is it the way to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right street and does it match my saved address?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this map show and where am I relative to my destination?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct entrance and what is written above the door?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this document and tell me if it mentions my name.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written on this form and do I need to fill it in?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my boarding pass and what does it say?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this letter and tell me if it is addressed to me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this contract say and is it the one I signed?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is my name on this list and where am I on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this prescription label and tell me if it is mine.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this ticket say and is it valid for today?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this my invoice and what is the total amount?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this tag and tell me if this is my luggage.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time does this place close and will I make it from my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the current time and am I late for my meeting?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How long is the queue and will I make my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the timetable say and does my train match my booking?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right platform and what time is the next train?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is it now and when does my prescription need to be taken?",
+    "label": "Mixed"
+  },
+  {
+    "query": "How far is the exit and will I reach my taxi on time?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does the delay notice say and will it affect my connection?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the waiting area and how long until my appointment?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What time is check-in and am I at the right desk?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this object and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this seat taken and do I have a reservation here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and does it restrict my access?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Can I sit here and is my reservation for this section?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the price and do I have enough on my card?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is the pharmacy open and does it carry my prescription?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What bus stop is this and is it the one I need for my hotel?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What color is this item and did I order this color?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct form and does it have my name on it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is written here and does it match what I was told?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this machine and tell me which button to press for my selection.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right locker and what is the number?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on the board and is my name listed?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this chart and tell me if my result is normal.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this wristband say and is it mine?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is this pill and do I take it in the morning?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this label and tell me if this matches my prescription.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this bottle say and is it my medication?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What medication is this and does it conflict with what I take?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the correct dosage and is there a pharmacy nearby?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is on this tray and can I eat it given my allergies?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the ingredients here and tell me if I can have this.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What food is this and is it on my dietary restriction list?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this shellfish and am I allergic to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is in this dish and do I have any allergies to it?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the nutrition label and tell me if this is safe for me.",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this menu say and is there anything I can eat?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read the allergen information and check against my profile.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this gluten-free and do I need to avoid gluten?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What is the sugar content here and am I diabetic?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is my gate and how do I get there from here?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What gate am I departing from and is this the right terminal?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Read this departure board and tell me if my flight is delayed.",
+    "label": "Mixed"
+  },
+  {
+    "query": "Is this the right terminal for my flight?",
+    "label": "Mixed"
+  },
+  {
+    "query": "What does this sign say and is it pointing to my gate?",
+    "label": "Mixed"
+  },
+  {
+    "query": "Where is gate B12 and is that my gate?",
+    "label": "Mixed"
+  }
+]
