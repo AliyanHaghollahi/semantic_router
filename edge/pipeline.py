@@ -137,7 +137,7 @@ class RoutingPipeline:
         decomposer     = MixedQueryDecomposer(slm_client=edge_client if not sim_mode else None)
         dep_detector   = DependencyDetector()
         dispatcher     = RoutingDispatcher(edge_client=edge_client, fog_client=fog_client)
-        fuser          = ResponseFuser(edge_client=edge_client, use_llm_fusion=False)
+        fuser          = ResponseFuser(edge_client=edge_client, use_llm_fusion=True)
         edge_store     = EdgeContextStore(db_path=cfg.get("edge_db_path", "data/edge_context.db"))
         fog_store      = FogContextStore(
             index_path=cfg.get("fog_faiss_path", "data/fog_index.faiss"),
