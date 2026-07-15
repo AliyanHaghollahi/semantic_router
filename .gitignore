@@ -19,3 +19,11 @@ data/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local camera test images
+*.jpg
+*.png
+stereo.jpg
+left.jpg
+right.jpg
+cam3_test.jpg
