@@ -65,8 +65,8 @@ class SetFitClassifier(BaseQueryClassifier):
         args = TrainingArguments(
             batch_size=16,
             num_epochs=1,
-            num_setfit_iterations=20,
-            evaluation_strategy="no",
+            num_iterations=2,
+            eval_strategy="no",
             save_strategy="no",
             load_best_model_at_end=False,
         )
