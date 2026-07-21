@@ -17,8 +17,9 @@ from tiergraph.enums import ExecutionStatus, SlotType, Tier
 class TierGraphSchema(BaseModel):
     """Shared strict configuration for all TierGraph Pydantic models.
 
-    Frozen models prevent attribute reassignment. Values held inside mutable
-    containers are not deeply frozen and should be treated as caller-owned.
+    Frozen models prevent attribute reassignment but do not deeply freeze
+    nested mappings. Callers must treat required_inputs, produced_outputs,
+    metadata, and outputs as immutable after model construction.
     """
 
     model_config: ClassVar[ConfigDict] = ConfigDict(

@@ -9,14 +9,18 @@ from tiergraph.enums import (
     Tier,
     TransferPolicy,
 )
+from tiergraph.graph import DependencyEdge, ExecutionGraph, SemanticNode
 from tiergraph.models import EvidenceItem, TierResult
 
 __all__ = [
+    "DependencyEdge",
     "EvidenceItem",
     "ExecutionStatus",
+    "ExecutionGraph",
     "NodeSemanticType",
     "OperatorType",
     "QueryType",
+    "SemanticNode",
     "SlotType",
     "Tier",
     "TierResult",
