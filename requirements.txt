@@ -15,6 +15,7 @@ faiss-cpu>=1.7.4      # or chromadb as alternative
 
 # API server (fog node)
 fastapi>=0.104.0
+pydantic>=2,<3
 uvicorn>=0.24.0
 
 # Utilities
