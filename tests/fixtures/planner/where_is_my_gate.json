@@ -1,0 +1,78 @@
+{
+  "example_id": "mixed-gate-001",
+  "query": "Where is my gate?",
+  "graph": {
+    "schema_version": "1.0",
+    "graph_id": "mixed-gate-001",
+    "original_query": "Where is my gate?",
+    "query_type": "Mixed",
+    "nodes": [
+      {
+        "node_id": "q1",
+        "semantic_type": "personal",
+        "operator": "RESOLVE_PERSONAL",
+        "tier": "edge",
+        "task": "Resolve the user's gate identifier",
+        "required_inputs": {},
+        "produced_outputs": {
+          "gate_identifier": "RESOLVED_REFERENCE"
+        },
+        "status": "pending",
+        "metadata": {}
+      },
+      {
+        "node_id": "q2",
+        "semantic_type": "environmental",
+        "operator": "LOCATE_ENVIRONMENTAL",
+        "tier": "fog",
+        "task": "Locate the resolved gate",
+        "required_inputs": {
+          "gate_identifier": "RESOLVED_REFERENCE"
+        },
+        "produced_outputs": {
+          "gate_location": "LOCATION"
+        },
+        "status": "pending",
+        "metadata": {}
+      }
+    ],
+    "edges": [
+      {
+        "source_node_id": "q1",
+        "source_slot": "gate_identifier",
+        "target_node_id": "q2",
+        "target_slot": "gate_identifier",
+        "transfer_policy": "minimal_reference"
+      }
+    ],
+    "metadata": {}
+  },
+  "fusion_plan": null,
+  "planner_labels": {
+    "query_type": "Mixed",
+    "operation_spans": [
+      {
+        "node_id": "q2",
+        "semantic_type": "environmental",
+        "start": 0,
+        "end": 17,
+        "operator": "LOCATE_ENVIRONMENTAL"
+      }
+    ],
+    "slot_anchors": [
+      {
+        "anchor_id": "a1",
+        "start": 12,
+        "end": 16,
+        "text": "gate",
+        "normalized_name": "gate",
+        "owner_node_id": "q2",
+        "implicit_resolution": "IMPLICIT_RESOLVE_PERSONAL",
+        "implicit_node_id": "q1"
+      }
+    ]
+  },
+  "metadata": {
+    "fixture": "permanent_gate_invariant"
+  }
+}
