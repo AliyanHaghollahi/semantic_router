@@ -2,6 +2,7 @@
 
 from tiergraph.enums import (
     ExecutionStatus,
+    FusionStrategy,
     NodeSemanticType,
     OperatorType,
     QueryType,
@@ -9,6 +10,7 @@ from tiergraph.enums import (
     Tier,
     TransferPolicy,
 )
+from tiergraph.fusion import FusionOutput, FusionPlan
 from tiergraph.graph import DependencyEdge, ExecutionGraph, SemanticNode
 from tiergraph.models import EvidenceItem, TierResult
 
@@ -17,6 +19,9 @@ __all__ = [
     "EvidenceItem",
     "ExecutionStatus",
     "ExecutionGraph",
+    "FusionOutput",
+    "FusionPlan",
+    "FusionStrategy",
     "NodeSemanticType",
     "OperatorType",
     "QueryType",

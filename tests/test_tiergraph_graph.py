@@ -1,11 +1,15 @@
 """Unit tests for typed TierGraph DAG construction and validation."""
 
 import pytest
-from pydantic import ValidationError
+from pydantic import BaseModel, ValidationError
 
 from tiergraph import (
     DependencyEdge,
     ExecutionGraph,
+    ExecutionStatus,
+    FusionOutput,
+    FusionPlan,
+    FusionStrategy,
     NodeSemanticType,
     OperatorType,
     QueryType,
@@ -52,6 +56,42 @@ def _graph(**overrides) -> ExecutionGraph:
     }
     values.update(overrides)
     return ExecutionGraph(**values)
+
+
+def _fusion_plan(**overrides) -> FusionPlan:
+    values = {
+        "plan_id": "plan-parallel",
+        "graph_id": "graph-parallel",
+        "fusion_node_id": "fusion",
+        "strategy": FusionStrategy.CONCATENATE,
+        "required_slots": {
+            "personal": SlotType.PERSONAL_FACT,
+            "environmental": SlotType.ENVIRONMENTAL_FACT,
+        },
+        "ordered_slots": ("personal", "environmental"),
+        "max_sentences": 2,
+        "spoken_style": True,
+        "instructions": "Combine the typed answers.",
+    }
+    values.update(overrides)
+    return FusionPlan(**values)
+
+
+def _fusion_output(**overrides) -> FusionOutput:
+    values = {
+        "output_id": "output-parallel",
+        "plan_id": "plan-parallel",
+        "graph_id": "graph-parallel",
+        "fusion_node_id": "fusion",
+        "strategy": FusionStrategy.CONCATENATE,
+        "status": ExecutionStatus.SUCCEEDED,
+        "text": "Take your medication; a pharmacy is nearby.",
+        "method": "concatenate_v1",
+        "evidence_ids": ("evidence-personal", "evidence-environmental"),
+        "latency_ms": 3.5,
+    }
+    values.update(overrides)
+    return FusionOutput(**values)
 
 
 def _gate_graph() -> ExecutionGraph:
@@ -962,3 +1002,163 @@ def test_fuse_node_must_be_terminal():
             nodes=parallel_graph.nodes + (downstream,),
             edges=parallel_graph.edges + (outgoing,),
         )
+
+
+def test_fusion_plan_validates_against_edge_control_sink():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan()
+
+    assert plan.validate_against_graph(graph) is plan
+
+
+def test_fusion_plan_graph_validation_rejects_wrong_graph_id():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan(graph_id="other-graph")
+
+    with pytest.raises(ValueError, match="graph_id does not match"):
+        plan.validate_against_graph(graph)
+
+
+def test_fusion_plan_graph_validation_rejects_missing_fusion_node():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan(fusion_node_id="missing")
+
+    with pytest.raises(ValueError, match="fusion node does not exist"):
+        plan.validate_against_graph(graph)
+
+
+def test_fusion_plan_graph_validation_rejects_non_fuse_node():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan(fusion_node_id="personal")
+
+    with pytest.raises(ValueError, match="must reference a FUSE node"):
+        plan.validate_against_graph(graph)
+
+
+def test_fusion_plan_graph_validation_rejects_nonterminal_fuse_node():
+    graph = _parallel_graph(include_fusion=True)
+    downstream = _node(
+        node_id="downstream",
+        semantic_type=NodeSemanticType.ENVIRONMENTAL,
+        operator=OperatorType.IDENTIFY_ENVIRONMENTAL,
+        tier=Tier.EDGE,
+        task="Consume an invalid fused response",
+        required_inputs={"response": SlotType.FINAL_RESPONSE},
+        produced_outputs={"fact": SlotType.ENVIRONMENTAL_FACT},
+    )
+    outgoing = DependencyEdge(
+        source_node_id="fusion",
+        source_slot="response",
+        target_node_id="downstream",
+        target_slot="response",
+    )
+    unvalidated_graph = ExecutionGraph.model_construct(
+        schema_version=graph.schema_version,
+        graph_id=graph.graph_id,
+        original_query=graph.original_query,
+        query_type=graph.query_type,
+        nodes=graph.nodes + (downstream,),
+        edges=graph.edges + (outgoing,),
+        metadata=graph.metadata,
+    )
+
+    with pytest.raises(ValueError, match="must be terminal"):
+        _fusion_plan().validate_against_graph(unvalidated_graph)
+
+
+def test_fusion_plan_graph_validation_rejects_required_slot_mismatch():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan(
+        required_slots={"personal": SlotType.PERSONAL_FACT},
+        ordered_slots=("personal",),
+    )
+
+    with pytest.raises(ValueError, match="must exactly match"):
+        plan.validate_against_graph(graph)
+
+
+def test_fusion_plan_graph_validation_rejects_wrong_slot_type():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan(
+        required_slots={
+            "personal": SlotType.ENVIRONMENTAL_FACT,
+            "environmental": SlotType.ENVIRONMENTAL_FACT,
+        },
+    )
+
+    with pytest.raises(ValueError, match="must exactly match"):
+        plan.validate_against_graph(graph)
+
+
+def test_fusion_output_validates_against_matching_plan_and_graph():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan()
+    output = _fusion_output()
+
+    assert output.validate_against(plan, graph) is output
+
+
+@pytest.mark.parametrize(
+    "overrides,error",
+    [
+        ({"plan_id": "other-plan"}, "plan_id does not match"),
+        ({"graph_id": "other-graph"}, "graph_id does not match"),
+        ({"fusion_node_id": "other-node"}, "fusion_node_id does not match"),
+        ({"strategy": FusionStrategy.TEMPLATE}, "strategy does not match"),
+    ],
+)
+def test_fusion_output_validation_rejects_plan_mismatch(overrides, error):
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan()
+    output = _fusion_output(**overrides)
+
+    with pytest.raises(ValueError, match=error):
+        output.validate_against(plan, graph)
+
+
+def test_fusion_output_validation_rejects_unapproved_fusion_sink():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan(fusion_node_id="missing")
+    output = _fusion_output(fusion_node_id="missing")
+
+    with pytest.raises(ValueError, match="fusion node does not exist"):
+        output.validate_against(plan, graph)
+
+
+def test_cross_validation_rejects_internally_invalid_copied_plan():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan()
+    invalid_plan = BaseModel.model_copy(
+        plan,
+        update={"ordered_slots": ("personal",)},
+    )
+
+    with pytest.raises(ValidationError, match="exact permutation"):
+        invalid_plan.validate_against_graph(graph)
+
+    with pytest.raises(ValidationError, match="exact permutation"):
+        _fusion_output().validate_against(invalid_plan, graph)
+
+
+def test_cross_validation_rejects_internally_invalid_copied_output():
+    graph = _parallel_graph(include_fusion=True)
+    plan = _fusion_plan()
+    invalid_output = BaseModel.model_copy(
+        _fusion_output(),
+        update={"text": ""},
+    )
+
+    with pytest.raises(ValidationError, match="requires nonblank text"):
+        invalid_output.validate_against(plan, graph)
+
+
+def test_cross_validation_validates_plan_before_identifier_comparison():
+    graph = _parallel_graph(include_fusion=True)
+    invalid_plan = BaseModel.model_copy(
+        _fusion_plan(),
+        update={"max_sentences": 0},
+    )
+    mismatched_output = _fusion_output(plan_id="other-plan")
+
+    with pytest.raises(ValidationError, match="max_sentences"):
+        mismatched_output.validate_against(invalid_plan, graph)

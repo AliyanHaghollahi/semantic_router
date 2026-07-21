@@ -19,7 +19,8 @@ class TierGraphSchema(BaseModel):
 
     Frozen models prevent attribute reassignment but do not deeply freeze
     nested mappings. Callers must treat required_inputs, produced_outputs,
-    metadata, and outputs as immutable after model construction.
+    outputs, FusionPlan.required_slots, FusionPlan.metadata, and
+    FusionOutput.metadata as immutable after model construction.
     """
 
     model_config: ClassVar[ConfigDict] = ConfigDict(

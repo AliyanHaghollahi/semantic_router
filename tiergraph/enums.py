@@ -98,3 +98,12 @@ class TransferPolicy(_CanonicalWireEnum, str, Enum):
 
     DIRECT = "direct"
     MINIMAL_REFERENCE = "minimal_reference"
+
+
+class FusionStrategy(_CanonicalWireEnum, str, Enum):
+    """Strategy selected for Edge response fusion."""
+
+    CONCATENATE = "concatenate"
+    TEMPLATE = "template"
+    SLM = "slm"
+    VALIDATED_SLM = "validated_slm"
