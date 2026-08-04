@@ -18,7 +18,7 @@ fog_timeout_sec: 30
 # TODO: swap edge_model for AI HAT (Hailo) inference when AI HAT is wired up
 edge_ollama_url: "http://localhost:11434"
 edge_model: "gemma3:4b"
-edge_timeout_sec: 20
+edge_timeout_sec: 180
 
 # ─── Classifier ───────────────────────────────────────────────────
 classifier_model: "all-MiniLM-L6-v2"     # SentenceTransformer base encoder
