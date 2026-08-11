@@ -92,7 +92,7 @@ class MixedQueryDecomposer:
             self._nlp = spacy.load("en_core_web_sm")
             self._spacy_available = True
             logger.info("spaCy en_core_web_sm loaded.")
-        except OSError:
+        except (OSError, ImportError):
             logger.warning(
                 "spaCy model 'en_core_web_sm' not found. "
                 "Run: python -m spacy download en_core_web_sm\n"
