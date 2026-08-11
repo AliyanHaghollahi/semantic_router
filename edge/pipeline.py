@@ -24,10 +24,13 @@ Usage:
 import asyncio
 import logging
 import time
-from dataclasses import dataclass, field
-from typing import Optional
+from dataclasses import dataclass
+from typing import TYPE_CHECKING, Optional
 
 logger = logging.getLogger(__name__)
+
+if TYPE_CHECKING:
+    from tiergraph.executor import GraphExecutionResult
 
 
 @dataclass
@@ -62,6 +65,14 @@ class PipelineResult:
         return "\n".join(lines)
 
 
+@dataclass
+class TierGraphPipelineResult:
+    """Compatibility wrapper that preserves the research GraphExecutionResult."""
+
+    graph_result: "GraphExecutionResult"
+    pipeline_result: PipelineResult
+
+
 class RoutingPipeline:
     """
     Full end-to-end routing pipeline.
@@ -80,6 +91,9 @@ class RoutingPipeline:
         edge_store,
         fog_store,
         session_manager,
+        *,
+        tiergraph_enabled: bool = False,
+        graph_executor=None,
     ):
         self.classifier = classifier
         self.decomposer = decomposer
@@ -89,12 +103,15 @@ class RoutingPipeline:
         self.edge_store = edge_store
         self.fog_store = fog_store
         self.session = session_manager
+        self.tiergraph_enabled = tiergraph_enabled
+        self.graph_executor = graph_executor
 
     @classmethod
     def from_config(cls, config_override: dict = None):
         """
         Construct the full pipeline from config.yaml.
         Use config_override={'simulation_mode': False} for production.
+        TierGraph oracle execution is opt-in via tiergraph_enabled=True.
         """
         try:
             from config import cfg
@@ -105,6 +122,7 @@ class RoutingPipeline:
             cfg.update(config_override)
 
         sim_mode = cfg.get("simulation_mode", True)
+        tiergraph_enabled = bool(cfg.get("tiergraph_enabled", False))
 
         from router.classifier import QueryClassifier
         from router.decomposer import MixedQueryDecomposer
@@ -145,6 +163,17 @@ class RoutingPipeline:
         )
         session_mgr    = SessionManager(buffer_size=cfg.get("session_buffer_size", 10))
 
+        graph_executor = None
+        if tiergraph_enabled:
+            from tiergraph import GraphExecutor
+
+            graph_executor = GraphExecutor(
+                edge_client=edge_client,
+                fog_client=fog_client,
+                edge_context_fn=edge_store.retrieve_context,
+                fog_context_fn=fog_store.retrieve,
+            )
+
         return cls(
             classifier=classifier,
             decomposer=decomposer,
@@ -154,6 +183,8 @@ class RoutingPipeline:
             edge_store=edge_store,
             fog_store=fog_store,
             session_manager=session_mgr,
+            tiergraph_enabled=tiergraph_enabled,
+            graph_executor=graph_executor,
         )
 
     # ── Main Entry Point ──────────────────────────────────────────
@@ -269,6 +300,60 @@ class RoutingPipeline:
             session_injected=session_injected,
         )
 
+    async def process_execution_graph(
+        self,
+        graph,
+        *,
+        image_b64: str = None,
+        fusion_plan=None,
+    ) -> TierGraphPipelineResult:
+        """
+        Opt-in oracle path: execute a preconstructed ExecutionGraph.
+
+        Replaces legacy decomposer → dependency detector → mixed dispatcher
+        for this call only. Does not predict graphs from free text.
+        """
+        if not self.tiergraph_enabled or self.graph_executor is None:
+            raise RuntimeError(
+                "TierGraph execution requires tiergraph_enabled=True "
+                "and a configured graph_executor"
+            )
+
+        from tiergraph import GraphExecutionResult
+
+        graph_result: GraphExecutionResult = await self.graph_executor.execute(
+            graph,
+            image_b64=image_b64,
+            fusion_plan=fusion_plan,
+        )
+
+        route = _route_from_graph_result(graph_result)
+        pipeline_result = PipelineResult(
+            query=graph_result.original_query,
+            classification=_SyntheticClassification(graph_result.query_type.value),
+            final_response=graph_result.final_response,
+            route=route,
+            total_latency_ms=graph_result.total_latency_ms,
+            decomposition=None,
+            dependency=None,
+            dispatch=None,
+            fusion=_SyntheticFusion(
+                text=graph_result.final_response,
+                method=graph_result.fusion_method or "tiergraph_sink",
+                latency_ms=0.0,
+            ),
+            session_injected=False,
+        )
+        self.session.add_turn(
+            query=graph_result.original_query,
+            label=graph_result.query_type.value,
+            response=graph_result.final_response[:300],
+        )
+        return TierGraphPipelineResult(
+            graph_result=graph_result,
+            pipeline_result=pipeline_result,
+        )
+
     def process_sync(self, query: str, image_b64: str = None) -> PipelineResult:
         """Synchronous wrapper for convenience."""
         loop = asyncio.new_event_loop()
@@ -276,3 +361,31 @@ class RoutingPipeline:
             return loop.run_until_complete(self.process(query, image_b64=image_b64))
         finally:
             loop.close()
+
+
+class _SyntheticClassification:
+    def __init__(self, label: str):
+        self.label = label
+        self.confidence = 1.0
+        self.triggered_by = "tiergraph_execution_graph"
+
+
+class _SyntheticFusion:
+    def __init__(self, text: str, method: str, latency_ms: float):
+        self.text = text
+        self.method = method
+        self.latency_ms = latency_ms
+
+
+def _route_from_graph_result(graph_result) -> str:
+    mode = graph_result.execution_mode
+    tiers = {result.tier.value for result in graph_result.results.values()}
+    if tiers == {"edge"}:
+        return "edge_only"
+    if tiers == {"fog"}:
+        return "fog_only"
+    if mode == "sequential":
+        return "mixed_sequential"
+    if mode == "parallel":
+        return "mixed_parallel"
+    return "mixed_hybrid"
