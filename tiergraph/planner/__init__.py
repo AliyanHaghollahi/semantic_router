@@ -2,6 +2,9 @@
 
 This package contains data validation only. It does not load an encoder,
 initialize a model, or import the baseline routing pipeline.
+
+Learned planner modules (``model``, ``loss``, ``batching``) and
+``GraphDecoder`` are imported from their submodules directly.
 """
 
 from tiergraph.planner.annotations import (

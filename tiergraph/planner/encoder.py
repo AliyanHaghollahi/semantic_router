@@ -250,6 +250,141 @@ class MiniLMFeatureEncoder:
             texts=normalized_texts,
         )
 
+    def token_char_spans_for_batch(
+        self,
+        batch: EncoderBatch,
+    ) -> tuple[tuple["TokenCharSpan", ...], ...]:
+        """Build TokenCharSpan views aligned to ``batch`` token positions.
+
+        Reuses this encoder's loaded tokenizer and the same truncation policy as
+        :meth:`encode`. Token IDs are re-derived and must exactly match
+        ``batch.input_ids`` on non-padding positions so planner alignment cannot
+        drift from the embeddings that were actually computed.
+        """
+        from tiergraph.planner.align import TokenCharSpan
+
+        if not self.is_loaded:
+            raise RuntimeError(
+                "token_char_spans_for_batch requires a loaded encoder; call encode first"
+            )
+        tokenizer = self._tokenizer
+        if tokenizer is None:
+            raise RuntimeError("encoder tokenizer is unavailable")
+        if len(batch.texts) != batch.batch_size:
+            raise ValueError("EncoderBatch texts length must match batch size")
+
+        encoded = tokenizer(
+            list(batch.texts),
+            add_special_tokens=True,
+            padding=False,
+            truncation=False,
+            return_attention_mask=True,
+            return_offsets_mapping=True,
+        )
+        input_sequences = _batch_sequences(
+            encoded["input_ids"],
+            field_name="input_ids",
+            batch_size=batch.batch_size,
+        )
+        attention_sequences = _attention_sequences(
+            encoded["attention_mask"],
+            batch_size=batch.batch_size,
+        )
+        if "offset_mapping" not in encoded:
+            raise ValueError(
+                "tokenizer must provide offset_mapping for planner alignment"
+            )
+        offset_sequences = _offset_sequences(
+            encoded["offset_mapping"],
+            batch_size=batch.batch_size,
+        )
+        special_ids = frozenset(getattr(tokenizer, "all_special_ids", ()))
+        positions = tuple(
+            _truncation_positions(
+                sequence,
+                attention_mask=mask,
+                max_length=self._max_length,
+                special_ids=special_ids,
+            )
+            for sequence, mask in zip(
+                input_sequences,
+                attention_sequences,
+                strict=True,
+            )
+        )
+
+        batch_ids = batch.input_ids.detach().cpu().tolist()
+        batch_mask = batch.attention_mask.detach().cpu().tolist()
+        views: list[tuple[TokenCharSpan, ...]] = []
+        for example_index, (
+            ids,
+            offsets,
+            selected,
+            padded_ids,
+            padded_mask,
+        ) in enumerate(
+            zip(
+                input_sequences,
+                offset_sequences,
+                positions,
+                batch_ids,
+                batch_mask,
+                strict=True,
+            )
+        ):
+            retained_ids = [ids[index] for index in selected]
+            retained_offsets = [offsets[index] for index in selected]
+            attended = sum(1 for value in padded_mask if bool(value))
+            if attended != len(retained_ids):
+                raise ValueError(
+                    "aligned token count does not match EncoderBatch attention_mask "
+                    f"for example {example_index}"
+                )
+            if padded_ids[:attended] != retained_ids:
+                raise ValueError(
+                    "tokenizer offsets do not match EncoderBatch input_ids for "
+                    f"example {example_index}; refuse to align mismatched tokens"
+                )
+            tokens: list[TokenCharSpan] = []
+            for position, (token_id, offset) in enumerate(
+                zip(retained_ids, retained_offsets, strict=True)
+            ):
+                is_special = token_id in special_ids
+                start, end = offset
+                if is_special or (start == 0 and end == 0):
+                    tokens.append(
+                        TokenCharSpan(
+                            char_start=None,
+                            char_end=None,
+                            is_special=True,
+                            is_padding=False,
+                        )
+                    )
+                else:
+                    tokens.append(
+                        TokenCharSpan(
+                            char_start=int(start),
+                            char_end=int(end),
+                            is_special=False,
+                            is_padding=False,
+                        )
+                    )
+            for _ in range(len(padded_ids) - attended):
+                tokens.append(
+                    TokenCharSpan(
+                        char_start=None,
+                        char_end=None,
+                        is_special=False,
+                        is_padding=True,
+                    )
+                )
+            if len(tokens) != len(padded_ids):
+                raise ValueError(
+                    "token char span length must match EncoderBatch token length"
+                )
+            views.append(tuple(tokens))
+        return tuple(views)
+
     def _ensure_loaded(self) -> None:
         """Load and freeze a complete pair before publishing instance state."""
         if self.is_loaded:
@@ -527,6 +662,46 @@ def _truncation_positions(
     ):
         return (*attended_positions[: max_length - 1], attended_positions[-1])
     return attended_positions[:max_length]
+
+
+def _offset_sequences(
+    value: Any,
+    *,
+    batch_size: int,
+) -> tuple[list[tuple[int, int]], ...]:
+    if isinstance(value, torch.Tensor):
+        value = value.detach().cpu().tolist()
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
+        raise TypeError("tokenizer offset_mapping must be a batch of sequences")
+    if len(value) != batch_size:
+        raise ValueError("tokenizer offset_mapping batch size must match input_ids")
+
+    sequences: list[list[tuple[int, int]]] = []
+    for sequence in value:
+        if isinstance(sequence, torch.Tensor):
+            sequence = sequence.detach().cpu().tolist()
+        if not isinstance(sequence, Sequence) or isinstance(
+            sequence,
+            (str, bytes, bytearray),
+        ):
+            raise TypeError("tokenizer offset_mapping entries must be sequences")
+        pairs: list[tuple[int, int]] = []
+        for item in sequence:
+            if isinstance(item, torch.Tensor):
+                item = item.detach().cpu().tolist()
+            if not isinstance(item, Sequence) or isinstance(
+                item,
+                (str, bytes, bytearray),
+            ):
+                raise TypeError("offset_mapping entries must be (start, end) pairs")
+            if len(item) != 2:
+                raise ValueError("offset_mapping pairs must have length 2")
+            start, end = item
+            if type(start) is not int or type(end) is not int:
+                raise TypeError("offset_mapping values must be integers")
+            pairs.append((start, end))
+        sequences.append(pairs)
+    return tuple(sequences)
 
 
 def _last_hidden_state(model_output: Any) -> torch.Tensor:
