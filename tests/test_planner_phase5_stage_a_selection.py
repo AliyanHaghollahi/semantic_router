@@ -129,6 +129,9 @@ def test_exact_natural_and_authored_sequential_ids(built_selection):
     assert natural == sorted(NATURAL_SEQUENTIAL_SELECTED_IDS)
     assert authored == sorted(AUTHORED_SEQUENTIAL_SELECTED_IDS)
     assert authored_spares == sorted(AUTHORED_SEQUENTIAL_SPARE_IDS)
+    assert len(natural) == 5
+    assert len(authored) == 19
+    assert len(authored_spares) == 1
     for banned in NATURAL_SEQUENTIAL_SPARE_IDS:
         assert banned not in {row.get("source_id") for row in selected}
 
@@ -148,6 +151,8 @@ def test_exact_authored_implicit_core_and_spares(built_selection):
     )
     assert sorted(authored) == sorted(AUTHORED_IMPLICIT_SELECTED_IDS)
     assert authored_spares == sorted(AUTHORED_IMPLICIT_SPARE_IDS)
+    assert len(authored) == 11
+    assert len(authored_spares) == 1
 
 
 def test_src_0264_not_duplicated_as_personal(built_selection):
@@ -220,15 +225,19 @@ def test_diversity_group_metadata_and_stable_ordering(built_selection):
     assert [row["stage_a_id"] for row in selected] == [
         f"sa_{i:04d}" for i in range(1, STAGE_A_TOTAL + 1)
     ]
+    from tiergraph.planner.stage_a_selection import STABLE_STAGE_A_SOURCE_KEYS
+
+    assert [
+        row.get("source_id") or row.get("candidate_id") for row in selected
+    ] == list(STABLE_STAGE_A_SOURCE_KEYS)
+    # Bucket blocks remain contiguous in BUCKET_ORDER, but source keys within a
+    # bucket are frozen by the consistency-repair in-place ID map (not re-sorted).
     bucket_ranks = {bucket: index for index, bucket in enumerate(BUCKET_ORDER)}
-    selected_keys = [
-        (
-            bucket_ranks[row["final_bucket"]],
-            row.get("source_id") or row.get("candidate_id"),
-        )
-        for row in selected
-    ]
-    assert selected_keys == sorted(selected_keys)
+    previous_rank = -1
+    for row in selected:
+        rank = bucket_ranks[row["final_bucket"]]
+        assert rank >= previous_rank
+        previous_rank = rank
     for bucket in BUCKET_ORDER:
         assert summary["unique_semantic_groups_per_bucket"][bucket] >= 1
         assert summary["unique_template_groups_per_bucket"][bucket] >= 1

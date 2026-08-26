@@ -53,6 +53,17 @@ DEFAULT_MIXED_REVIEWS_PATH = Path("dataset/planner/stage_a_mixed_reviews.jsonl")
 DEFAULT_SELECTION_PATH = Path("dataset/planner/stage_a_final_selection.jsonl")
 DEFAULT_SPARES_PATH = Path("dataset/planner/stage_a_spares.jsonl")
 
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _provenance_path(path: str | Path) -> str:
+    """Store portable repo-relative paths in provenance metadata."""
+    resolved = Path(path).resolve()
+    try:
+        return str(resolved.relative_to(_REPO_ROOT)).replace("\\", "/")
+    except ValueError:
+        return str(path).replace("\\", "/")
+
 STAGE_A_TOTAL = 120
 PER_BUCKET = 24
 SELECTION_SEED = DEFAULT_CANDIDATE_SEED
@@ -79,14 +90,126 @@ SOURCE_KIND_AUTHORED_IMPLICIT = "authored_stage_a"
 SOURCE_KIND_AUTHORED_SEQUENTIAL = "authored_stage_a_sequential"
 
 # Exact recovered MIXED_IMPLICIT source IDs.
+# Consistency repair kept only the V1-compatible mined example.
 MINED_IMPLICIT_SELECTED_IDS: tuple[str, ...] = (
     "src_0264",
-    "src_0141",
-    "src_0008",
 )
 
 # Exact authored MIXED_IMPLICIT core / spare IDs.
+# 008/012 promoted from spares to replace unsupported mined implicits.
 AUTHORED_IMPLICIT_SELECTED_IDS: tuple[str, ...] = (
+    "auth_imp_001",
+    "auth_imp_002",
+    "auth_imp_003",
+    "auth_imp_004",
+    "auth_imp_005",
+    "auth_imp_006",
+    "auth_imp_008",
+    "auth_imp_009",
+    "auth_imp_010",
+    "auth_imp_011",
+    "auth_imp_012",
+)
+AUTHORED_IMPLICIT_SPARE_IDS: tuple[str, ...] = (
+    "auth_imp_007",
+)
+
+# Personal pool IDs excluded by V1 operator/contract consistency repair.
+PERSONAL_CONTRACT_EXCLUDE_IDS: frozenset[str] = frozenset(
+    {
+        "src_0033",  # Call my brother for me.
+        "src_0034",  # Call my mom
+        "src_0086",  # Do I have a prescription for this drug?
+        "src_0178",  # Is my flight on time?
+        "src_0555",  # What is the check-out time of my hotel?
+        "src_0008",  # mined-implicit reject; keep out of Personal
+        "src_0141",  # mined-implicit reject; keep out of Personal
+    }
+)
+
+# Fixed MIXED_PARALLEL selection after consistency repair (9 kept + 15 replacements).
+MIXED_PARALLEL_REQUIRED_IDS: frozenset[str] = frozenset(
+    {
+        # Kept COMPLETE examples
+        "src_0006",
+        "src_0036",
+        "src_0037",
+        "src_0129",
+        "src_0181",
+        "src_0487",
+        "src_0546",
+        "src_0647",
+        "src_0686",
+        # Contract-compatible replacements (second-audit cleaned)
+        "src_0263",
+        "src_0265",
+        "src_0266",
+        "src_0267",
+        "src_0268",
+        "src_0274",
+        "src_0276",
+        "src_0284",
+        "src_0293",
+        "src_0510",
+        "src_0532",
+        "src_0548",
+        "src_0583",
+        "src_0612",
+        "src_0651",
+    }
+)
+
+# Frozen stage_a_id order after consistency repair (in-place replacements).
+# Replacements occupy the stage_a_id of the removed example; kept IDs unchanged.
+STABLE_STAGE_A_SOURCE_KEYS: tuple[str, ...] = (
+    "src_0009",
+    "src_0489",
+    "src_0504",
+    "src_0080",
+    "src_0516",
+    "src_0093",
+    "src_0139",
+    "src_0143",
+    "src_0536",
+    "src_0415",
+    "src_0485",
+    "src_0491",
+    "src_0498",
+    "src_0503",
+    "src_0513",
+    "src_0515",
+    "src_0520",
+    "src_0522",
+    "src_0524",
+    "src_0537",
+    "src_0561",
+    "src_0562",
+    "src_0697",
+    "src_0698",
+    "src_0017",
+    "src_0057",
+    "src_0110",
+    "src_0138",
+    "src_0169",
+    "src_0170",
+    "src_0189",
+    "src_0200",
+    "src_0208",
+    "src_0236",
+    "src_0249",
+    "src_0315",
+    "src_0333",
+    "src_0363",
+    "src_0393",
+    "src_0402",
+    "src_0464",
+    "src_0566",
+    "src_0571",
+    "src_0593",
+    "src_0611",
+    "src_0619",
+    "src_0634",
+    "src_0692",
     "auth_imp_001",
     "auth_imp_002",
     "auth_imp_003",
@@ -96,45 +219,45 @@ AUTHORED_IMPLICIT_SELECTED_IDS: tuple[str, ...] = (
     "auth_imp_009",
     "auth_imp_010",
     "auth_imp_011",
-)
-AUTHORED_IMPLICIT_SPARE_IDS: tuple[str, ...] = (
-    "auth_imp_007",
+    "src_0002",
     "auth_imp_008",
     "auth_imp_012",
-)
-
-# Raw true sequential IDs from execution audit (9).
-TRUE_SEQUENTIAL_RAW_IDS: frozenset[str] = frozenset(
-    {
-        "src_0350",
-        "src_0456",
-        "src_0458",
-        "src_0644",
-        "src_0645",
-        "src_0682",
-        "src_0683",
-        "src_0684",
-        "src_0687",
-    }
-)
-
-# Diversity-core natural sequential (7).
-NATURAL_SEQUENTIAL_SELECTED_IDS: tuple[str, ...] = (
-    "src_0350",
-    "src_0456",
-    "src_0458",
-    "src_0644",
-    "src_0682",
-    "src_0683",
-    "src_0687",
-)
-NATURAL_SEQUENTIAL_SPARE_IDS: tuple[str, ...] = (
-    "src_0645",
-    "src_0684",
-)
-
-# Exact authored sequential core / spare IDs.
-AUTHORED_SEQUENTIAL_SELECTED_IDS: tuple[str, ...] = (
+    "src_0261",
+    "src_0262",
+    "src_0264",
+    "src_0273",
+    "src_0277",
+    "src_0280",
+    "src_0282",
+    "src_0283",
+    "src_0285",
+    "src_0287",
+    "src_0291",
+    "src_0314",
+    "src_0006",
+    "src_0036",
+    "src_0037",
+    "src_0293",
+    "src_0129",
+    "src_0181",
+    "src_0265",
+    "src_0266",
+    "src_0267",
+    "src_0268",
+    "src_0274",
+    "src_0276",
+    "src_0548",
+    "src_0510",
+    "src_0532",
+    "src_0487",
+    "src_0546",
+    "src_0263",
+    "src_0612",
+    "src_0583",
+    "src_0651",
+    "src_0647",
+    "src_0284",
+    "src_0686",
     "auth_seq_001",
     "auth_seq_002",
     "auth_seq_003",
@@ -152,10 +275,67 @@ AUTHORED_SEQUENTIAL_SELECTED_IDS: tuple[str, ...] = (
     "auth_seq_017",
     "auth_seq_019",
     "auth_seq_020",
-)
-AUTHORED_SEQUENTIAL_SPARE_IDS: tuple[str, ...] = (
+    "src_0350",
+    "src_0456",
     "auth_seq_015",
     "auth_seq_016",
+    "src_0682",
+    "src_0683",
+    "src_0687",
+)
+
+# Raw true sequential IDs from execution audit (9).
+TRUE_SEQUENTIAL_RAW_IDS: frozenset[str] = frozenset(
+    {
+        "src_0350",
+        "src_0456",
+        "src_0458",
+        "src_0644",
+        "src_0645",
+        "src_0682",
+        "src_0683",
+        "src_0684",
+        "src_0687",
+    }
+)
+
+# Diversity-core natural sequential (5 after consistency repair).
+NATURAL_SEQUENTIAL_SELECTED_IDS: tuple[str, ...] = (
+    "src_0350",
+    "src_0456",
+    "src_0682",
+    "src_0683",
+    "src_0687",
+)
+NATURAL_SEQUENTIAL_SPARE_IDS: tuple[str, ...] = (
+    "src_0645",
+    "src_0684",
+)
+
+# Exact authored sequential core / spare IDs.
+# 015/016 promoted from spares to replace unsupported natural sequential.
+AUTHORED_SEQUENTIAL_SELECTED_IDS: tuple[str, ...] = (
+    "auth_seq_001",
+    "auth_seq_002",
+    "auth_seq_003",
+    "auth_seq_004",
+    "auth_seq_005",
+    "auth_seq_006",
+    "auth_seq_007",
+    "auth_seq_008",
+    "auth_seq_009",
+    "auth_seq_010",
+    "auth_seq_011",
+    "auth_seq_012",
+    "auth_seq_013",
+    "auth_seq_014",
+    "auth_seq_015",
+    "auth_seq_016",
+    "auth_seq_017",
+    "auth_seq_019",
+    "auth_seq_020",
+)
+AUTHORED_SEQUENTIAL_SPARE_IDS: tuple[str, ...] = (
     "auth_seq_018",
 )
 
@@ -575,7 +755,7 @@ def _pool_rows_for_label(
                 "template_group": template_group,
                 "provenance": {
                     "kind": source_kind,
-                    "path": str(DEFAULT_CANDIDATES_PATH).replace("\\", "/"),
+                    "path": _provenance_path(DEFAULT_CANDIDATES_PATH),
                     "source_query_id": item.source_query_id,
                     "semantic_group_id": item.semantic_group_id,
                 },
@@ -597,7 +777,7 @@ def _mixed_row_from_review(
     original_review_bucket = _review_bucket_label(item.planner_bucket)
     provenance: dict[str, Any] = {
         "kind": SOURCE_KIND_MIXED_REVIEW,
-        "path": str(DEFAULT_MIXED_REVIEWS_PATH).replace("\\", "/"),
+        "path": _provenance_path(DEFAULT_MIXED_REVIEWS_PATH),
         "source_query_id": item.source_query_id,
         "original_review_bucket": original_review_bucket,
         "planner_bucket": item.planner_bucket.value,
@@ -651,7 +831,7 @@ def _mined_implicit_rows(path: Path) -> list[dict[str, Any]]:
                 ),
                 "provenance": {
                     "kind": SOURCE_KIND_MINED_IMPLICIT,
-                    "path": str(path).replace("\\", "/"),
+                    "path": _provenance_path(path),
                     "source_id": source_id,
                     "score": item.score,
                     "mining_reasons": list(item.mining_reasons),
@@ -697,8 +877,8 @@ def _authored_implicit_rows(
             "template_group": item.template_group,
             "provenance": {
                 "kind": SOURCE_KIND_AUTHORED_IMPLICIT,
-                "path": str(candidates_path).replace("\\", "/"),
-                "reviews_path": str(reviews_path).replace("\\", "/"),
+                "path": _provenance_path(candidates_path),
+                "reviews_path": _provenance_path(reviews_path),
                 "candidate_id": candidate_id,
                 "review_status": review.review_status.value,
                 "authoring_reason": item.authoring_reason,
@@ -707,12 +887,12 @@ def _authored_implicit_rows(
         if candidate_id in AUTHORED_IMPLICIT_SELECTED_IDS:
             row["selection_reason"] = (
                 "authored_implicit_core; fixed Stage-A ACCEPT set "
-                "(001-006,009-011)"
+                "(001-006,008-012)"
             )
             selected.append(row)
         else:
             row["selection_reason"] = (
-                "authored_implicit_spare; ACCEPT retained as spare (007,008,012)"
+                "authored_implicit_spare; ACCEPT retained as spare (007)"
             )
             spares.append(row)
     return selected, spares
@@ -761,8 +941,8 @@ def _authored_sequential_rows(
             "intended_typed_values": list(item.intended_typed_values),
             "provenance": {
                 "kind": SOURCE_KIND_AUTHORED_SEQUENTIAL,
-                "path": str(candidates_path).replace("\\", "/"),
-                "reviews_path": str(reviews_path).replace("\\", "/"),
+                "path": _provenance_path(candidates_path),
+                "reviews_path": _provenance_path(reviews_path),
                 "candidate_id": candidate_id,
                 "review_status": review.review_status.value,
                 "dependency_family": item.dependency_family,
@@ -775,28 +955,32 @@ def _authored_sequential_rows(
         if candidate_id in AUTHORED_SEQUENTIAL_SELECTED_IDS:
             row["selection_reason"] = (
                 "authored_sequential_core; fixed Stage-A ACCEPT set "
-                "(001-014,017,019,020)"
+                "(001-017,019,020)"
             )
             selected.append(row)
         else:
             row["selection_reason"] = (
-                "authored_sequential_spare; ACCEPT retained as spare (015,016,018)"
+                "authored_sequential_spare; ACCEPT retained as spare (018)"
             )
             spares.append(row)
     return selected, spares
 
 
 def _assign_stage_a_ids(rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
-    ordered = sorted(
-        rows,
-        key=lambda row: (
-            BUCKET_ORDER.index(str(row["final_bucket"])),
-            str(row["source_key"]),
-        ),
-    )
+    """Assign sa_0001..sa_0120 using the frozen consistency-repair ID order."""
+    by_key = {str(row["source_key"]): dict(row) for row in rows}
+    expected = set(STABLE_STAGE_A_SOURCE_KEYS)
+    actual = set(by_key)
+    if actual != expected:
+        missing = sorted(expected - actual)
+        extra = sorted(actual - expected)
+        raise ValueError(
+            "selected source keys do not match STABLE_STAGE_A_SOURCE_KEYS: "
+            f"missing={missing} extra={extra}"
+        )
     out: list[dict[str, Any]] = []
-    for index, row in enumerate(ordered, start=1):
-        record = dict(row)
+    for index, source_key in enumerate(STABLE_STAGE_A_SOURCE_KEYS, start=1):
+        record = by_key[source_key]
         record["stage_a_id"] = f"sa_{index:04d}"
         record["selected"] = True
         out.append(record)
@@ -874,7 +1058,7 @@ def build_stage_a_selection(
     )
     if len(mixed_implicit_selected) != PER_BUCKET:
         raise ValueError(
-            "MIXED_IMPLICIT must be 12 reviewed + 3 mined + 9 authored "
+            "MIXED_IMPLICIT must be 12 reviewed + 1 mined + 11 authored "
             f"(got {len(mixed_implicit_selected)})"
         )
 
@@ -894,6 +1078,7 @@ def build_stage_a_selection(
         row
         for row in personal_pool
         if normalize_query_key(row["query"]) not in reserved_query_keys
+        and str(row.get("source_id")) not in PERSONAL_CONTRACT_EXCLUDE_IDS
     ]
     environmental_eligible = [
         row
@@ -932,7 +1117,7 @@ def build_stage_a_selection(
         row = _mixed_row_from_review(item, final_bucket=FINAL_BUCKET_MIXED_SEQUENTIAL)
         row["selection_reason"] = (
             "natural_true_sequential_core; execution-audit non-fusion dependency "
-            "(diversity-deduped 7)"
+            "(diversity-deduped 5 after consistency repair)"
         )
         natural_seq_selected.append(row)
 
@@ -952,7 +1137,7 @@ def build_stage_a_selection(
     mixed_sequential_selected = natural_seq_selected + authored_seq_selected
     if len(mixed_sequential_selected) != PER_BUCKET:
         raise ValueError(
-            "MIXED_SEQUENTIAL must be 7 natural + 17 authored "
+            "MIXED_SEQUENTIAL must be 5 natural + 19 authored "
             f"(got {len(mixed_sequential_selected)})"
         )
 
@@ -992,20 +1177,31 @@ def build_stage_a_selection(
     if len(parallel_pool) != 101:
         raise ValueError(f"expected 101 natural Parallel pool, got {len(parallel_pool)}")
 
-    parallel_selected = diversify_select(
-        parallel_pool, PER_BUCKET, final_bucket=FINAL_BUCKET_MIXED_PARALLEL
-    )
+    parallel_by_id = {str(row["source_id"]): row for row in parallel_pool}
+    missing_parallel = sorted(MIXED_PARALLEL_REQUIRED_IDS - set(parallel_by_id))
+    if missing_parallel:
+        raise ValueError(
+            "MIXED_PARALLEL required IDs missing from pool: "
+            + ", ".join(missing_parallel)
+        )
+    parallel_selected = [
+        parallel_by_id[source_id]
+        for source_id in sorted(MIXED_PARALLEL_REQUIRED_IDS)
+    ]
+    if len(parallel_selected) != PER_BUCKET:
+        raise ValueError(
+            f"MIXED_PARALLEL required set size {len(parallel_selected)} != {PER_BUCKET}"
+        )
     for row in parallel_selected:
         if row.get("reclassified_from_sequential"):
             row["selection_reason"] = (
-                "diversity_select_mixed_parallel; reclassified from old "
-                f"MIXED_SEQUENTIAL ({RECLASSIFY_REASON_FUSION_ONLY}; "
-                f"seed={SELECTION_SEED})"
+                "consistency_repair_mixed_parallel; reclassified from old "
+                f"MIXED_SEQUENTIAL ({RECLASSIFY_REASON_FUSION_ONLY})"
             )
         else:
             row["selection_reason"] = (
-                "diversity_select_mixed_parallel; originally reviewed "
-                f"MIXED_PARALLEL (seed={SELECTION_SEED})"
+                "consistency_repair_mixed_parallel; originally reviewed "
+                "MIXED_PARALLEL or kept COMPLETE"
             )
 
     selected_raw = (
@@ -1371,15 +1567,13 @@ def validate_stage_a_selection(
             f"mined implicit IDs {mined_ids} != {tuple(sorted(MINED_IMPLICIT_SELECTED_IDS))}"
         )
     authored_imp_ids = tuple(row.get("candidate_id") for row in authored_imp)
-    if authored_imp_ids != AUTHORED_IMPLICIT_SELECTED_IDS:
-        # tolerate sort differences by comparing sets + count
-        if sorted(authored_imp_ids) != sorted(AUTHORED_IMPLICIT_SELECTED_IDS) or len(
-            authored_imp_ids
-        ) != 9:
-            errors.append(
-                f"authored implicit selected IDs {authored_imp_ids} "
-                f"!= {AUTHORED_IMPLICIT_SELECTED_IDS}"
-            )
+    if len(authored_imp_ids) != len(AUTHORED_IMPLICIT_SELECTED_IDS) or sorted(
+        authored_imp_ids
+    ) != sorted(AUTHORED_IMPLICIT_SELECTED_IDS):
+        errors.append(
+            f"authored implicit selected IDs {authored_imp_ids} "
+            f"!= {AUTHORED_IMPLICIT_SELECTED_IDS}"
+        )
     spare_imp_ids = tuple(sorted(str(row.get("candidate_id")) for row in authored_imp_spares))
     if spare_imp_ids != tuple(sorted(AUTHORED_IMPLICIT_SPARE_IDS)):
         errors.append(
@@ -1410,8 +1604,11 @@ def validate_stage_a_selection(
             f"natural sequential IDs {natural_seq_ids} "
             f"!= {tuple(sorted(NATURAL_SEQUENTIAL_SELECTED_IDS))}"
         )
-    if len(authored_seq) != 17:
-        errors.append(f"authored sequential selected {len(authored_seq)} != 17")
+    if len(authored_seq) != len(AUTHORED_SEQUENTIAL_SELECTED_IDS):
+        errors.append(
+            f"authored sequential selected {len(authored_seq)} != "
+            f"{len(AUTHORED_SEQUENTIAL_SELECTED_IDS)}"
+        )
     authored_seq_ids = tuple(sorted(str(row.get("candidate_id")) for row in authored_seq))
     if authored_seq_ids != tuple(sorted(AUTHORED_SEQUENTIAL_SELECTED_IDS)):
         errors.append(
@@ -1545,8 +1742,8 @@ def build_and_write_stage_a_selection(
         raise ValueError("Stage-A selection invalid:\n- " + "\n- ".join(errors))
     write_jsonl(selection_path, selected)
     write_jsonl(spares_path, spares)
-    summary["selection_path"] = str(selection_path).replace("\\", "/")
-    summary["spares_path"] = str(spares_path).replace("\\", "/")
+    summary["selection_path"] = _provenance_path(selection_path)
+    summary["spares_path"] = _provenance_path(spares_path)
     return summary
 
 
@@ -1566,11 +1763,14 @@ __all__ = [
     "FINAL_BUCKET_MIXED_SEQUENTIAL",
     "FINAL_BUCKET_PERSONAL",
     "MINED_IMPLICIT_SELECTED_IDS",
+    "MIXED_PARALLEL_REQUIRED_IDS",
     "NATURAL_SEQUENTIAL_SELECTED_IDS",
     "NATURAL_SEQUENTIAL_SPARE_IDS",
     "PER_BUCKET",
+    "PERSONAL_CONTRACT_EXCLUDE_IDS",
     "RECLASSIFY_REASON_FUSION_ONLY",
     "SELECTION_SEED",
+    "STABLE_STAGE_A_SOURCE_KEYS",
     "STAGE_A_TOTAL",
     "TRUE_SEQUENTIAL_RAW_IDS",
     "build_and_write_stage_a_selection",
