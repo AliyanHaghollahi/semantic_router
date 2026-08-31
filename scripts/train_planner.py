@@ -16,7 +16,9 @@ from tiergraph.planner.train import (
     DEFAULT_BATCH_SIZE,
     DEFAULT_EPOCHS,
     DEFAULT_LR,
+    EXPECTED_STAGE_A_SPLIT_FINGERPRINT,
     TrainConfig,
+    evaluate_checkpoint,
     run_training,
 )
 
@@ -38,11 +40,60 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="run a tiny real train/eval loop (CPU-friendly)",
     )
+    parser.add_argument(
+        "--eval-only",
+        action="store_true",
+        help="skip training; evaluate a checkpoint on a held-out split",
+    )
+    parser.add_argument(
+        "--checkpoint",
+        type=Path,
+        default=None,
+        help="checkpoint path for --eval-only (e.g. artifacts/planner_run1/best.pt)",
+    )
+    parser.add_argument(
+        "--split",
+        choices=("train", "dev", "test"),
+        default="test",
+        help="split to evaluate in --eval-only mode (default: test)",
+    )
+    parser.add_argument(
+        "--expected-fingerprint",
+        type=str,
+        default=EXPECTED_STAGE_A_SPLIT_FINGERPRINT,
+        help="require this Stage-A split fingerprint (empty string disables)",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.eval_only:
+        if args.checkpoint is None:
+            print("ERROR: --eval-only requires --checkpoint", file=sys.stderr)
+            return 2
+        expected = args.expected_fingerprint or None
+        result = evaluate_checkpoint(
+            args.checkpoint,
+            split_name=args.split,
+            seed=args.seed,
+            device=args.device,
+            batch_size=args.batch_size,
+            expected_fingerprint=expected,
+        )
+        print("mode: eval-only")
+        print("label: teacher-forced gold-structure metrics")
+        print(f"checkpoint: {result.checkpoint_path}")
+        print(f"split: {result.split_name}")
+        print(f"n_examples: {result.n_examples}")
+        print(f"split_fingerprint: {result.split_fingerprint}")
+        print(f"expected_fingerprint: {result.expected_fingerprint}")
+        print(f"checkpoint_seed: {result.checkpoint_seed}")
+        print(f"checkpoint_epoch: {result.checkpoint_epoch}")
+        print(f"checkpoint_best_dev_loss: {result.checkpoint_best_dev_loss}")
+        print("metrics:", json.dumps(result.metrics.to_dict(), sort_keys=True))
+        return 0
+
     config = TrainConfig(
         seed=args.seed,
         epochs=args.epochs,

@@ -551,6 +551,152 @@ def build_model(
     return model
 
 
+def load_checkpoint(
+    path: Path | str,
+    *,
+    map_location: str | torch.device = "cpu",
+) -> dict[str, Any]:
+    """Load a planner checkpoint payload saved by ``save_checkpoint``."""
+    payload = torch.load(Path(path), map_location=map_location, weights_only=False)
+    if not isinstance(payload, dict):
+        raise TypeError(f"checkpoint must be a dict payload: {path}")
+    if "model_head_state_dict" not in payload:
+        raise KeyError(f"checkpoint missing model_head_state_dict: {path}")
+    return payload
+
+
+def config_from_checkpoint(
+    payload: Mapping[str, Any],
+    *,
+    device: str | None = None,
+    batch_size: int | None = None,
+) -> TrainConfig:
+    """Rebuild ``TrainConfig`` from checkpoint metadata."""
+    raw = dict(payload.get("config") or {})
+    if device is not None:
+        raw["device"] = device
+    if batch_size is not None:
+        raw["batch_size"] = batch_size
+    allowed = set(TrainConfig.__dataclass_fields__)
+    filtered = {key: value for key, value in raw.items() if key in allowed}
+    if "seed" not in filtered and "seed" in payload:
+        filtered["seed"] = int(payload["seed"])
+    return TrainConfig(**filtered)
+
+
+@dataclass(frozen=True, slots=True)
+class CheckpointEvalResult:
+    """Held-out evaluation result for a loaded checkpoint."""
+
+    checkpoint_path: str
+    split_name: str
+    split_fingerprint: str
+    expected_fingerprint: str | None
+    n_examples: int
+    metrics: EvalMetrics
+    checkpoint_seed: int
+    checkpoint_best_dev_loss: float | None
+    checkpoint_epoch: int | None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "checkpoint_path": self.checkpoint_path,
+            "split_name": self.split_name,
+            "split_fingerprint": self.split_fingerprint,
+            "expected_fingerprint": self.expected_fingerprint,
+            "n_examples": self.n_examples,
+            "metrics": self.metrics.to_dict(),
+            "checkpoint_seed": self.checkpoint_seed,
+            "checkpoint_best_dev_loss": self.checkpoint_best_dev_loss,
+            "checkpoint_epoch": self.checkpoint_epoch,
+            "label": "teacher-forced gold-structure metrics (not exact graph accuracy)",
+        }
+
+
+EXPECTED_STAGE_A_SPLIT_FINGERPRINT = (
+    "7adb7e6a1f2080d965092097207f2e084d24d4a659c4042c27575fc8fac70478"
+)
+
+
+def evaluate_checkpoint(
+    checkpoint_path: Path | str,
+    *,
+    split_name: str = "test",
+    seed: int | None = None,
+    device: str = "cpu",
+    batch_size: int | None = None,
+    expected_fingerprint: str | None = EXPECTED_STAGE_A_SPLIT_FINGERPRINT,
+    model: PlannerModel | None = None,
+    split: StageASplitResult | None = None,
+) -> CheckpointEvalResult:
+    """Load ``best.pt`` (or any head checkpoint) and evaluate one split.
+
+    Metrics are teacher-forced on gold structures via ``evaluate_examples``.
+    """
+    if split_name not in {"train", "dev", "test"}:
+        raise ValueError(f"split_name must be train/dev/test, got {split_name!r}")
+    checkpoint_path = Path(checkpoint_path)
+    payload = load_checkpoint(checkpoint_path, map_location=device)
+    config = config_from_checkpoint(payload, device=device, batch_size=batch_size)
+    if seed is not None:
+        config = TrainConfig(**{**config.to_dict(), "seed": seed})
+    set_seed(config.seed)
+
+    if split is None:
+        split, _before_a, _before_b = load_and_split_stage_a(config)
+    if expected_fingerprint is not None and split.fingerprint != expected_fingerprint:
+        raise RuntimeError(
+            "split fingerprint mismatch: "
+            f"got {split.fingerprint}, expected {expected_fingerprint}"
+        )
+    examples = {
+        "train": split.train,
+        "dev": split.dev,
+        "test": split.test,
+    }[split_name]
+    if split_name == "test" and len(examples) != DEFAULT_TEST_SIZE:
+        raise RuntimeError(
+            f"expected {DEFAULT_TEST_SIZE} test examples, got {len(examples)}"
+        )
+
+    if model is None:
+        model = build_model(config)
+        _ = model.encode([examples[0].query])
+        assert_encoder_frozen(model)
+    missing = model.load_state_dict(payload["model_head_state_dict"], strict=True)
+    if missing.missing_keys or missing.unexpected_keys:
+        raise RuntimeError(
+            "checkpoint state_dict mismatch: "
+            f"missing={missing.missing_keys} unexpected={missing.unexpected_keys}"
+        )
+    assert_encoder_frozen(model)
+
+    metrics = evaluate_examples(
+        model,
+        examples,
+        batch_size=config.batch_size,
+        seed=config.seed,
+        max_batches=None,
+    )
+    return CheckpointEvalResult(
+        checkpoint_path=str(checkpoint_path),
+        split_name=split_name,
+        split_fingerprint=split.fingerprint,
+        expected_fingerprint=expected_fingerprint,
+        n_examples=len(examples),
+        metrics=metrics,
+        checkpoint_seed=int(payload.get("seed", config.seed)),
+        checkpoint_best_dev_loss=(
+            float(payload["best_dev_loss"])
+            if payload.get("best_dev_loss") is not None
+            else None
+        ),
+        checkpoint_epoch=(
+            int(payload["epoch"]) if payload.get("epoch") is not None else None
+        ),
+    )
+
+
 @dataclass(frozen=True, slots=True)
 class TrainRunResult:
     """Summary of a training run."""
@@ -723,6 +869,8 @@ __all__ = [
     "DEFAULT_BATCH_SIZE",
     "DEFAULT_EPOCHS",
     "DEFAULT_LR",
+    "EXPECTED_STAGE_A_SPLIT_FINGERPRINT",
+    "CheckpointEvalResult",
     "EvalMetrics",
     "LossMeter",
     "TrainConfig",
@@ -732,13 +880,16 @@ __all__ = [
     "assert_encoder_frozen",
     "build_model",
     "build_optimizer",
+    "config_from_checkpoint",
     "count_parameters",
     "encode_gold_batch",
     "encoder_parameters",
+    "evaluate_checkpoint",
     "evaluate_examples",
     "head_parameters",
     "iter_example_batches",
     "load_and_split_stage_a",
+    "load_checkpoint",
     "run_training",
     "save_checkpoint",
     "set_seed",
