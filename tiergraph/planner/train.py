@@ -593,23 +593,37 @@ class CheckpointEvalResult:
     split_fingerprint: str
     expected_fingerprint: str | None
     n_examples: int
-    metrics: EvalMetrics
+    eval_mode: str
+    metrics: EvalMetrics | Any
     checkpoint_seed: int
     checkpoint_best_dev_loss: float | None
     checkpoint_epoch: int | None
 
     def to_dict(self) -> dict[str, Any]:
+        metrics_dict = (
+            self.metrics.to_dict()
+            if hasattr(self.metrics, "to_dict")
+            else dict(self.metrics)
+        )
+        if self.eval_mode == "teacher-forced":
+            label = "teacher-forced gold-structure metrics (not exact graph accuracy)"
+        else:
+            label = (
+                "free predicted-graph metrics "
+                "(predict_structures -> GraphDecoder; not teacher-forced)"
+            )
         return {
             "checkpoint_path": self.checkpoint_path,
             "split_name": self.split_name,
             "split_fingerprint": self.split_fingerprint,
             "expected_fingerprint": self.expected_fingerprint,
             "n_examples": self.n_examples,
-            "metrics": self.metrics.to_dict(),
+            "eval_mode": self.eval_mode,
+            "metrics": metrics_dict,
             "checkpoint_seed": self.checkpoint_seed,
             "checkpoint_best_dev_loss": self.checkpoint_best_dev_loss,
             "checkpoint_epoch": self.checkpoint_epoch,
-            "label": "teacher-forced gold-structure metrics (not exact graph accuracy)",
+            "label": label,
         }
 
 
@@ -628,13 +642,19 @@ def evaluate_checkpoint(
     expected_fingerprint: str | None = EXPECTED_STAGE_A_SPLIT_FINGERPRINT,
     model: PlannerModel | None = None,
     split: StageASplitResult | None = None,
+    eval_mode: str = "teacher-forced",
 ) -> CheckpointEvalResult:
-    """Load ``best.pt`` (or any head checkpoint) and evaluate one split.
+    """Load a head checkpoint and evaluate one split.
 
-    Metrics are teacher-forced on gold structures via ``evaluate_examples``.
+    ``eval_mode='teacher-forced'`` uses gold structures (unchanged).
+    ``eval_mode='free'`` uses ``predict_structures`` → ``GraphDecoder``.
     """
     if split_name not in {"train", "dev", "test"}:
         raise ValueError(f"split_name must be train/dev/test, got {split_name!r}")
+    if eval_mode not in {"teacher-forced", "free"}:
+        raise ValueError(
+            f"eval_mode must be 'teacher-forced' or 'free', got {eval_mode!r}"
+        )
     checkpoint_path = Path(checkpoint_path)
     payload = load_checkpoint(checkpoint_path, map_location=device)
     config = config_from_checkpoint(payload, device=device, batch_size=batch_size)
@@ -671,19 +691,31 @@ def evaluate_checkpoint(
         )
     assert_encoder_frozen(model)
 
-    metrics = evaluate_examples(
-        model,
-        examples,
-        batch_size=config.batch_size,
-        seed=config.seed,
-        max_batches=None,
-    )
+    if eval_mode == "teacher-forced":
+        metrics: EvalMetrics | Any = evaluate_examples(
+            model,
+            examples,
+            batch_size=config.batch_size,
+            seed=config.seed,
+            max_batches=None,
+        )
+    else:
+        from tiergraph.planner.free_eval import evaluate_free_examples
+
+        metrics = evaluate_free_examples(
+            model,
+            examples,
+            batch_size=config.batch_size,
+            seed=config.seed,
+            max_batches=None,
+        )
     return CheckpointEvalResult(
         checkpoint_path=str(checkpoint_path),
         split_name=split_name,
         split_fingerprint=split.fingerprint,
         expected_fingerprint=expected_fingerprint,
         n_examples=len(examples),
+        eval_mode=eval_mode,
         metrics=metrics,
         checkpoint_seed=int(payload.get("seed", config.seed)),
         checkpoint_best_dev_loss=(

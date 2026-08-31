@@ -58,6 +58,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="split to evaluate in --eval-only mode (default: test)",
     )
     parser.add_argument(
+        "--eval-mode",
+        choices=("teacher-forced", "free"),
+        default="teacher-forced",
+        help=(
+            "teacher-forced: gold-structure head metrics; "
+            "free: predict_structures -> GraphDecoder predicted-graph metrics"
+        ),
+    )
+    parser.add_argument(
         "--expected-fingerprint",
         type=str,
         default=EXPECTED_STAGE_A_SPLIT_FINGERPRINT,
@@ -80,9 +89,11 @@ def main(argv: list[str] | None = None) -> int:
             device=args.device,
             batch_size=args.batch_size,
             expected_fingerprint=expected,
+            eval_mode=args.eval_mode,
         )
         print("mode: eval-only")
-        print("label: teacher-forced gold-structure metrics")
+        print(f"eval_mode: {result.eval_mode}")
+        print(f"label: {result.to_dict()['label']}")
         print(f"checkpoint: {result.checkpoint_path}")
         print(f"split: {result.split_name}")
         print(f"n_examples: {result.n_examples}")
