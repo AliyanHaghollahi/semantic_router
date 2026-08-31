@@ -810,3 +810,136 @@ def _relabel_graph(
             edge["target_node_id"],
         )
     return ExecutionGraph.model_validate(payload)
+
+
+def test_none_plus_implicit_distinct_bases_principal_from_none():
+    """Same-owner NONE + IMPLICIT may keep distinct normalized_name values."""
+    query = "Is this snack safe for my allergies?"
+    snack_start = query.index("this snack")
+    allergies_start = query.index("my allergies")
+    predictions = PlannerPredictions(
+        operations=(
+            PredictedOperation(
+                start=0,
+                end=len(query),
+                operator=OperatorType.IDENTIFY_ENVIRONMENTAL,
+            ),
+        ),
+        anchors=(
+            PredictedAnchor(
+                start=snack_start,
+                end=snack_start + len("this snack"),
+                text="this snack",
+                owner_index=0,
+                implicit_resolution=ImplicitResolution.NONE,
+                normalized_name="snack",
+            ),
+            PredictedAnchor(
+                start=allergies_start,
+                end=allergies_start + len("my allergies"),
+                text="my allergies",
+                owner_index=0,
+                implicit_resolution=ImplicitResolution.IMPLICIT_RESOLVE_PERSONAL,
+                normalized_name="allergies",
+            ),
+        ),
+        dependency_pairs=frozenset(),
+    )
+    graph = GraphDecoder().decode(
+        predictions,
+        query=query,
+        graph_id="none-impl-distinct-001",
+    ).graph
+    identify = next(
+        node
+        for node in graph.nodes
+        if node.operator is OperatorType.IDENTIFY_ENVIRONMENTAL
+    )
+    resolve = next(
+        node
+        for node in graph.nodes
+        if node.operator is OperatorType.RESOLVE_PERSONAL
+    )
+    assert "snack_fact" in identify.produced_outputs
+    assert "allergies_identifier" in resolve.produced_outputs
+    assert "allergies_identifier" in identify.required_inputs
+    assert graph.query_type is QueryType.MIXED
+    edge = next(
+        item
+        for item in graph.edges
+        if item.source_node_id == resolve.node_id
+        and item.target_node_id == identify.node_id
+    )
+    assert edge.source_slot == "allergies_identifier"
+
+
+def test_conflicting_none_bases_use_operator_default():
+    query = "Do I have travel insurance for this trip?"
+    insurance_start = query.index("travel insurance")
+    trip_start = query.index("this trip")
+    predictions = PlannerPredictions(
+        operations=(
+            PredictedOperation(
+                start=0,
+                end=len(query),
+                operator=OperatorType.RETRIEVE_PERSONAL,
+            ),
+        ),
+        anchors=(
+            PredictedAnchor(
+                start=insurance_start,
+                end=insurance_start + len("travel insurance"),
+                text="travel insurance",
+                owner_index=0,
+                implicit_resolution=ImplicitResolution.NONE,
+                normalized_name="travel_insurance",
+            ),
+            PredictedAnchor(
+                start=trip_start,
+                end=trip_start + len("this trip"),
+                text="this trip",
+                owner_index=0,
+                implicit_resolution=ImplicitResolution.NONE,
+                normalized_name="trip",
+            ),
+        ),
+        dependency_pairs=frozenset(),
+    )
+    graph = GraphDecoder().decode(
+        predictions,
+        query=query,
+        graph_id="conflicting-none-001",
+    ).graph
+    retrieve = next(
+        node
+        for node in graph.nodes
+        if node.operator is OperatorType.RETRIEVE_PERSONAL
+    )
+    assert list(retrieve.produced_outputs) == ["personal_fact"]
+    assert graph.query_type is QueryType.PERSONAL
+    assert len(graph.edges) == 0
+
+
+def test_sole_implicit_anchor_keeps_anchor_specific_principal():
+    query, predictions = _gate_predictions()
+    anchor = predictions.anchors[0]
+    assert anchor.implicit_resolution is ImplicitResolution.IMPLICIT_RESOLVE_PERSONAL
+    assert anchor.normalized_name == "gate"
+    graph = GraphDecoder().decode(
+        predictions,
+        query=query,
+        graph_id="sole-implicit-001",
+    ).graph
+    locate = next(
+        node
+        for node in graph.nodes
+        if node.operator is OperatorType.LOCATE_ENVIRONMENTAL
+    )
+    resolve = next(
+        node
+        for node in graph.nodes
+        if node.operator is OperatorType.RESOLVE_PERSONAL
+    )
+    assert "gate_location" in locate.produced_outputs
+    assert "gate_identifier" in resolve.produced_outputs
+    assert locate.task == "Locate the resolved gate"

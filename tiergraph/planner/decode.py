@@ -27,10 +27,10 @@ from tiergraph.planner.annotations import (
 )
 from tiergraph.planner.naming import (
     SlotNamingError,
-    default_base_for_operator,
     fuse_input_slot_name,
     fuse_output_slot_name,
     normalize_base_name,
+    principal_base_from_owned_anchor_bases,
     principal_slot_name,
 )
 from tiergraph.planner.operator_io import (
@@ -501,26 +501,28 @@ def _base_names_for_operations(
     operations: Sequence[PredictedOperation],
     anchors: Sequence[PredictedAnchor],
 ) -> list[str]:
-    """Resolve principal slot bases: owned anchor if present, else operator default."""
-    names: list[str | None] = [None] * len(operations)
+    """Resolve each explicit op's principal base without requiring shared anchor names.
+
+    NONE-owned anchors contribute candidate bases first. IMPLICIT anchors keep
+    their own bases for ``impl_*`` nodes (see decode loop); they only supply the
+    explicit principal base when no NONE anchor is present (sole-IMPLICIT owners).
+    """
+    none_bases: list[list[str]] = [[] for _ in operations]
+    implicit_bases: list[list[str]] = [[] for _ in operations]
     for anchor in anchors:
         base = _anchor_base_name(anchor)
-        current = names[anchor.owner_index]
-        if current is None:
-            names[anchor.owner_index] = base
-        elif current != base:
-            raise PlannerDecodeError(
-                "SLOT_NAMING_V1 cannot represent multiple distinct base names "
-                f"on one operation: {current!r} vs {base!r}"
-            )
-    resolved: list[str] = []
-    for index, operation in enumerate(operations):
-        owned = names[index]
-        if owned is not None:
-            resolved.append(owned)
-            continue
-        resolved.append(default_base_for_operator(operation.operator))
-    return resolved
+        if anchor.implicit_resolution is ImplicitResolution.NONE:
+            none_bases[anchor.owner_index].append(base)
+        else:
+            implicit_bases[anchor.owner_index].append(base)
+    return [
+        principal_base_from_owned_anchor_bases(
+            operation.operator,
+            none_bases=none_bases[index],
+            implicit_bases=implicit_bases[index],
+        )
+        for index, operation in enumerate(operations)
+    ]
 
 
 __all__ = [

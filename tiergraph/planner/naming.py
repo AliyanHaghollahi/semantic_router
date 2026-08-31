@@ -7,13 +7,18 @@ Anchor-derived bases must already be V1-compatible (``[a-z0-9_]+`` after
 casefold/whitespace collapse). Apostrophes, hyphens, and non-ASCII characters
 are rejected rather than silently stripped or transliterated.
 
-Anchorless answer operations use ``DEFAULT_BASE_BY_OPERATOR_V1`` — a fixed
-operator→base table. Names are never inferred from arbitrary query text.
+Each answer operation has one principal produced slot and therefore one
+principal base. Owned anchors may still carry distinct ``normalized_name``
+values (e.g. a NONE scene referent plus an IMPLICIT personal referent).
+Principal-base selection prefers NONE-anchor bases, then a sole IMPLICIT
+base, else ``DEFAULT_BASE_BY_OPERATOR_V1``. Implicit resolver nodes keep
+using each IMPLICIT anchor's own base independently of this choice.
 """
 
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 
 from tiergraph.enums import OperatorType, SlotType
 
@@ -83,6 +88,40 @@ def default_base_for_operator(operator: OperatorType) -> str:
         ) from exc
 
 
+def _unique_preserve_order(bases: Sequence[str]) -> tuple[str, ...]:
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for base in bases:
+        if base in seen:
+            continue
+        seen.add(base)
+        ordered.append(base)
+    return tuple(ordered)
+
+
+def principal_base_from_owned_anchor_bases(
+    operator: OperatorType,
+    *,
+    none_bases: Sequence[str],
+    implicit_bases: Sequence[str] = (),
+) -> str:
+    """Select the explicit operation principal base under SLOT_NAMING_V1.
+
+    NONE-anchor bases are preferred. Conflicting NONE bases fall back to the
+    operator default. With no NONE anchors, a single distinct IMPLICIT base is
+    used (gate-style sole IMPLICIT owners); otherwise the operator default.
+    """
+    distinct_none = _unique_preserve_order(none_bases)
+    if len(distinct_none) == 1:
+        return distinct_none[0]
+    if len(distinct_none) > 1:
+        return default_base_for_operator(operator)
+    distinct_implicit = _unique_preserve_order(implicit_bases)
+    if len(distinct_implicit) == 1:
+        return distinct_implicit[0]
+    return default_base_for_operator(operator)
+
+
 def principal_slot_name(*, base_name: str, slot_type: SlotType) -> str:
     """Name the sole principal produced slot for an answer operation."""
     normalized = normalize_base_name(base_name)
@@ -126,5 +165,6 @@ __all__ = [
     "fuse_input_slot_name",
     "fuse_output_slot_name",
     "normalize_base_name",
+    "principal_base_from_owned_anchor_bases",
     "principal_slot_name",
 ]
