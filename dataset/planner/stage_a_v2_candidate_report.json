@@ -6,6 +6,7 @@
   "E_implicit_mined_needs_review": 2,
   "F_authored_sequential_family_specs": [
     {
+      "authored_holdout_family": "identify_describe_device_status",
       "authored_template_family": "identify_describe_device_status",
       "h5_positive": false,
       "h7_families": [
@@ -27,6 +28,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "identify_describe_packaging_label",
       "authored_template_family": "identify_describe_packaging_label",
       "h5_positive": false,
       "h7_families": [
@@ -48,6 +50,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "identify_describe_signage_content",
       "authored_template_family": "identify_describe_signage_content",
       "h5_positive": false,
       "h7_families": [
@@ -69,6 +72,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "identify_locate_menu_dish_station",
       "authored_template_family": "identify_locate_menu_dish_station",
       "h5_positive": false,
       "h7_families": [
@@ -90,6 +94,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "identify_locate_navigate_building_exit",
       "authored_template_family": "identify_locate_navigate_building_exit",
       "h5_positive": false,
       "h7_families": [
@@ -113,6 +118,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "identify_locate_navigate_counter_queue",
       "authored_template_family": "identify_locate_navigate_counter_queue",
       "h5_positive": false,
       "h7_families": [
@@ -136,6 +142,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "identify_locate_plaque_vs_desk",
       "authored_template_family": "identify_locate_plaque_vs_desk",
       "h5_positive": false,
       "h7_families": [
@@ -157,6 +164,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "locate_describe_room_layout",
       "authored_template_family": "locate_describe_room_layout",
       "h5_positive": false,
       "h7_families": [
@@ -178,6 +186,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "locate_describe_shelf_contents",
       "authored_template_family": "locate_describe_shelf_contents",
       "h5_positive": false,
       "h7_families": [
@@ -199,6 +208,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "locate_describe_vehicle_bay",
       "authored_template_family": "locate_describe_vehicle_bay",
       "h5_positive": false,
       "h7_families": [
@@ -220,6 +230,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "locate_navigate_clinic_corridor",
       "authored_template_family": "locate_navigate_clinic_corridor",
       "h5_positive": false,
       "h7_families": [
@@ -241,6 +252,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "locate_navigate_platform_exit",
       "authored_template_family": "locate_navigate_platform_exit",
       "h5_positive": false,
       "h7_families": [
@@ -262,6 +274,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "resolve_identify_describe_prescription_bottle",
       "authored_template_family": "resolve_identify_describe_prescription_bottle",
       "h5_positive": true,
       "h7_families": [
@@ -283,6 +296,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "resolve_identify_locate_baggage_belt",
       "authored_template_family": "resolve_identify_locate_baggage_belt",
       "h5_positive": true,
       "h7_families": [
@@ -304,6 +318,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "resolve_locate_describe_appointment_room",
       "authored_template_family": "resolve_locate_describe_appointment_room",
       "h5_positive": true,
       "h7_families": [
@@ -325,7 +340,8 @@
       "spec_kind": "authored_sequential_family"
     },
     {
-      "authored_template_family": "resolve_locate_navigate_order_locker",
+      "authored_holdout_family": "resolve_locate_navigate_lab_draw_station",
+      "authored_template_family": "resolve_locate_navigate_lab_draw_station",
       "h5_positive": true,
       "h7_families": [
         "LOCATE_ENVIRONMENTAL->NAVIGATE_TO"
@@ -338,14 +354,15 @@
       ],
       "planned_paraphrases": 4,
       "proposed_final_bucket": "MIXED_SEQUENTIAL",
-      "rationale": "H5 resolve order/locker then locate→navigate (distinct from sa_0106 family)",
+      "rationale": "H5 lab/appointment resolve → locate blood-draw/imaging station → navigate (not a locker/pickup twin of quarantined order_pickup)",
       "review_status": "spec_only",
-      "scenario_family": "resolve_locate_navigate_order_locker",
+      "scenario_family": "resolve_locate_navigate_lab_draw_station",
       "source_kind": "authored",
-      "spec_id": "spec_seq_resolve_locate_navigate_order_locker",
+      "spec_id": "spec_seq_resolve_locate_navigate_lab_draw_station",
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "resolve_locate_navigate_rental_stall",
       "authored_template_family": "resolve_locate_navigate_rental_stall",
       "h5_positive": true,
       "h7_families": [
@@ -367,6 +384,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "resolve_only_describe_cabin_map",
       "authored_template_family": "resolve_only_describe_cabin_map",
       "h5_positive": true,
       "h7_families": [],
@@ -385,6 +403,7 @@
       "spec_kind": "authored_sequential_family"
     },
     {
+      "authored_holdout_family": "holdout_seat_reservation_match",
       "authored_template_family": "resolve_only_identify_seat_marker",
       "h5_positive": true,
       "h7_families": [],
@@ -405,6 +424,7 @@
   ],
   "G_authored_implicit_family_specs": [
     {
+      "authored_holdout_family": "holdout_food_profile_safety",
       "authored_template_family": "my_allergy_menu_safe",
       "h5_positive": true,
       "h7_families": [],
@@ -423,6 +443,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_appointment_entrance_cue",
       "authored_template_family": "my_appointment_entrance_cue",
       "h5_positive": true,
       "h7_families": [],
@@ -441,6 +462,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_boarding_pass_gate_board",
       "authored_template_family": "my_boarding_pass_gate_board",
       "h5_positive": true,
       "h7_families": [],
@@ -459,6 +481,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_cart_item_shelf_match",
       "authored_template_family": "my_cart_item_shelf_match",
       "h5_positive": true,
       "h7_families": [],
@@ -476,6 +499,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "holdout_food_profile_safety",
       "authored_template_family": "my_dietary_restriction_dish",
       "h5_positive": true,
       "h7_families": [],
@@ -493,6 +517,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_hotel_room_key_panel",
       "authored_template_family": "my_hotel_room_key_panel",
       "h5_positive": true,
       "h7_families": [],
@@ -511,6 +536,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_luggage_carousel_tag",
       "authored_template_family": "my_luggage_carousel_tag",
       "h5_positive": true,
       "h7_families": [],
@@ -528,6 +554,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_medication_scene_match",
       "authored_template_family": "my_medication_scene_match",
       "h5_positive": true,
       "h7_families": [],
@@ -545,6 +572,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_meeting_room_directory",
       "authored_template_family": "my_meeting_room_directory",
       "h5_positive": true,
       "h7_families": [],
@@ -563,6 +591,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_order_pickup_window",
       "authored_template_family": "my_order_pickup_window",
       "h5_positive": true,
       "h7_families": [],
@@ -580,6 +609,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_package_locker_bank",
       "authored_template_family": "my_package_locker_bank",
       "h5_positive": true,
       "h7_families": [],
@@ -597,6 +627,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_prescription_label_dose",
       "authored_template_family": "my_prescription_label_dose",
       "h5_positive": true,
       "h7_families": [],
@@ -614,6 +645,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "holdout_seat_reservation_match",
       "authored_template_family": "my_reservation_seat_marker",
       "h5_positive": true,
       "h7_families": [],
@@ -631,17 +663,17 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_train_platform_reservation",
       "authored_template_family": "my_train_platform_reservation",
       "h5_positive": true,
       "h7_families": [],
       "h7_positive": false,
       "operator_family": [
-        "LOCATE_ENVIRONMENTAL",
-        "NAVIGATE_TO"
+        "IDENTIFY_ENVIRONMENTAL"
       ],
       "planned_paraphrases": 5,
       "proposed_final_bucket": "MIXED_IMPLICIT",
-      "rationale": "rail reservation resolve into platform locate (H5 only; no H7)",
+      "rationale": "Rail reservation resolve into identifying/matching the correct platform",
       "review_status": "spec_only",
       "scenario_family": "my_train_platform_reservation",
       "source_kind": "authored",
@@ -649,6 +681,7 @@
       "spec_kind": "authored_implicit_family"
     },
     {
+      "authored_holdout_family": "my_workspace_badge_reader",
       "authored_template_family": "my_workspace_badge_reader",
       "h5_positive": true,
       "h7_families": [],
@@ -669,6 +702,7 @@
   ],
   "H_h2_h3_hard_case_family_specs": [
     {
+      "authored_holdout_family": "hyphenated_entity_identify",
       "authored_template_family": "hyphenated_entity_identify",
       "h5_positive": null,
       "h7_families": [],
@@ -686,6 +720,7 @@
       "spec_kind": "h2_h3_hard_case_family"
     },
     {
+      "authored_holdout_family": "identify_vs_describe_minimal_pair",
       "authored_template_family": "identify_vs_describe_minimal_pair",
       "h5_positive": null,
       "h7_families": [],
@@ -704,6 +739,7 @@
       "spec_kind": "h2_h3_hard_case_family"
     },
     {
+      "authored_holdout_family": "locate_vs_identify_describe",
       "authored_template_family": "locate_vs_identify_describe",
       "h5_positive": null,
       "h7_families": [],
@@ -721,6 +757,7 @@
       "spec_kind": "h2_h3_hard_case_family"
     },
     {
+      "authored_holdout_family": "navigate_direct_route",
       "authored_template_family": "navigate_direct_route",
       "h5_positive": null,
       "h7_families": [],
@@ -738,6 +775,7 @@
       "spec_kind": "h2_h3_hard_case_family"
     },
     {
+      "authored_holdout_family": "retrieve_possessive_h5_none",
       "authored_template_family": "retrieve_possessive_h5_none",
       "h5_positive": false,
       "h7_families": [],
@@ -755,8 +793,9 @@
       "spec_kind": "h2_h3_hard_case_family"
     },
     {
+      "authored_holdout_family": "retrieve_vs_describe_personal",
       "authored_template_family": "retrieve_vs_describe_personal",
-      "h5_positive": null,
+      "h5_positive": false,
       "h7_families": [],
       "h7_positive": false,
       "operator_family": [
@@ -764,7 +803,7 @@
       ],
       "planned_paraphrases": 4,
       "proposed_final_bucket": "Personal",
-      "rationale": "RETRIEVE_PERSONAL vs DESCRIBE contrast on personal facts",
+      "rationale": "RETRIEVE_PERSONAL vs DESCRIBE contrast on personal facts; H5=NONE",
       "review_status": "spec_only",
       "scenario_family": "retrieve_vs_describe_personal",
       "source_kind": "authored",
@@ -772,6 +811,7 @@
       "spec_kind": "h2_h3_hard_case_family"
     },
     {
+      "authored_holdout_family": "urgency_distractor_scene",
       "authored_template_family": "urgency_distractor_scene",
       "h5_positive": null,
       "h7_families": [],

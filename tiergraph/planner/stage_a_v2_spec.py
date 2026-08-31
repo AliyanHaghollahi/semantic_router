@@ -98,6 +98,15 @@ AUTHORED_TEMPLATE_FAMILY_ALIASES: Final[tuple[str, ...]] = (
     "scenario_family",
 )
 
+# Leaf authored_template_family → parent holdout component (leakage linking).
+# Bucket labels stay distinct; publication split merges via this parent ID.
+AUTHORED_HOLDOUT_FAMILY_LINKS: Final[dict[str, str]] = {
+    "my_reservation_seat_marker": "holdout_seat_reservation_match",
+    "resolve_only_identify_seat_marker": "holdout_seat_reservation_match",
+    "my_allergy_menu_safe": "holdout_food_profile_safety",
+    "my_dietary_restriction_dish": "holdout_food_profile_safety",
+}
+
 # Declarative aspirational operator ranges only — never enforce as quotas.
 OPERATOR_TARGET_RANGES: Final[dict[str, tuple[int, int]]] = {
     "RETRIEVE_PERSONAL": (160, 200),
@@ -197,6 +206,21 @@ def resolve_authored_template_family(row: Mapping[str, Any]) -> str | None:
         if text:
             return text
     return None
+
+
+def resolve_authored_holdout_family(row: Mapping[str, Any]) -> str | None:
+    """Holdout component ID for authored rows (parent link or leaf family).
+
+    Related leaf families share one parent via ``AUTHORED_HOLDOUT_FAMILY_LINKS``
+    so the publication split cannot leak structurally equivalent templates.
+    """
+    explicit = row.get("authored_holdout_family")
+    if explicit is not None and str(explicit).strip():
+        return str(explicit).strip()
+    family = resolve_authored_template_family(row)
+    if family is None:
+        return None
+    return AUTHORED_HOLDOUT_FAMILY_LINKS.get(family, family)
 
 
 def require_authored_template_family(row: Mapping[str, Any]) -> str:
@@ -313,15 +337,15 @@ def hard_holdout_atoms(row: Mapping[str, Any]) -> frozenset[str]:
     """Atoms that merge into the v2 hard holdout component.
 
     Natural: semantic_group only.
-    Authored: semantic_group ∪ authored_template_family.
+    Authored: semantic_group ∪ authored_holdout_family (parent-linked when set).
     """
     semantic = str(row.get("semantic_group") or "").strip()
     if not semantic:
         raise ValueError("row missing semantic_group for hard holdout")
     atoms = {f"semantic:{semantic}"}
-    family = resolve_authored_template_family(row)
-    if family is not None:
-        atoms.add(f"authored_family:{family}")
+    holdout = resolve_authored_holdout_family(row)
+    if holdout is not None:
+        atoms.add(f"authored_holdout_family:{holdout}")
     elif is_authored_source(str(row.get("source_kind") or "")):
         raise ValueError("authored row missing authored_template_family")
     return frozenset(atoms)

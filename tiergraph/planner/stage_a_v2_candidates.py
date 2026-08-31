@@ -55,6 +55,7 @@ from tiergraph.planner.stage_a_selection import (
     load_jsonl,
 )
 from tiergraph.planner.stage_a_v2_spec import (
+    AUTHORED_HOLDOUT_FAMILY_LINKS,
     H5_NEGATIVE_RETRIEVE_POSSESSIVE_MIN,
     H7_FAMILY_MINIMUMS,
     H7_MULTI_HOP_MINIMUM,
@@ -788,6 +789,9 @@ def build_authored_family_specs() -> list[dict[str, Any]]:
                 "spec_kind": "authored_sequential_family",
                 "authored_template_family": family,
                 "scenario_family": family,
+                "authored_holdout_family": AUTHORED_HOLDOUT_FAMILY_LINKS.get(
+                    family, family
+                ),
                 "proposed_final_bucket": "MIXED_SEQUENTIAL",
                 "source_kind": "authored",
                 "planned_paraphrases": planned_paraphrases,
@@ -918,12 +922,15 @@ def build_authored_family_specs() -> list[dict[str, Any]]:
     )
     # H5-positive sequential (~22 planned) toward 40–50 sequential H5 total
     add_seq(
-        "resolve_locate_navigate_order_locker",
+        "resolve_locate_navigate_lab_draw_station",
         h7_families=["LOCATE_ENVIRONMENTAL->NAVIGATE_TO"],
         h5_positive=True,
         operator_family=["LOCATE_ENVIRONMENTAL", "NAVIGATE_TO"],
         planned_paraphrases=4,
-        rationale="H5 resolve order/locker then locate→navigate (distinct from sa_0106 family)",
+        rationale=(
+            "H5 lab/appointment resolve → locate blood-draw/imaging station → "
+            "navigate (not a locker/pickup twin of quarantined order_pickup)"
+        ),
     )
     add_seq(
         "resolve_locate_navigate_rental_stall",
@@ -987,6 +994,9 @@ def build_authored_family_specs() -> list[dict[str, Any]]:
                 "spec_kind": "authored_implicit_family",
                 "authored_template_family": family,
                 "scenario_family": family,
+                "authored_holdout_family": AUTHORED_HOLDOUT_FAMILY_LINKS.get(
+                    family, family
+                ),
                 "proposed_final_bucket": "MIXED_IMPLICIT",
                 "source_kind": "authored",
                 "planned_paraphrases": planned,
@@ -1075,8 +1085,8 @@ def build_authored_family_specs() -> list[dict[str, Any]]:
     add_imp(
         "my_train_platform_reservation",
         planned=5,
-        operator_hint=["LOCATE_ENVIRONMENTAL", "NAVIGATE_TO"],
-        rationale="rail reservation resolve into platform locate (H5 only; no H7)",
+        operator_hint=["IDENTIFY_ENVIRONMENTAL"],
+        rationale="Rail reservation resolve into identifying/matching the correct platform",
     )
     add_imp(
         "my_workspace_badge_reader",
@@ -1121,8 +1131,8 @@ def build_authored_family_specs() -> list[dict[str, Any]]:
             "Personal",
             ["RETRIEVE_PERSONAL"],
             4,
-            None,
-            "RETRIEVE_PERSONAL vs DESCRIBE contrast on personal facts",
+            False,
+            "RETRIEVE_PERSONAL vs DESCRIBE contrast on personal facts; H5=NONE",
         ),
         (
             "locate_vs_identify_describe",
@@ -1156,6 +1166,9 @@ def build_authored_family_specs() -> list[dict[str, Any]]:
                 "spec_kind": "h2_h3_hard_case_family",
                 "authored_template_family": family,
                 "scenario_family": family,
+                "authored_holdout_family": AUTHORED_HOLDOUT_FAMILY_LINKS.get(
+                    family, family
+                ),
                 "proposed_final_bucket": bucket,
                 "source_kind": "authored",
                 "planned_paraphrases": planned,

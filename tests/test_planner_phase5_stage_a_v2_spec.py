@@ -221,8 +221,47 @@ def test_hard_holdout_atoms_merge_authored_family():
     assert hard_holdout_atoms(authored) == frozenset(
         {
             "semantic:order_pickup_wayfinding",
-            "authored_family:resolve_locate_navigate_order_pickup",
+            "authored_holdout_family:resolve_locate_navigate_order_pickup",
         }
+    )
+
+
+def test_hard_holdout_atoms_link_related_authored_families():
+    seat_a = {
+        "source_kind": "authored",
+        "semantic_group": "travel__my_reservation_seat_marker",
+        "authored_template_family": "my_reservation_seat_marker",
+    }
+    seat_b = {
+        "source_kind": "authored",
+        "semantic_group": "travel__resolve_only_identify_seat_marker",
+        "authored_template_family": "resolve_only_identify_seat_marker",
+    }
+    food_a = {
+        "source_kind": "authored",
+        "semantic_group": "food__my_allergy_menu_safe",
+        "authored_template_family": "my_allergy_menu_safe",
+    }
+    food_b = {
+        "source_kind": "authored",
+        "semantic_group": "food__my_dietary_restriction_dish",
+        "authored_template_family": "my_dietary_restriction_dish",
+    }
+    assert (
+        "authored_holdout_family:holdout_seat_reservation_match"
+        in hard_holdout_atoms(seat_a)
+    )
+    assert (
+        "authored_holdout_family:holdout_seat_reservation_match"
+        in hard_holdout_atoms(seat_b)
+    )
+    assert (
+        "authored_holdout_family:holdout_food_profile_safety"
+        in hard_holdout_atoms(food_a)
+    )
+    assert (
+        "authored_holdout_family:holdout_food_profile_safety"
+        in hard_holdout_atoms(food_b)
     )
 
 
