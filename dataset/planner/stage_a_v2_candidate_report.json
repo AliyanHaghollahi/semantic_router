@@ -1,0 +1,1295 @@
+{
+  "A_personal_natural_available": 121,
+  "B_environmental_natural_available": 401,
+  "C_mixed_parallel_accepted": 77,
+  "D_natural_true_sequential_available": 4,
+  "E_implicit_mined_needs_review": 2,
+  "F_authored_sequential_family_specs": [
+    {
+      "authored_template_family": "identify_describe_device_status",
+      "h5_positive": false,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Name device then describe status/state",
+      "review_status": "spec_only",
+      "scenario_family": "identify_describe_device_status",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_identify_describe_device_status",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "identify_describe_packaging_label",
+      "h5_positive": false,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Identify package then describe label attributes",
+      "review_status": "spec_only",
+      "scenario_family": "identify_describe_packaging_label",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_identify_describe_packaging_label",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "identify_describe_signage_content",
+      "h5_positive": false,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Identify sign/panel then describe readable content",
+      "review_status": "spec_only",
+      "scenario_family": "identify_describe_signage_content",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_identify_describe_signage_content",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "identify_locate_menu_dish_station",
+      "h5_positive": false,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Identify dish/sign then locate serving station",
+      "review_status": "spec_only",
+      "scenario_family": "identify_locate_menu_dish_station",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_identify_locate_menu_dish_station",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "identify_locate_navigate_building_exit",
+      "h5_positive": false,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL->NAVIGATE_TO"
+      ],
+      "h7_positive": true,
+      "multi_hop": true,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL",
+        "NAVIGATE_TO"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Multi-hop IDENTIFY→LOCATE→NAVIGATE for exits/landmarks",
+      "review_status": "spec_only",
+      "scenario_family": "identify_locate_navigate_building_exit",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_identify_locate_navigate_building_exit",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "identify_locate_navigate_counter_queue",
+      "h5_positive": false,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL->NAVIGATE_TO"
+      ],
+      "h7_positive": true,
+      "multi_hop": true,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL",
+        "NAVIGATE_TO"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Multi-hop find counter/desk then navigate in queue scenes",
+      "review_status": "spec_only",
+      "scenario_family": "identify_locate_navigate_counter_queue",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_identify_locate_navigate_counter_queue",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "identify_locate_plaque_vs_desk",
+      "h5_positive": false,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Identify object then locate it in workplace scenes",
+      "review_status": "spec_only",
+      "scenario_family": "identify_locate_plaque_vs_desk",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_identify_locate_plaque_vs_desk",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "locate_describe_room_layout",
+      "h5_positive": false,
+      "h7_families": [
+        "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Locate room area then describe layout/atmosphere",
+      "review_status": "spec_only",
+      "scenario_family": "locate_describe_room_layout",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_locate_describe_room_layout",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "locate_describe_shelf_contents",
+      "h5_positive": false,
+      "h7_families": [
+        "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Locate shelf/bin then describe contents",
+      "review_status": "spec_only",
+      "scenario_family": "locate_describe_shelf_contents",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_locate_describe_shelf_contents",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "locate_describe_vehicle_bay",
+      "h5_positive": false,
+      "h7_families": [
+        "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Locate bay/stall then describe what is there",
+      "review_status": "spec_only",
+      "scenario_family": "locate_describe_vehicle_bay",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_locate_describe_vehicle_bay",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "locate_navigate_clinic_corridor",
+      "h5_positive": false,
+      "h7_families": [
+        "LOCATE_ENVIRONMENTAL->NAVIGATE_TO"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "NAVIGATE_TO"
+      ],
+      "planned_paraphrases": 3,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Locate clinic room then navigate",
+      "review_status": "spec_only",
+      "scenario_family": "locate_navigate_clinic_corridor",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_locate_navigate_clinic_corridor",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "locate_navigate_platform_exit",
+      "h5_positive": false,
+      "h7_families": [
+        "LOCATE_ENVIRONMENTAL->NAVIGATE_TO"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "NAVIGATE_TO"
+      ],
+      "planned_paraphrases": 2,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "Locate platform/gate then navigate without RESOLVE",
+      "review_status": "spec_only",
+      "scenario_family": "locate_navigate_platform_exit",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_locate_navigate_platform_exit",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "resolve_identify_describe_prescription_bottle",
+      "h5_positive": true,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "H5 med resolve → identify bottle → describe label",
+      "review_status": "spec_only",
+      "scenario_family": "resolve_identify_describe_prescription_bottle",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_resolve_identify_describe_prescription_bottle",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "resolve_identify_locate_baggage_belt",
+      "h5_positive": true,
+      "h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "H5 flight/bag resolve → identify belt → locate",
+      "review_status": "spec_only",
+      "scenario_family": "resolve_identify_locate_baggage_belt",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_resolve_identify_locate_baggage_belt",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "resolve_locate_describe_appointment_room",
+      "h5_positive": true,
+      "h7_families": [
+        "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 3,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "H5 appointment resolve → locate room → describe entry cues",
+      "review_status": "spec_only",
+      "scenario_family": "resolve_locate_describe_appointment_room",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_resolve_locate_describe_appointment_room",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "resolve_locate_navigate_order_locker",
+      "h5_positive": true,
+      "h7_families": [
+        "LOCATE_ENVIRONMENTAL->NAVIGATE_TO"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "NAVIGATE_TO"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "H5 resolve order/locker then locate→navigate (distinct from sa_0106 family)",
+      "review_status": "spec_only",
+      "scenario_family": "resolve_locate_navigate_order_locker",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_resolve_locate_navigate_order_locker",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "resolve_locate_navigate_rental_stall",
+      "h5_positive": true,
+      "h7_families": [
+        "LOCATE_ENVIRONMENTAL->NAVIGATE_TO"
+      ],
+      "h7_positive": true,
+      "multi_hop": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "NAVIGATE_TO"
+      ],
+      "planned_paraphrases": 3,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "H5 reservation → locate stall → navigate",
+      "review_status": "spec_only",
+      "scenario_family": "resolve_locate_navigate_rental_stall",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_resolve_locate_navigate_rental_stall",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "resolve_only_describe_cabin_map",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "multi_hop": false,
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 3,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "H5→DESCRIBE only; keeps sequential H5 without inflating one H7 family",
+      "review_status": "spec_only",
+      "scenario_family": "resolve_only_describe_cabin_map",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_resolve_only_describe_cabin_map",
+      "spec_kind": "authored_sequential_family"
+    },
+    {
+      "authored_template_family": "resolve_only_identify_seat_marker",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "multi_hop": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "rationale": "H5→IDENTIFY only (no learned H7); sequential via implicit resolve",
+      "review_status": "spec_only",
+      "scenario_family": "resolve_only_identify_seat_marker",
+      "source_kind": "authored",
+      "spec_id": "spec_seq_resolve_only_identify_seat_marker",
+      "spec_kind": "authored_sequential_family"
+    }
+  ],
+  "G_authored_implicit_family_specs": [
+    {
+      "authored_template_family": "my_allergy_menu_safe",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 6,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "allergy profile resolve before judging dish/menu item",
+      "review_status": "spec_only",
+      "scenario_family": "my_allergy_menu_safe",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_allergy_menu_safe",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_appointment_entrance_cue",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 6,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "appointment resolve into finding the correct entrance/door",
+      "review_status": "spec_only",
+      "scenario_family": "my_appointment_entrance_cue",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_appointment_entrance_cue",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_boarding_pass_gate_board",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 6,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "boarding/gate facts resolve into reading gate board",
+      "review_status": "spec_only",
+      "scenario_family": "my_boarding_pass_gate_board",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_boarding_pass_gate_board",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_cart_item_shelf_match",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "shopping-list ownership resolve into matching shelf item",
+      "review_status": "spec_only",
+      "scenario_family": "my_cart_item_shelf_match",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_cart_item_shelf_match",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_dietary_restriction_dish",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "dietary profile resolve before describing dish ingredients",
+      "review_status": "spec_only",
+      "scenario_family": "my_dietary_restriction_dish",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_dietary_restriction_dish",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_hotel_room_key_panel",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "hotel reservation resolve into key/panel identification",
+      "review_status": "spec_only",
+      "scenario_family": "my_hotel_room_key_panel",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_hotel_room_key_panel",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_luggage_carousel_tag",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "bag ownership resolve into identifying tagged luggage",
+      "review_status": "spec_only",
+      "scenario_family": "my_luggage_carousel_tag",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_luggage_carousel_tag",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_medication_scene_match",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 7,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "my med/prescription must resolve before matching visible pill/bottle",
+      "review_status": "spec_only",
+      "scenario_family": "my_medication_scene_match",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_medication_scene_match",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_meeting_room_directory",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT",
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "calendar/meeting resolve into directory/room description",
+      "review_status": "spec_only",
+      "scenario_family": "my_meeting_room_directory",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_meeting_room_directory",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_order_pickup_window",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 6,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "order account resolve into locating pickup window",
+      "review_status": "spec_only",
+      "scenario_family": "my_order_pickup_window",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_order_pickup_window",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_package_locker_bank",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "delivery/package resolve into locating locker bank",
+      "review_status": "spec_only",
+      "scenario_family": "my_package_locker_bank",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_package_locker_bank",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_prescription_label_dose",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "prescription resolve into reading dose text on label",
+      "review_status": "spec_only",
+      "scenario_family": "my_prescription_label_dose",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_prescription_label_dose",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_reservation_seat_marker",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 6,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "reservation/seat resolve into identifying labeled marker",
+      "review_status": "spec_only",
+      "scenario_family": "my_reservation_seat_marker",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_reservation_seat_marker",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_train_platform_reservation",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "NAVIGATE_TO"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "rail reservation resolve into platform locate (H5 only; no H7)",
+      "review_status": "spec_only",
+      "scenario_family": "my_train_platform_reservation",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_train_platform_reservation",
+      "spec_kind": "authored_implicit_family"
+    },
+    {
+      "authored_template_family": "my_workspace_badge_reader",
+      "h5_positive": true,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 5,
+      "proposed_final_bucket": "MIXED_IMPLICIT",
+      "rationale": "badge/access profile resolve into reader/panel identify-describe",
+      "review_status": "spec_only",
+      "scenario_family": "my_workspace_badge_reader",
+      "source_kind": "authored",
+      "spec_id": "spec_imp_my_workspace_badge_reader",
+      "spec_kind": "authored_implicit_family"
+    }
+  ],
+  "H_h2_h3_hard_case_family_specs": [
+    {
+      "authored_template_family": "hyphenated_entity_identify",
+      "h5_positive": null,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "Environmental",
+      "rationale": "Hyphenated expressions as single H2/H3 unit",
+      "review_status": "spec_only",
+      "scenario_family": "hyphenated_entity_identify",
+      "source_kind": "authored",
+      "spec_id": "spec_hard_hyphenated_entity_identify",
+      "spec_kind": "h2_h3_hard_case_family"
+    },
+    {
+      "authored_template_family": "identify_vs_describe_minimal_pair",
+      "h5_positive": null,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "Environmental",
+      "rationale": "Minimal-pair contrast IDENTIFY vs DESCRIBE",
+      "review_status": "spec_only",
+      "scenario_family": "identify_vs_describe_minimal_pair",
+      "source_kind": "authored",
+      "spec_id": "spec_hard_identify_vs_describe_minimal_pair",
+      "spec_kind": "h2_h3_hard_case_family"
+    },
+    {
+      "authored_template_family": "locate_vs_identify_describe",
+      "h5_positive": null,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "Environmental",
+      "rationale": "LOCATE vs IDENTIFY/DESCRIBE contrast",
+      "review_status": "spec_only",
+      "scenario_family": "locate_vs_identify_describe",
+      "source_kind": "authored",
+      "spec_id": "spec_hard_locate_vs_identify_describe",
+      "spec_kind": "h2_h3_hard_case_family"
+    },
+    {
+      "authored_template_family": "navigate_direct_route",
+      "h5_positive": null,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "NAVIGATE_TO"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "Environmental",
+      "rationale": "NAVIGATE coverage without illegal H7 padding",
+      "review_status": "spec_only",
+      "scenario_family": "navigate_direct_route",
+      "source_kind": "authored",
+      "spec_id": "spec_hard_navigate_direct_route",
+      "spec_kind": "h2_h3_hard_case_family"
+    },
+    {
+      "authored_template_family": "retrieve_possessive_h5_none",
+      "h5_positive": false,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "RETRIEVE_PERSONAL"
+      ],
+      "planned_paraphrases": 16,
+      "proposed_final_bucket": "Personal",
+      "rationale": "RETRIEVE + my X with H5=NONE controls toward >=40 corpus-wide",
+      "review_status": "spec_only",
+      "scenario_family": "retrieve_possessive_h5_none",
+      "source_kind": "authored",
+      "spec_id": "spec_hard_retrieve_possessive_h5_none",
+      "spec_kind": "h2_h3_hard_case_family"
+    },
+    {
+      "authored_template_family": "retrieve_vs_describe_personal",
+      "h5_positive": null,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "RETRIEVE_PERSONAL"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "Personal",
+      "rationale": "RETRIEVE_PERSONAL vs DESCRIBE contrast on personal facts",
+      "review_status": "spec_only",
+      "scenario_family": "retrieve_vs_describe_personal",
+      "source_kind": "authored",
+      "spec_id": "spec_hard_retrieve_vs_describe_personal",
+      "spec_kind": "h2_h3_hard_case_family"
+    },
+    {
+      "authored_template_family": "urgency_distractor_scene",
+      "h5_positive": null,
+      "h7_families": [],
+      "h7_positive": false,
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "planned_paraphrases": 4,
+      "proposed_final_bucket": "Environmental",
+      "rationale": "Urgency/distractor clauses; H2 span discipline",
+      "review_status": "spec_only",
+      "scenario_family": "urgency_distractor_scene",
+      "source_kind": "authored",
+      "spec_id": "spec_hard_urgency_distractor_scene",
+      "spec_kind": "h2_h3_hard_case_family"
+    }
+  ],
+  "I_duplicate_conflicts_with_frozen_v1": [
+    {
+      "normalized_query": "am i taking any blood thinners?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0009"
+    },
+    {
+      "normalized_query": "are the room's lights on or off?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0017"
+    },
+    {
+      "normalized_query": "can you see a brand name to read?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0057"
+    },
+    {
+      "normalized_query": "did i book a window or aisle seat?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0080"
+    },
+    {
+      "normalized_query": "do i have travel insurance for this trip?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0093"
+    },
+    {
+      "normalized_query": "does this look like a private or public space? tell me this second.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0110"
+    },
+    {
+      "normalized_query": "how many people are in the vicinity?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0138"
+    },
+    {
+      "normalized_query": "how many reward points do i have?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0139"
+    },
+    {
+      "normalized_query": "how much metformin do i take?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0143"
+    },
+    {
+      "normalized_query": "identify what is on the restaurant table.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0169"
+    },
+    {
+      "normalized_query": "immediately: are there any other cars visible in the lot?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0170"
+    },
+    {
+      "normalized_query": "is the classroom clean and organized?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0189"
+    },
+    {
+      "normalized_query": "is the floor hard or carpeted? i need an instant answer.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0200"
+    },
+    {
+      "normalized_query": "is the ground where the toys are grass or dirt? answer at once.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0208"
+    },
+    {
+      "normalized_query": "is there a bench nearby?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0236"
+    },
+    {
+      "normalized_query": "is there an unobstructed path to the door? i need to know immediately.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0249"
+    },
+    {
+      "normalized_query": "is this medication on my list?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0264"
+    },
+    {
+      "normalized_query": "name the primary objects in this scene.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0315"
+    },
+    {
+      "normalized_query": "read the date and time this instant.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0333"
+    },
+    {
+      "normalized_query": "read the text right now.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0363"
+    },
+    {
+      "normalized_query": "summarize the objects you detect at once.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0393"
+    },
+    {
+      "normalized_query": "tell me this second: is this store crowded or quiet?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0402"
+    },
+    {
+      "normalized_query": "what are my allergies?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0415"
+    },
+    {
+      "normalized_query": "what does this sign say?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0464"
+    },
+    {
+      "normalized_query": "what is my account number?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0485"
+    },
+    {
+      "normalized_query": "what is my blood pressure medication?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0489"
+    },
+    {
+      "normalized_query": "what is my boarding time?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0491"
+    },
+    {
+      "normalized_query": "what is my clothing size?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0498"
+    },
+    {
+      "normalized_query": "what is my default shipping address?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0503"
+    },
+    {
+      "normalized_query": "what is my departure gate?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0504"
+    },
+    {
+      "normalized_query": "what is my health condition?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0513"
+    },
+    {
+      "normalized_query": "what is my home wi-fi password?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0515"
+    },
+    {
+      "normalized_query": "what is my hotel reservation number?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0516"
+    },
+    {
+      "normalized_query": "what is my library card number?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0520"
+    },
+    {
+      "normalized_query": "what is my membership number?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0522"
+    },
+    {
+      "normalized_query": "what is my mother's birthday?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0524"
+    },
+    {
+      "normalized_query": "what is my supervisor's email?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0536"
+    },
+    {
+      "normalized_query": "what is my tax id number?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0537"
+    },
+    {
+      "normalized_query": "what is the dosage on my prescription?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0561"
+    },
+    {
+      "normalized_query": "what is the expiry date on my credit card?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0562"
+    },
+    {
+      "normalized_query": "what is the material of the sidewalk? i need to know this second.",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0566"
+    },
+    {
+      "normalized_query": "what is the name of this magazine?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0571"
+    },
+    {
+      "normalized_query": "what is written in this newspaper article?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0593"
+    },
+    {
+      "normalized_query": "what material objects are present?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0611"
+    },
+    {
+      "normalized_query": "what physical items are present here?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0619"
+    },
+    {
+      "normalized_query": "what species of tree is shown?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0634"
+    },
+    {
+      "normalized_query": "which languages appear on this page?",
+      "proposed_final_bucket": "Environmental",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0692"
+    },
+    {
+      "normalized_query": "who is my cardiologist?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0697"
+    },
+    {
+      "normalized_query": "who is my emergency contact?",
+      "proposed_final_bucket": "Personal",
+      "reason": "duplicate_against_frozen_v1",
+      "source_id": "src_0698"
+    }
+  ],
+  "J_coverage_shortfalls": {
+    "Environmental": {
+      "already_in_v1": 24,
+      "available_accepted_or_reviewable": 401,
+      "new_needed": 72,
+      "planned_authored_paraphrases_not_yet_generated": 20,
+      "reviewable_capacity_concrete_plus_planned": 421,
+      "shortfall_vs_new_needed": 0,
+      "still_short_if_specs_filled": 0,
+      "target": 96
+    },
+    "MIXED_IMPLICIT": {
+      "already_in_v1": 24,
+      "available_accepted_or_reviewable": 3,
+      "new_needed": 72,
+      "planned_authored_paraphrases_not_yet_generated": 82,
+      "reviewable_capacity_concrete_plus_planned": 85,
+      "shortfall_vs_new_needed": 69,
+      "still_short_if_specs_filled": 0,
+      "target": 96
+    },
+    "MIXED_PARALLEL": {
+      "already_in_v1": 24,
+      "available_accepted_or_reviewable": 77,
+      "new_needed": 72,
+      "planned_authored_paraphrases_not_yet_generated": 0,
+      "reviewable_capacity_concrete_plus_planned": 77,
+      "shortfall_vs_new_needed": 0,
+      "still_short_if_specs_filled": 0,
+      "target": 96
+    },
+    "MIXED_SEQUENTIAL": {
+      "already_in_v1": 24,
+      "available_accepted_or_reviewable": 5,
+      "new_needed": 72,
+      "planned_authored_paraphrases_not_yet_generated": 77,
+      "reviewable_capacity_concrete_plus_planned": 82,
+      "shortfall_vs_new_needed": 67,
+      "still_short_if_specs_filled": 0,
+      "target": 96
+    },
+    "Personal": {
+      "already_in_v1": 24,
+      "available_accepted_or_reviewable": 121,
+      "new_needed": 72,
+      "planned_authored_paraphrases_not_yet_generated": 20,
+      "reviewable_capacity_concrete_plus_planned": 141,
+      "shortfall_vs_new_needed": 0,
+      "still_short_if_specs_filled": 0,
+      "target": 96
+    }
+  },
+  "J_planned_authored_paraphrase_capacity": {
+    "Environmental": 20,
+    "MIXED_IMPLICIT": 82,
+    "MIXED_SEQUENTIAL": 77,
+    "Personal": 20
+  },
+  "K_h7_legal_family_inventory": {
+    "available_on_concrete_candidates": {
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 1
+    },
+    "expected_family_share_of_h7_positive": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 0.2333,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 0.2889,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 0.2111,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 0.3333
+    },
+    "expected_final_family_totals_if_specs_filled": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 21,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 26,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 19,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 30
+    },
+    "expected_final_h7_positive_examples": 90,
+    "expected_final_multi_hop": 10,
+    "family_minimums": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 14,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 18,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 14,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 18
+    },
+    "legacy_family_counts": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 2,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 4,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 2,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 7
+    },
+    "legal_families": [
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT",
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL",
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT",
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO"
+    ],
+    "natural_true_sequential_h7_pair_labels_unknown_until_annotation": 4,
+    "planned_via_authored_specs": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 19,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 22,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 17,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 22
+    }
+  },
+  "L_legacy_h5_h7": {
+    "h5_negative_retrieve_possessive_by_bucket": {
+      "MIXED_PARALLEL": 8,
+      "Personal": 19
+    },
+    "h5_negative_retrieve_possessive_controls": 27,
+    "h5_positive_by_bucket": {
+      "MIXED_IMPLICIT": 24,
+      "MIXED_PARALLEL": 10,
+      "MIXED_SEQUENTIAL": 24
+    },
+    "h5_positive_total": 58,
+    "h7_family_example_counts": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 2,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 4,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 2,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 7
+    },
+    "h7_multi_hop_examples": 0,
+    "h7_positive_by_bucket": {
+      "MIXED_SEQUENTIAL": 15
+    },
+    "h7_positive_total": 15
+  },
+  "M_spec_capacity_summary": {
+    "distinct_authored_families_by_bucket": {
+      "Environmental": 5,
+      "MIXED_IMPLICIT": 15,
+      "MIXED_SEQUENTIAL": 19,
+      "Personal": 2
+    },
+    "h7_planned_family_counts": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 19,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 22,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 17,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 22
+    },
+    "multi_hop_planned": 10,
+    "planned_paraphrases_by_bucket": {
+      "Environmental": 20,
+      "MIXED_IMPLICIT": 82,
+      "MIXED_SEQUENTIAL": 77,
+      "Personal": 20
+    },
+    "retrieve_possessive_h5_none_planned": 16,
+    "sequential_h5_positive_planned": 25,
+    "sequential_h7_positive_planned": 70
+  },
+  "N_projected_corpus_fills": {
+    "mixed_implicit_h5_positive_if_specs_filled": 109,
+    "mixed_sequential_h5_positive_if_specs_filled": 50,
+    "remaining_short_or_impossible": [],
+    "retrieve_possessive_h5_none_if_specs_filled": 43
+  },
+  "assembly_seed": 20260811,
+  "authored_spare_concrete": 2,
+  "candidate_total": 607,
+  "counts_by_bucket_and_source": {
+    "Environmental": {
+      "natural": 401
+    },
+    "MIXED_IMPLICIT": {
+      "authored": 1,
+      "mined": 2
+    },
+    "MIXED_PARALLEL": {
+      "natural": 77
+    },
+    "MIXED_SEQUENTIAL": {
+      "authored": 1,
+      "natural": 4
+    },
+    "Personal": {
+      "natural": 121
+    }
+  },
+  "mine_limit": 40,
+  "parallel_rejections": [],
+  "sequential_rejections": [
+    {
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "reason": "already_in_frozen_v1_or_core_natural_sequential",
+      "source_id": "src_0350"
+    },
+    {
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "reason": "already_in_frozen_v1_or_core_natural_sequential",
+      "source_id": "src_0456"
+    },
+    {
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "reason": "already_in_frozen_v1_or_core_natural_sequential",
+      "source_id": "src_0682"
+    },
+    {
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "reason": "already_in_frozen_v1_or_core_natural_sequential",
+      "source_id": "src_0683"
+    },
+    {
+      "proposed_final_bucket": "MIXED_SEQUENTIAL",
+      "reason": "already_in_frozen_v1_or_core_natural_sequential",
+      "source_id": "src_0687"
+    }
+  ]
+}
