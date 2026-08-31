@@ -153,8 +153,8 @@ MIXED_PARALLEL_REQUIRED_IDS: frozenset[str] = frozenset(
         "src_0510",
         "src_0532",
         "src_0548",
+        "src_0580",
         "src_0583",
-        "src_0612",
         "src_0651",
     }
 )
@@ -252,7 +252,7 @@ STABLE_STAGE_A_SOURCE_KEYS: tuple[str, ...] = (
     "src_0487",
     "src_0546",
     "src_0263",
-    "src_0612",
+    "src_0580",
     "src_0583",
     "src_0651",
     "src_0647",
