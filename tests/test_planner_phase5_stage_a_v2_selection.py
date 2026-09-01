@@ -237,6 +237,19 @@ def test_h5_h7_report_separates_legacy_gold_from_new_provisional(selection_batch
     assert "auth_v2_identify_describe_device_status_05" in ids
 
 
+def test_ontology_repair_swaps_call_my_rows(selection_batch):
+    selected, report = selection_batch
+    by_id = {r["stage_a_id"]: r for r in selected}
+    assert by_id["sa_0172"]["query"] == "What time does my flight leave?"
+    assert by_id["sa_0172"]["source_id"] == "src_0642"
+    assert by_id["sa_0184"]["query"] == "What is my current weight from my health record?"
+    assert by_id["sa_0184"]["source_id"] == "src_0502"
+    assert len(report.get("ontology_repairs") or []) == 2
+    for row in selected:
+        assert normalize_query_key(row["query"]) != normalize_query_key("Call my brother for me.")
+        assert normalize_query_key(row["query"]) != normalize_query_key("Call my mom")
+
+
 def test_write_artifact_matches(selection_batch):
     selected, report = selection_batch
     write_stage_a_v2_selection()
@@ -259,11 +272,11 @@ def test_write_artifact_matches(selection_batch):
         x.get("candidate") == "auth_v2_locate_navigate_clinic_corridor_03"
         for x in report["J_excluded_approved"]
     )
-    assert report["G_publication_test_eligibility"]["train_dev_only"] == 110
+    assert report["G_publication_test_eligibility"]["train_dev_only"] == 112
     assert (
         report["G_publication_test_eligibility"]["train_dev_only_breakdown"][
             "reason_any_counts"
         ]["template_group_quarantine"]
-        == 105
+        == 107
     )
     assert report["F_h7_accounting"]["combined_projected"]["max_share_within_cap"] is True

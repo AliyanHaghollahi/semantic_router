@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any, Final
 
 from tiergraph.planner.corpus import normalize_query_key
-from tiergraph.planner.stage_a_selection import load_jsonl
+from tiergraph.planner.stage_a_selection import PERSONAL_CONTRACT_EXCLUDE_IDS, load_jsonl
 from tiergraph.planner.stage_a_v2_candidates import STAGE_A_V2_CANDIDATES_PATH
 from tiergraph.planner.stage_a_v2_spec import (
     H5_POSITIVE_TARGET_RANGE,
@@ -81,6 +81,101 @@ _WHAT_IS_MY_TEMPLATES = frozenset(
         "tell_me_about_my_X",
     }
 )
+
+
+# Step-A audit repair: telephony/action personal queries incompatible with V1 ops.
+ONTOLOGY_BLOCKED_PERSONAL_SOURCE_IDS: Final[frozenset[str]] = frozenset(
+    {"src_0033", "src_0034"}
+)
+ONTOLOGY_BLOCKED_PERSONAL_STAGE_A_IDS: Final[tuple[str, ...]] = (
+    "sa_0172",
+    "sa_0184",
+)
+
+
+def _eligible_personal_replacement_pool(
+    inventory: Sequence[Mapping[str, Any]],
+    selected: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Unused Personal natural rows eligible for ontology repair swaps."""
+    sel_keys = {normalize_query_key(str(r["query"])) for r in selected}
+    sel_ids = {r.get("source_id") for r in selected}
+    pool = [
+        dict(r)
+        for r in inventory
+        if r.get("proposed_final_bucket") == "Personal"
+        and r.get("source_kind") == "natural"
+        and r.get("review_status") == "available"
+        and r.get("source_id") not in sel_ids
+        and str(r.get("source_id")) not in PERSONAL_CONTRACT_EXCLUDE_IDS
+        and str(r.get("source_id")) not in ONTOLOGY_BLOCKED_PERSONAL_SOURCE_IDS
+        and normalize_query_key(str(r["query"])) not in sel_keys
+        and r.get("template_group") != "call_my_X"
+    ]
+    pool.sort(key=_stable_key)
+    return pool
+
+
+def repair_ontology_incompatible_personal(
+    selected: Sequence[Mapping[str, Any]],
+    inventory: Sequence[Mapping[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Swap ontology-incompatible Personal rows in place; preserve stage_a_id."""
+    out = [deepcopy(r) for r in selected]
+    by_id = {str(r["stage_a_id"]): i for i, r in enumerate(out)}
+    repair_log: list[dict[str, Any]] = []
+    pool = _eligible_personal_replacement_pool(inventory, out)
+    needed = [
+        sid
+        for sid in ONTOLOGY_BLOCKED_PERSONAL_STAGE_A_IDS
+        if str(out[by_id[sid]].get("source_id")) in ONTOLOGY_BLOCKED_PERSONAL_SOURCE_IDS
+    ]
+    if not needed:
+        return out, repair_log
+    if len(pool) < len(needed):
+        raise ValueError(
+            f"ontology repair needs {len(needed)} replacements, pool has {len(pool)}"
+        )
+    for stage_a_id, cand in zip(needed, pool[: len(needed)]):
+        idx = by_id[stage_a_id]
+        old = out[idx]
+        old_source = str(old.get("source_id"))
+        rank = int((old.get("provenance") or {}).get("selection_rank") or 0)
+        new_row = _new_row_from_candidate(
+            cand,
+            final_bucket="Personal",
+            selection_reason=(
+                f"ontology_repair_replace_{old_source}; "
+                f"seed={STAGE_A_V2_SELECTION_SEED}"
+            ),
+            selection_rank=rank,
+        )
+        new_row["stage_a_id"] = stage_a_id
+        prov = dict(new_row.get("provenance") or {})
+        prov["ontology_repair"] = {
+            "replaced_source_id": old_source,
+            "replaced_query": old["query"],
+            "replaced_candidate_id": old.get("candidate_id"),
+            "repair_reason": (
+                "telephony/action request incompatible with V1 Step-A answer operators"
+            ),
+        }
+        new_row["provenance"] = prov
+        out[idx] = new_row
+        repair_log.append(
+            {
+                "stage_a_id": stage_a_id,
+                "old_source_id": old_source,
+                "old_query": old["query"],
+                "new_source_id": new_row.get("source_id"),
+                "new_query": new_row["query"],
+                "new_candidate_id": new_row.get("candidate_id"),
+            }
+        )
+    keys = [normalize_query_key(str(r["query"])) for r in out]
+    if len(keys) != len(set(keys)):
+        raise ValueError("ontology repair introduced duplicate normalized queries")
+    return out, repair_log
 
 
 def _stable_key(row: Mapping[str, Any]) -> str:
@@ -610,6 +705,10 @@ def build_stage_a_v2_selection(
     if len(selected) != STAGE_A_V2_CORPUS_SIZE:
         raise ValueError(f"selection size {len(selected)} != 480")
 
+    selected, ontology_repairs = repair_ontology_incompatible_personal(
+        selected, inventory
+    )
+
     report = build_selection_report(
         selected,
         legacy_out,
@@ -621,6 +720,7 @@ def build_stage_a_v2_selection(
             "parallel_leftover_count": len(excl_par),
             "parallel_leftover": excl_par,
         },
+        ontology_repairs=ontology_repairs,
     )
     return selected, report
 
@@ -700,6 +800,7 @@ def build_selection_report(
     *,
     excluded_approved: Sequence[Mapping[str, Any]],
     excluded_natural: Mapping[str, Any],
+    ontology_repairs: Sequence[Mapping[str, Any]] | None = None,
     step_b_path: str | Path = STAGE_A_V1_STEP_B_PATH,
 ) -> dict[str, Any]:
     by_bucket = Counter(str(r["final_bucket"]) for r in selected)
@@ -975,6 +1076,7 @@ def build_selection_report(
         "I_selection_fingerprint": fingerprint,
         "J_excluded_approved": list(excluded_approved),
         "excluded_natural_summary": dict(excluded_natural),
+        "ontology_repairs": list(ontology_repairs or []),
         "ordering_doc": SELECTION_ORDERING_DOC,
         "selection_seed": STAGE_A_V2_SELECTION_SEED,
         "H1": {

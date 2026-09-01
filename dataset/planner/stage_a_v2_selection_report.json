@@ -259,8 +259,8 @@
     ],
     "distinct_authored_holdout_families": 38,
     "distinct_authored_template_families": 40,
-    "distinct_semantic_groups": 267,
-    "distinct_template_groups": 100
+    "distinct_semantic_groups": 266,
+    "distinct_template_groups": 99
   },
   "E_h5_accounting": {
     "combined_projected": {
@@ -409,24 +409,24 @@
     "new_provisional_multi_hop": 10
   },
   "G_publication_test_eligibility": {
-    "eligible": 370,
-    "train_dev_only": 110,
+    "eligible": 368,
+    "train_dev_only": 112,
     "train_dev_only_breakdown": {
       "legacy_ineligible": 50,
       "multiple_reasons_rows": 22,
-      "new_ineligible": 60,
+      "new_ineligible": 62,
       "reason_any_counts": {
         "inspected_legacy_id": 12,
         "multiple_reasons": 22,
         "semantic_group_quarantine": 23,
-        "template_group_quarantine": 105,
+        "template_group_quarantine": 107,
         "urgency_adjacent": 4
       },
       "reason_combo_counts": {
         "inspected_legacy_id,semantic_group_quarantine,template_group_quarantine": 12,
         "semantic_group_quarantine": 1,
         "semantic_group_quarantine,template_group_quarantine": 10,
-        "template_group_quarantine": 83,
+        "template_group_quarantine": 85,
         "urgency_adjacent": 4
       },
       "scientific_note": "Primary driver is soft template_group quarantine (what_is_my_X / other_pe / coord_*), intentionally broader than the 12 inspected legacy IDs. Do not weaken solely to raise eligible count.",
@@ -435,10 +435,10 @@
         "coord_is_and": 17,
         "coord_what_time_and": 3,
         "coord_where_and": 5,
-        "other_pe": 17,
+        "other_pe": 18,
         "single_clause_mixed": 9,
         "urgency_scene_query": 5,
-        "what_is_my_X": 24
+        "what_is_my_X": 25
       }
     }
   },
@@ -503,7 +503,7 @@
       }
     }
   },
-  "I_selection_fingerprint": "a1494edcdcfd53a2c65b4b66a6098ee06996c7f5008d53c78b9873c605a2c236",
+  "I_selection_fingerprint": "d2d330c5da6b7a1af295030c6835e9b40bda51ef6bb2dd53585e1d7456c0a3ff",
   "J_excluded_approved": [
     {
       "candidate": "auth_v2_my_allergy_menu_safe_06",
@@ -628,6 +628,24 @@
     "parallel_leftover_count": 5,
     "personal_leftover_count": 65
   },
+  "ontology_repairs": [
+    {
+      "new_candidate_id": "v2c_189cfc67ebc9",
+      "new_query": "What time does my flight leave?",
+      "new_source_id": "src_0642",
+      "old_query": "Call my brother for me.",
+      "old_source_id": "src_0033",
+      "stage_a_id": "sa_0172"
+    },
+    {
+      "new_candidate_id": "v2c_2a323ed31db4",
+      "new_query": "What is my current weight from my health record?",
+      "new_source_id": "src_0502",
+      "old_query": "Call my mom",
+      "old_source_id": "src_0034",
+      "stage_a_id": "sa_0184"
+    }
+  ],
   "ordering_doc": "1) Carry all frozen v1 rows unchanged, ordered by existing stage_a_id sa_0001..sa_0120. 2) Append NEW rows ordered by STAGE_A_V2_BUCKETS, then within each bucket by selection_rank / stable candidate key. 3) Assign new IDs sa_0121..sa_0480 in that append order. Selection seed=20260901 (deterministic greedy diversity). 4) Apply H7_DIVERSITY_CAP_SWAP on NEW MIXED_SEQUENTIAL if needed so combined projected H7 family share stays <=35%.",
   "selection_seed": 20260901
 }
