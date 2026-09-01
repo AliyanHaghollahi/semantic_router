@@ -46,6 +46,41 @@ STAGE_A_V2_SPLIT_SEED: Final[int] = 20260901
 STAGE_A_V2_SELECTION_PATH: Final[Path] = Path(
     "dataset/planner/stage_a_v2_final_selection.jsonl"
 )
+STAGE_A_V2_AUTHORED_CANDIDATES_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_authored_candidates.jsonl"
+)
+STAGE_A_V2_AUTHORED_REVIEWS_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_authored_reviews.jsonl"
+)
+STAGE_A_V2_AUTHORED_REVIEW_REPORT_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_authored_review_report.json"
+)
+
+# First-pass approval floors for NEW authored candidates (Todo 3B).
+STAGE_A_V2_AUTHORED_APPROVE_FLOOR_IMPLICIT: Final[int] = 72
+STAGE_A_V2_AUTHORED_APPROVE_FLOOR_SEQUENTIAL: Final[int] = 72
+
+# Soft-adjacent authored families: may train/dev but not publication test.
+# Checked by example_is_quarantined_for_publication_test (single eligibility path).
+PUBLICATION_TEST_INELIGIBLE_AUTHORED_FAMILIES: Final[frozenset[str]] = frozenset(
+    {
+        "urgency_distractor_scene",  # adjacent to quarantined urgency_scene_query
+    }
+)
+
+# Max share of H7-positive approved examples that may carry one H7 family label.
+# Share = (# H7-positive examples containing label) / (# H7-positive examples).
+# Multi-hop rows can contribute to multiple labels, so shares need not sum to 1.
+H7_FAMILY_SHARE_MAX: Final[float] = 0.35
+
+AUTHORED_REVIEW_METHOD: Final[str] = "agent_assisted_first_pass"
+
+AUTHORED_REVIEW_STATUSES: Final[tuple[str, ...]] = (
+    "APPROVE",
+    "REVISE",
+    "REJECT",
+    "UNREVIEWED",
+)
 
 STAGE_A_V1_SELECTION_PATH: Final[Path] = Path(
     "dataset/planner/stage_a_final_selection.jsonl"
@@ -419,7 +454,12 @@ QUARANTINED_AUTHORED_FAMILIES: Final[frozenset[str]] = frozenset(
 
 
 def example_is_quarantined_for_publication_test(row: Mapping[str, Any]) -> bool:
-    """True if this example must not appear in the publication test split."""
+    """True if this example must not appear in the publication test split.
+
+    Covers inspected v1 quarantine atoms (ids / semantic / template / authored
+    family) plus soft-adjacent authored families declared in
+    ``PUBLICATION_TEST_INELIGIBLE_AUTHORED_FAMILIES``.
+    """
     stage_a_id = str(row.get("stage_a_id") or "").strip()
     if stage_a_id in QUARANTINED_EXAMPLE_IDS:
         return True
@@ -432,7 +472,31 @@ def example_is_quarantined_for_publication_test(row: Mapping[str, Any]) -> bool:
     family = resolve_authored_template_family(row)
     if family is not None and family in QUARANTINED_AUTHORED_FAMILIES:
         return True
+    if family is not None and family in PUBLICATION_TEST_INELIGIBLE_AUTHORED_FAMILIES:
+        return True
     return False
+
+
+def publication_test_ineligibility_reason(row: Mapping[str, Any]) -> str | None:
+    """Human-readable reason when quarantined for publication test; else None."""
+    stage_a_id = str(row.get("stage_a_id") or "").strip()
+    if stage_a_id in QUARANTINED_EXAMPLE_IDS:
+        return f"quarantined_example_id:{stage_a_id}"
+    semantic = str(row.get("semantic_group") or "").strip()
+    if semantic in QUARANTINED_SEMANTIC_GROUPS:
+        return f"quarantined_semantic_group:{semantic}"
+    template = str(row.get("template_group") or "").strip()
+    if template in QUARANTINED_TEMPLATE_GROUPS:
+        return f"quarantined_template_group:{template}"
+    family = resolve_authored_template_family(row)
+    if family is not None and family in QUARANTINED_AUTHORED_FAMILIES:
+        return f"quarantined_authored_family:{family}"
+    if family is not None and family in PUBLICATION_TEST_INELIGIBLE_AUTHORED_FAMILIES:
+        return (
+            f"publication_test_ineligible_authored_family:{family}"
+            " (soft-adjacent to quarantined urgency_scene_query)"
+        )
+    return None
 
 
 def assert_geometry_consistent() -> None:

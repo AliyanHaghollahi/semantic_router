@@ -309,6 +309,14 @@ def test_quarantine_ids_exact_and_cover_inspected_v1_test():
             "authored_template_family": "resolve_locate_navigate_order_pickup",
         }
     )
+    assert example_is_quarantined_for_publication_test(
+        {
+            "source_kind": "authored",
+            "semantic_group": "personal_profile__urgency_distractor_scene",
+            "template_group": "urgency_distractor_scene",
+            "authored_template_family": "urgency_distractor_scene",
+        }
+    )
     assert not example_is_quarantined_for_publication_test(
         {
             "stage_a_id": "sa_0001",

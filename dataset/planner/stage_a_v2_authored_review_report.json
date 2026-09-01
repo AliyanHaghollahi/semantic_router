@@ -1,0 +1,245 @@
+{
+  "A_status_counts": {
+    "APPROVE": 195,
+    "REJECT": 0,
+    "REVISE": 4,
+    "UNREVIEWED": 0
+  },
+  "B_approved_counts_by_bucket": {
+    "Environmental": 20,
+    "MIXED_IMPLICIT": 82,
+    "MIXED_SEQUENTIAL": 77,
+    "Personal": 16
+  },
+  "C_approved_h5_distribution": {
+    "approved_possessive_retrieve_h5_none": 16,
+    "corpus_h5_none_floor": 40,
+    "h5_negative": 68,
+    "h5_positive": 107,
+    "h5_unknown": 20,
+    "note": "Full-corpus >=40 H5-NONE uses approved authored possessive controls plus legacy/natural RETRIEVE+possessive rows"
+  },
+  "D2_approved_h7_family_shares": {
+    "definition": "share(label) = (# H7-positive approved examples containing label) / (# H7-positive approved examples); multi-hop may count in multiple labels so shares need not sum to 1",
+    "h7_positive_denominator": 70,
+    "max_h7_family": "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL",
+    "max_h7_family_share": 0.3143,
+    "max_share_cap": 0.35,
+    "shares": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 0.2714,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 0.3143,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 0.2429,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 0.3143
+    }
+  },
+  "D_approved_h7_family_distribution": {
+    "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 19,
+    "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 22,
+    "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 17,
+    "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 22
+  },
+  "E_approved_multi_hop_count": 10,
+  "F_publication_test_eligibility": {
+    "approved_publication_test_eligible": 191,
+    "approved_train_dev_only": 4,
+    "eligibility_path": "not example_is_quarantined_for_publication_test(row) from stage_a_v2_spec",
+    "train_dev_only_candidates": [
+      {
+        "authored_template_family": "urgency_distractor_scene",
+        "candidate_id": "auth_v2_urgency_distractor_scene_01",
+        "reason": "publication_test_ineligible_authored_family:urgency_distractor_scene (soft-adjacent to quarantined urgency_scene_query)"
+      },
+      {
+        "authored_template_family": "urgency_distractor_scene",
+        "candidate_id": "auth_v2_urgency_distractor_scene_02",
+        "reason": "publication_test_ineligible_authored_family:urgency_distractor_scene (soft-adjacent to quarantined urgency_scene_query)"
+      },
+      {
+        "authored_template_family": "urgency_distractor_scene",
+        "candidate_id": "auth_v2_urgency_distractor_scene_03",
+        "reason": "publication_test_ineligible_authored_family:urgency_distractor_scene (soft-adjacent to quarantined urgency_scene_query)"
+      },
+      {
+        "authored_template_family": "urgency_distractor_scene",
+        "candidate_id": "auth_v2_urgency_distractor_scene_04",
+        "reason": "publication_test_ineligible_authored_family:urgency_distractor_scene (soft-adjacent to quarantined urgency_scene_query)"
+      }
+    ]
+  },
+  "G_family_diversity": {
+    "approved_distinct_authored_template_families": 40,
+    "approved_family_counts": {
+      "hyphenated_entity_identify": 4,
+      "identify_describe_device_status": 5,
+      "identify_describe_packaging_label": 5,
+      "identify_describe_signage_content": 5,
+      "identify_locate_menu_dish_station": 4,
+      "identify_locate_navigate_building_exit": 5,
+      "identify_locate_navigate_counter_queue": 5,
+      "identify_locate_plaque_vs_desk": 4,
+      "identify_vs_describe_minimal_pair": 4,
+      "locate_describe_room_layout": 5,
+      "locate_describe_shelf_contents": 5,
+      "locate_describe_vehicle_bay": 4,
+      "locate_navigate_clinic_corridor": 3,
+      "locate_navigate_platform_exit": 2,
+      "locate_vs_identify_describe": 4,
+      "my_allergy_menu_safe": 6,
+      "my_appointment_entrance_cue": 6,
+      "my_boarding_pass_gate_board": 6,
+      "my_cart_item_shelf_match": 5,
+      "my_dietary_restriction_dish": 5,
+      "my_hotel_room_key_panel": 5,
+      "my_luggage_carousel_tag": 5,
+      "my_medication_scene_match": 7,
+      "my_meeting_room_directory": 5,
+      "my_order_pickup_window": 6,
+      "my_package_locker_bank": 5,
+      "my_prescription_label_dose": 5,
+      "my_reservation_seat_marker": 6,
+      "my_train_platform_reservation": 5,
+      "my_workspace_badge_reader": 5,
+      "navigate_direct_route": 4,
+      "resolve_identify_describe_prescription_bottle": 4,
+      "resolve_identify_locate_baggage_belt": 4,
+      "resolve_locate_describe_appointment_room": 3,
+      "resolve_locate_navigate_lab_draw_station": 4,
+      "resolve_locate_navigate_rental_stall": 3,
+      "resolve_only_describe_cabin_map": 3,
+      "resolve_only_identify_seat_marker": 4,
+      "retrieve_possessive_h5_none": 16,
+      "urgency_distractor_scene": 4
+    },
+    "approved_holdout_family_counts": {
+      "holdout_food_profile_safety": 11,
+      "holdout_seat_reservation_match": 10,
+      "hyphenated_entity_identify": 4,
+      "identify_describe_device_status": 5,
+      "identify_describe_packaging_label": 5,
+      "identify_describe_signage_content": 5,
+      "identify_locate_menu_dish_station": 4,
+      "identify_locate_navigate_building_exit": 5,
+      "identify_locate_navigate_counter_queue": 5,
+      "identify_locate_plaque_vs_desk": 4,
+      "identify_vs_describe_minimal_pair": 4,
+      "locate_describe_room_layout": 5,
+      "locate_describe_shelf_contents": 5,
+      "locate_describe_vehicle_bay": 4,
+      "locate_navigate_clinic_corridor": 3,
+      "locate_navigate_platform_exit": 2,
+      "locate_vs_identify_describe": 4,
+      "my_appointment_entrance_cue": 6,
+      "my_boarding_pass_gate_board": 6,
+      "my_cart_item_shelf_match": 5,
+      "my_hotel_room_key_panel": 5,
+      "my_luggage_carousel_tag": 5,
+      "my_medication_scene_match": 7,
+      "my_meeting_room_directory": 5,
+      "my_order_pickup_window": 6,
+      "my_package_locker_bank": 5,
+      "my_prescription_label_dose": 5,
+      "my_train_platform_reservation": 5,
+      "my_workspace_badge_reader": 5,
+      "navigate_direct_route": 4,
+      "resolve_identify_describe_prescription_bottle": 4,
+      "resolve_identify_locate_baggage_belt": 4,
+      "resolve_locate_describe_appointment_room": 3,
+      "resolve_locate_navigate_lab_draw_station": 4,
+      "resolve_locate_navigate_rental_stall": 3,
+      "resolve_only_describe_cabin_map": 3,
+      "retrieve_possessive_h5_none": 16,
+      "urgency_distractor_scene": 4
+    },
+    "h7_family_shares": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 0.2714,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 0.3143,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 0.2429,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 0.3143
+    },
+    "h7_positive_approved_count": 70,
+    "max_h7_family": "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL",
+    "max_h7_family_share": 0.3143
+  },
+  "H_shortfalls": {
+    "approve_floor_shortfalls": {
+      "MIXED_IMPLICIT": 0,
+      "MIXED_SEQUENTIAL": 0
+    },
+    "h7_family_floor_gaps": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 0,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 0,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 0,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 0
+    },
+    "illegal_h7_on_approved": [],
+    "multi_hop_gap": 0
+  },
+  "I_revise_reject_ids": {
+    "reject": [],
+    "revise": [
+      {
+        "candidate_id": "auth_v2_retrieve_vs_describe_personal_01",
+        "reason": "Family claims retrieve-vs-describe contrast but query is RETRIEVE-only; rewrite with a true DESCRIBE counterpart or fold into possessive H5-NONE pack"
+      },
+      {
+        "candidate_id": "auth_v2_retrieve_vs_describe_personal_02",
+        "reason": "Family claims retrieve-vs-describe contrast but query is RETRIEVE-only; rewrite with a true DESCRIBE counterpart or fold into possessive H5-NONE pack"
+      },
+      {
+        "candidate_id": "auth_v2_retrieve_vs_describe_personal_03",
+        "reason": "Family claims retrieve-vs-describe contrast but query is RETRIEVE-only; rewrite with a true DESCRIBE counterpart or fold into possessive H5-NONE pack"
+      },
+      {
+        "candidate_id": "auth_v2_retrieve_vs_describe_personal_04",
+        "reason": "Family claims retrieve-vs-describe contrast but query is RETRIEVE-only; rewrite with a true DESCRIBE counterpart or fold into possessive H5-NONE pack"
+      }
+    ]
+  },
+  "approved_total": 195,
+  "final_selection_not_created": "dataset\\planner\\stage_a_v2_final_selection.jsonl",
+  "frozen_v1_paths_untouched": [
+    "dataset\\planner\\stage_a_final_selection.jsonl",
+    "dataset\\planner\\stage_a_step_a_annotations.jsonl",
+    "dataset\\planner\\stage_a_step_b_annotations.jsonl"
+  ],
+  "holdout_link_audit": {
+    "holdout_food_profile_safety": [
+      "auth_v2_my_allergy_menu_safe_01:holdout_food_profile_safety",
+      "auth_v2_my_allergy_menu_safe_02:holdout_food_profile_safety",
+      "auth_v2_my_allergy_menu_safe_03:holdout_food_profile_safety",
+      "auth_v2_my_allergy_menu_safe_04:holdout_food_profile_safety",
+      "auth_v2_my_allergy_menu_safe_05:holdout_food_profile_safety",
+      "auth_v2_my_allergy_menu_safe_06:holdout_food_profile_safety",
+      "auth_v2_my_dietary_restriction_dish_01:holdout_food_profile_safety",
+      "auth_v2_my_dietary_restriction_dish_02:holdout_food_profile_safety",
+      "auth_v2_my_dietary_restriction_dish_03:holdout_food_profile_safety",
+      "auth_v2_my_dietary_restriction_dish_04:holdout_food_profile_safety",
+      "auth_v2_my_dietary_restriction_dish_05:holdout_food_profile_safety"
+    ],
+    "holdout_seat_reservation_match": [
+      "auth_v2_my_reservation_seat_marker_01:holdout_seat_reservation_match",
+      "auth_v2_my_reservation_seat_marker_02:holdout_seat_reservation_match",
+      "auth_v2_my_reservation_seat_marker_03:holdout_seat_reservation_match",
+      "auth_v2_my_reservation_seat_marker_04:holdout_seat_reservation_match",
+      "auth_v2_my_reservation_seat_marker_05:holdout_seat_reservation_match",
+      "auth_v2_my_reservation_seat_marker_06:holdout_seat_reservation_match",
+      "auth_v2_resolve_only_identify_seat_marker_01:holdout_seat_reservation_match",
+      "auth_v2_resolve_only_identify_seat_marker_02:holdout_seat_reservation_match",
+      "auth_v2_resolve_only_identify_seat_marker_03:holdout_seat_reservation_match",
+      "auth_v2_resolve_only_identify_seat_marker_04:holdout_seat_reservation_match"
+    ]
+  },
+  "review_method": "agent_assisted_first_pass",
+  "reviewed_total": 199,
+  "targets": {
+    "h7_family_minimums": {
+      "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 14,
+      "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 18,
+      "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 14,
+      "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 18
+    },
+    "implicit_approve_floor": 72,
+    "multi_hop_minimum": 10,
+    "sequential_approve_floor": 72
+  }
+}
