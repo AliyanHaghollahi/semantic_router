@@ -1,0 +1,617 @@
+{
+  "A_total_step_b_rows": 480,
+  "B_legacy_copied": 120,
+  "C_new_agent_assisted": 360,
+  "D_ambiguous_count": 0,
+  "D_complete_count": 480,
+  "D_incompatible_count": 0,
+  "E_total_anchors_annotated": 710,
+  "F_h5_counts_by_bucket": {
+    "Environmental": {
+      "IMPLICIT_RESOLVE_PERSONAL": 3,
+      "NONE": 101
+    },
+    "MIXED_IMPLICIT": {
+      "IMPLICIT_RESOLVE_PERSONAL": 97,
+      "NONE": 82
+    },
+    "MIXED_PARALLEL": {
+      "IMPLICIT_RESOLVE_PERSONAL": 42,
+      "NONE": 123
+    },
+    "MIXED_SEQUENTIAL": {
+      "IMPLICIT_RESOLVE_PERSONAL": 49,
+      "NONE": 115
+    },
+    "Personal": {
+      "NONE": 98
+    }
+  },
+  "F_h5_implicit_resolve_personal": 191,
+  "F_h5_none": 519,
+  "F_h5_rows_positive_by_bucket": {
+    "Environmental": 3,
+    "MIXED_IMPLICIT": 96,
+    "MIXED_PARALLEL": 41,
+    "MIXED_SEQUENTIAL": 49
+  },
+  "F_rows_with_h5_positive": 189,
+  "G_h6_total_ownership_decisions": 710,
+  "G_multi_anchor_multi_op_audit": {
+    "multi_anchor_multi_op_rows": 97,
+    "rows_with_same_owner_multiple_anchors": 27,
+    "zero_overlap_ownership_rows": 0,
+    "zero_overlap_samples": []
+  },
+  "H_counts_by_family": {
+    "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 19,
+    "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 25,
+    "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 17,
+    "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 28
+  },
+  "H_counts_by_family_edges": {
+    "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 19,
+    "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 25,
+    "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 17,
+    "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 28
+  },
+  "H_counts_by_family_rows": {
+    "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 19,
+    "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 25,
+    "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 17,
+    "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 28
+  },
+  "H_family_edge_percentages": {
+    "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 21.35,
+    "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 28.09,
+    "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 19.1,
+    "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 31.46
+  },
+  "H_family_percentages": {
+    "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 24.05,
+    "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 31.65,
+    "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 21.52,
+    "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 35.44
+  },
+  "H_family_row_percentages": {
+    "IDENTIFY_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 24.05,
+    "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL": 31.65,
+    "LOCATE_ENVIRONMENTAL->DESCRIBE_ENVIRONMENT": 21.52,
+    "LOCATE_ENVIRONMENTAL->NAVIGATE_TO": 35.44
+  },
+  "H_h7_positive_examples": 79,
+  "H_multi_hop_examples": [
+    "sa_0426",
+    "sa_0427",
+    "sa_0428",
+    "sa_0429",
+    "sa_0430",
+    "sa_0431",
+    "sa_0432",
+    "sa_0433",
+    "sa_0434",
+    "sa_0435"
+  ],
+  "H_total_explicit_edges": 89,
+  "I_parallel_rows_with_nonzero_h7": [],
+  "J_sequential_without_h7": [
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Which of these bottles is my prescription?",
+      "stage_a_id": "sa_0097"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Which suitcase on this carousel is the one registered under my name?",
+      "stage_a_id": "sa_0098"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Which dish on this table is the one from my order?",
+      "stage_a_id": "sa_0099"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Which of these seats is the one on my reservation?",
+      "stage_a_id": "sa_0100"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Which door here is the entrance listed for my appointment?",
+      "stage_a_id": "sa_0103"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "LOCATE_ENVIRONMENTAL",
+      "query": "Where is the room listed for my appointment?",
+      "stage_a_id": "sa_0104"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "LOCATE_ENVIRONMENTAL",
+      "query": "Where is the locker bank assigned to my reservation?",
+      "stage_a_id": "sa_0109"
+    },
+    {
+      "explanation": "no semantically required eligible explicit H7 pair",
+      "operation_types": "DESCRIBE_ENVIRONMENT,LOCATE_ENVIRONMENTAL",
+      "query": "Read the store directory and tell me where my item is.",
+      "stage_a_id": "sa_0114"
+    },
+    {
+      "explanation": "no semantically required eligible explicit H7 pair",
+      "operation_types": "DESCRIBE_ENVIRONMENT,LOCATE_ENVIRONMENTAL",
+      "query": "What does this directory say and where is my doctor's office?",
+      "stage_a_id": "sa_0115"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Name the claim belt for my booked flight and point out where it is located.",
+      "stage_a_id": "sa_0463"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "DESCRIBE_ENVIRONMENT",
+      "query": "Describe the cabin map section that corresponds to my reserved seat row.",
+      "stage_a_id": "sa_0474"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "DESCRIBE_ENVIRONMENT",
+      "query": "Using my seat assignment, describe how that row is drawn on this cabin diagram.",
+      "stage_a_id": "sa_0475"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "DESCRIBE_ENVIRONMENT",
+      "query": "Describe the legend area on this seat map that covers my booked cabin zone.",
+      "stage_a_id": "sa_0476"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Which of these seat markers matches the seat on my reservation?",
+      "stage_a_id": "sa_0477"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Identify which labeled chair corresponds to my booked seat.",
+      "stage_a_id": "sa_0478"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Among these booth numbers, which one is the table on my reservation?",
+      "stage_a_id": "sa_0479"
+    },
+    {
+      "explanation": "single explicit operation",
+      "operation_types": "IDENTIFY_ENVIRONMENTAL",
+      "query": "Which row plaque matches the seat assignment in my ticket?",
+      "stage_a_id": "sa_0480"
+    }
+  ],
+  "K_provisional_mismatch_A": 35,
+  "K_provisional_mismatch_B": 0,
+  "K_provisional_mismatch_C": 0,
+  "K_provisional_mismatches": [
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "Environmental",
+      "query": "Read the text displayed on my monitor.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0229"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "Environmental",
+      "query": "Can you read the words on my screen?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0248"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "Environmental",
+      "query": "What is my position relative to the entrance?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0258"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What does this sign say and does it restrict my access?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0337"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Is this bus going to my hotel and what is the bus number?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0339"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Read this departure board and tell me if my flight is delayed.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0341"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What does the delay notice say and will it affect my connection?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0345"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Read this sign and tell me if this is my gate.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0346"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Read this screen and tell me if my flight is listed.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0347"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What does this sign say and is it pointing to my gate?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0349"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Read this chart and tell me if my result is normal.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0350"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What department is this and is it where my appointment is?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0351"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Where is gate B12 and is that my gate?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0354"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Read this machine and tell me which button to press for my selection.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0357"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What bus stop is this and is it the one I need for my hotel?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0359"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What does this sign say and does it affect my route to the gate?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0364"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Read this tag and tell me if this is my luggage.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0367"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Read the allergen information and check against my profile.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0368"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "How long until my flight and is this the right terminal?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0371"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Is the pharmacy open and does it carry my prescription?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0373"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Is this my usual size and what does the label say?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0374"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What does the timetable say and does my train match my booking?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0377"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What does this label say and does it match my prescription?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0378"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "How far is the exit and will I reach my taxi on time?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0379"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What stop is this and is it the one near my appointment?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0380"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Is this the correct form and does it have my name on it?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0383"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What are the ingredients here and do any conflict with my allergies?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0385"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Where does this path lead and is it the way to my gate?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0390"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What food is this and is it on my dietary restriction list?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0402"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What does this bottle say and is it my medication?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0403"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What brand is this and is it the one I usually buy?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0404"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "Read this document and tell me if it mentions my name.",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0406"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What is on this tray and can I eat it given my allergies?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0407"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": false,
+      "expected_h7_families": [],
+      "final_bucket": "MIXED_PARALLEL",
+      "query": "What is written on this bottle and is this my medication?",
+      "reason": "missed provisional h5 hint; personal anchor on non-RETRIEVE op",
+      "stage_a_id": "sa_0408"
+    },
+    {
+      "actual_h5_positive": true,
+      "actual_h7_families": [],
+      "classification": "A",
+      "expected_h5_positive": true,
+      "expected_h7_families": [
+        "IDENTIFY_ENVIRONMENTAL->LOCATE_ENVIRONMENTAL"
+      ],
+      "final_bucket": "MIXED_SEQUENTIAL",
+      "query": "Name the claim belt for my booked flight and point out where it is located.",
+      "reason": "sequential without eligible adjacent H7 pair (e.g. DESC->LOC)",
+      "stage_a_id": "sa_0463"
+    }
+  ],
+  "L_second_pass_corrected_rows": [],
+  "M_ambiguous_ids": [],
+  "M_incompatible_ids": [],
+  "N_decoder_validation": {
+    "decoder_failure_count": 0,
+    "decoder_failures": [],
+    "decoder_valid_graph_count": 480
+  },
+  "O_legacy_120_unchanged": true,
+  "P_files_changed": [
+    "dataset\\planner\\stage_a_v2_step_b_annotations.jsonl",
+    "dataset\\planner\\stage_a_v2_step_b_audit_report.json",
+    "tiergraph/planner/stage_a_v2_step_b.py",
+    "tiergraph/planner/stage_a_v2_spec.py",
+    "tests/test_planner_phase5_stage_a_v2_step_b.py"
+  ],
+  "batch_errors": [],
+  "fingerprint": "d26612d4f563903e75ce087e370eda7b548ce09a6f9e44aea5211a2c3430abfe",
+  "legacy_step_b_path": "dataset\\planner\\stage_a_step_b_annotations.jsonl",
+  "method": "agent_assisted_rule_guided",
+  "output_path": "dataset\\planner\\stage_a_v2_step_b_annotations.jsonl",
+  "selection_path": "dataset\\planner\\stage_a_v2_final_selection.jsonl",
+  "step_a_path": "dataset\\planner\\stage_a_v2_step_a_annotations.jsonl",
+  "validation_errors": []
+}
