@@ -46,6 +46,9 @@ STAGE_A_V2_SPLIT_SEED: Final[int] = 20260901
 STAGE_A_V2_SELECTION_PATH: Final[Path] = Path(
     "dataset/planner/stage_a_v2_final_selection.jsonl"
 )
+STAGE_A_V2_SELECTION_REPORT_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_selection_report.json"
+)
 STAGE_A_V2_AUTHORED_CANDIDATES_PATH: Final[Path] = Path(
     "dataset/planner/stage_a_v2_authored_candidates.jsonl"
 )
@@ -59,6 +62,9 @@ STAGE_A_V2_AUTHORED_REVIEW_REPORT_PATH: Final[Path] = Path(
 # First-pass approval floors for NEW authored candidates (Todo 3B).
 STAGE_A_V2_AUTHORED_APPROVE_FLOOR_IMPLICIT: Final[int] = 72
 STAGE_A_V2_AUTHORED_APPROVE_FLOOR_SEQUENTIAL: Final[int] = 72
+STAGE_A_V2_NEW_PER_BUCKET: Final[int] = 72
+STAGE_A_V2_LEGACY_PER_BUCKET: Final[int] = 24
+STAGE_A_V2_SELECTION_SEED: Final[int] = 20260901
 
 # Soft-adjacent authored families: may train/dev but not publication test.
 # Checked by example_is_quarantined_for_publication_test (single eligibility path).
