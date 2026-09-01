@@ -29,7 +29,7 @@ from tiergraph.planner.batching import (
     build_gold_batch_from_examples,
 )
 from tiergraph.planner.encoder import DEFAULT_MINILM_MODEL, MiniLMFeatureEncoder
-from tiergraph.planner.loss import PlannerLossBreakdown, planner_loss
+from tiergraph.planner.loss import HEAD_KEYS, PlannerLossBreakdown, planner_loss
 from tiergraph.planner.model import PlannerHeadOutputs, PlannerModel, decode_bio_spans
 from tiergraph.planner.stage_a_split import (
     DEFAULT_DEV_SIZE,
@@ -56,7 +56,7 @@ from tiergraph.planner.stage_a_v2_split import regenerate_stage_a_v2_split_repor
 DEFAULT_LR = 1e-3
 DEFAULT_EPOCHS = 3
 DEFAULT_BATCH_SIZE = 8
-HEAD_KEYS = ("h1", "h2", "h3", "h4", "h5", "h6", "h7")
+HEAD_KEYS = HEAD_KEYS
 
 
 @dataclass(frozen=True, slots=True)
@@ -77,6 +77,14 @@ class TrainConfig:
     step_a_path: str = str(DEFAULT_STEP_A_ANNOTATIONS_PATH)
     step_b_path: str = str(DEFAULT_STEP_B_ANNOTATIONS_PATH)
     corpus_version: str = "v1"
+    disabled_heads: tuple[str, ...] = ()
+
+    def active_heads(self) -> frozenset[str]:
+        disabled = frozenset(self.disabled_heads)
+        unknown = disabled - frozenset(HEAD_KEYS)
+        if unknown:
+            raise ValueError(f"unknown disabled_heads: {sorted(unknown)}")
+        return frozenset(HEAD_KEYS) - disabled
 
     def to_dict(self) -> dict[str, Any]:
         return {key: str(value) if isinstance(value, Path) else value for key, value in asdict(self).items()}
@@ -359,13 +367,15 @@ def train_step(
     model: PlannerModel,
     optimizer: torch.optim.Optimizer,
     examples: Sequence[PlannerExample],
+    *,
+    active_heads: frozenset[str] | None = None,
 ) -> PlannerLossBreakdown:
     """One forward/backward/optimizer step on a gold batch."""
     model.train()
     assert_encoder_frozen(model)
     features, _token_views, gold = encode_gold_batch(model, examples)
     outputs = model.forward_train(features, gold)
-    breakdown = planner_loss(outputs, gold)
+    breakdown = planner_loss(outputs, gold, active_heads=active_heads)
     if not torch.isfinite(breakdown.total):
         raise RuntimeError(f"non-finite total loss: {breakdown.total.item()!r}")
     optimizer.zero_grad(set_to_none=True)
@@ -513,6 +523,7 @@ def evaluate_examples(
     batch_size: int,
     seed: int,
     max_batches: int | None = None,
+    active_heads: frozenset[str] | None = None,
 ) -> EvalMetrics:
     """Teacher-forced evaluation on gold structures (not free decode)."""
     model.eval()
@@ -531,7 +542,7 @@ def evaluate_examples(
         for batch in batches:
             features, token_views, gold = encode_gold_batch(model, batch)
             outputs = model.forward_train(features, gold)
-            breakdown = planner_loss(outputs, gold)
+            breakdown = planner_loss(outputs, gold, active_heads=active_heads)
             if not torch.isfinite(breakdown.total):
                 raise RuntimeError("non-finite eval loss")
             meter.update(breakdown)
@@ -867,7 +878,12 @@ def run_training(
             shuffle=True,
         )
         for batch in batches:
-            breakdown = train_step(model, optimizer, batch)
+            breakdown = train_step(
+                model,
+                optimizer,
+                batch,
+                active_heads=config.active_heads(),
+            )
             loss_value = float(breakdown.total.detach().item())
             if smoke_first_loss is None:
                 smoke_first_loss = loss_value
@@ -881,6 +897,7 @@ def run_training(
             batch_size=config.batch_size,
             seed=config.seed,
             max_batches=max_eval_batches,
+            active_heads=config.active_heads(),
         )
         epoch_record = {
             "epoch": epoch,

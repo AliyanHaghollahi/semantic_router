@@ -11,6 +11,8 @@ from tiergraph.planner.align import BIO_IGNORE
 from tiergraph.planner.batching import GoldStructureBatch
 from tiergraph.planner.model import PlannerHeadOutputs
 
+HEAD_KEYS: tuple[str, ...] = ("h1", "h2", "h3", "h4", "h5", "h6", "h7")
+
 
 @dataclass(frozen=True, slots=True)
 class PlannerLossBreakdown:
@@ -105,8 +107,15 @@ def _masked_bce(
 def planner_loss(
     outputs: PlannerHeadOutputs,
     gold: GoldStructureBatch,
+    *,
+    active_heads: frozenset[str] | None = None,
 ) -> PlannerLossBreakdown:
     """Equal-weight multi-task loss. Empty heads contribute scalar 0, never NaN."""
+    active = active_heads or frozenset(HEAD_KEYS)
+    unknown = active - frozenset(HEAD_KEYS)
+    if unknown:
+        raise ValueError(f"unknown active_heads: {sorted(unknown)}")
+
     h1 = F.cross_entropy(outputs.query_type_logits, gold.query_type_labels)
     h2 = _masked_token_ce(
         outputs.op_bio_logits,
@@ -129,7 +138,16 @@ def planner_loss(
     # Use gold dep_mask (already excludes ineligible / mandatory / pad).
     h7 = _masked_bce(outputs.dep_logits, gold.dep_labels, gold.dep_mask)
 
-    total = h1 + h2 + h3 + h4 + h5 + h6 + h7
+    per_head = {
+        "h1": h1,
+        "h2": h2,
+        "h3": h3,
+        "h4": h4,
+        "h5": h5,
+        "h6": h6,
+        "h7": h7,
+    }
+    total = sum(per_head[key] for key in HEAD_KEYS if key in active)
     return PlannerLossBreakdown(
         total=total,
         h1=h1,
@@ -143,6 +161,7 @@ def planner_loss(
 
 
 __all__ = [
+    "HEAD_KEYS",
     "PlannerLossBreakdown",
     "planner_loss",
 ]

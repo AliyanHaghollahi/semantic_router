@@ -230,6 +230,8 @@ class FreeEvalCounters:
     h7_fn: int = 0
     mode_correct: int = 0
     mode_total: int = 0
+    mode_correct_all: int = 0
+    mode_total_all: int = 0
     decode_failures: Counter = field(default_factory=Counter)
     failure_examples: list = field(default_factory=list)
 
@@ -258,7 +260,8 @@ class FreeEvalMetrics:
     h7_precision_span_aligned: float
     h7_recall_span_aligned: float
     h7_f1_span_aligned: float
-    execution_mode_accuracy: float
+    execution_mode_accuracy_valid_only: float
+    execution_mode_accuracy_all_examples: float
     decode_failure_counts: dict[str, int]
     decode_failure_examples: tuple[dict[str, str], ...]
     n_valid_graphs: int
@@ -292,7 +295,13 @@ class FreeEvalMetrics:
             "h7_precision_span_aligned": self.h7_precision_span_aligned,
             "h7_recall_span_aligned": self.h7_recall_span_aligned,
             "h7_f1_span_aligned": self.h7_f1_span_aligned,
-            "execution_mode_accuracy": self.execution_mode_accuracy,
+            "execution_mode_accuracy_valid_only": (
+                self.execution_mode_accuracy_valid_only
+            ),
+            "execution_mode_accuracy_all_examples": (
+                self.execution_mode_accuracy_all_examples
+            ),
+            "execution_mode_accuracy": self.execution_mode_accuracy_valid_only,
             "decode_failure_counts": dict(self.decode_failure_counts),
             "decode_failure_examples": list(self.decode_failure_examples),
             "note": (
@@ -417,6 +426,9 @@ def _accumulate_example(
     if predictions.aux_query_type is example.graph.query_type:
         counters.h1_correct += 1
 
+    gold_mode = execution_mode_from_graph(example.graph)
+    counters.mode_total_all += 1
+
     try:
         decoded = decoder.decode(
             predictions,
@@ -443,10 +455,12 @@ def _accumulate_example(
     if graphs_exactly_match(decoded.graph, example.graph):
         counters.n_canonical_exact += 1
 
+    pred_mode = execution_mode_from_graph(decoded.graph)
+    if pred_mode == gold_mode:
+        counters.mode_correct_all += 1
+
     counters.mode_total += 1
-    if execution_mode_from_graph(decoded.graph) == execution_mode_from_graph(
-        example.graph
-    ):
+    if pred_mode == gold_mode:
         counters.mode_correct += 1
 
 
@@ -495,9 +509,14 @@ def _finalize(counters: FreeEvalCounters) -> FreeEvalMetrics:
         h7_precision_span_aligned=h7_p,
         h7_recall_span_aligned=h7_r,
         h7_f1_span_aligned=h7_f,
-        execution_mode_accuracy=(
+        execution_mode_accuracy_valid_only=(
             counters.mode_correct / counters.mode_total
             if counters.mode_total
+            else 0.0
+        ),
+        execution_mode_accuracy_all_examples=(
+            counters.mode_correct_all / counters.mode_total_all
+            if counters.mode_total_all
             else 0.0
         ),
         decode_failure_counts=dict(counters.decode_failures),

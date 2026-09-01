@@ -74,6 +74,12 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
+        "--disable-heads",
+        type=str,
+        default="",
+        help="comma-separated heads to exclude from loss (e.g. h5,h6,h7)",
+    )
+    parser.add_argument(
         "--v2",
         action="store_true",
         help="use Stage-A v2 corpus (480 examples, frozen 384/48/48 split)",
@@ -85,6 +91,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="require this Stage-A split fingerprint (empty string disables)",
     )
     return parser
+
+
+def _parse_disabled_heads(raw: str) -> tuple[str, ...]:
+    if not raw.strip():
+        return ()
+    return tuple(part.strip().lower() for part in raw.split(",") if part.strip())
 
 
 def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainConfig]:
@@ -106,6 +118,7 @@ def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainCo
             corpus_version="v2",
             step_a_path=str(STAGE_A_V2_STEP_A_PATH),
             step_b_path=str(STAGE_A_V2_STEP_B_PATH),
+            disabled_heads=_parse_disabled_heads(args.disable_heads),
         )
     else:
         expected = (
@@ -121,6 +134,7 @@ def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainCo
             device=args.device,
             output_dir=str(args.output_dir),
             smoke=bool(args.smoke),
+            disabled_heads=_parse_disabled_heads(args.disable_heads),
         )
     if expected == "":
         expected = None

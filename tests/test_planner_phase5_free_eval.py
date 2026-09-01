@@ -185,6 +185,24 @@ def test_malformed_prediction_counts_decoder_failure():
     assert classify_decode_error("at least one explicit operation is required") == (
         "no_operations"
     )
+    assert metrics.execution_mode_accuracy_all_examples == 0.0
+    assert metrics.execution_mode_accuracy_valid_only == 0.0
+
+
+def test_execution_mode_all_examples_denominator_includes_decode_failures():
+    example = _load_fixture()
+    good = _gold_predictions(example)
+    bad = PlannerPredictions(
+        operations=(),
+        anchors=(),
+        dependency_pairs=frozenset(),
+        aux_query_type=QueryType.MIXED,
+    )
+    metrics = evaluate_free_predictions([(example, good), (example, bad)])
+    assert metrics.n_examples == 2
+    assert metrics.valid_graph_rate == 0.5
+    assert metrics.execution_mode_accuracy_valid_only == 1.0
+    assert metrics.execution_mode_accuracy_all_examples == 0.5
 
 
 def test_canonical_exact_match_id_invariant():
