@@ -38,6 +38,9 @@ STAGE_A_V2_TRAIN_SIZE: Final[int] = 384
 STAGE_A_V2_DEV_SIZE: Final[int] = 48
 STAGE_A_V2_TEST_SIZE: Final[int] = 48
 STAGE_A_V2_SPLIT_SEED: Final[int] = 20260901
+STAGE_A_V2_SPLIT_FINGERPRINT: Final[str] = (
+    "ad221c67fb08290582f863bad682e88d1de7bfd1e127c790aee868030229cd10"
+)
 
 # ---------------------------------------------------------------------------
 # Paths (v2 selection reserved; v1 refs read-only for freeze checks)

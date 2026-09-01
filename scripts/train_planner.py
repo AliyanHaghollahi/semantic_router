@@ -12,6 +12,12 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from tiergraph.planner.stage_a_split import DEFAULT_SPLIT_SEED
+from tiergraph.planner.stage_a_v2_spec import (
+    STAGE_A_V2_SPLIT_FINGERPRINT,
+    STAGE_A_V2_SPLIT_SEED,
+    STAGE_A_V2_STEP_A_PATH,
+    STAGE_A_V2_STEP_B_PATH,
+)
 from tiergraph.planner.train import (
     DEFAULT_BATCH_SIZE,
     DEFAULT_EPOCHS,
@@ -19,6 +25,7 @@ from tiergraph.planner.train import (
     EXPECTED_STAGE_A_SPLIT_FINGERPRINT,
     TrainConfig,
     evaluate_checkpoint,
+    load_and_split_for_config,
     run_training,
 )
 
@@ -67,28 +74,77 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
+        "--v2",
+        action="store_true",
+        help="use Stage-A v2 corpus (480 examples, frozen 384/48/48 split)",
+    )
+    parser.add_argument(
         "--expected-fingerprint",
         type=str,
-        default=EXPECTED_STAGE_A_SPLIT_FINGERPRINT,
+        default=None,
         help="require this Stage-A split fingerprint (empty string disables)",
     )
     return parser
 
 
+def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainConfig]:
+    if args.v2:
+        expected = (
+            args.expected_fingerprint
+            if args.expected_fingerprint is not None
+            else STAGE_A_V2_SPLIT_FINGERPRINT
+        )
+        seed = args.seed if args.seed != DEFAULT_SPLIT_SEED else STAGE_A_V2_SPLIT_SEED
+        config = TrainConfig(
+            seed=seed,
+            epochs=args.epochs,
+            batch_size=args.batch_size,
+            lr=args.lr,
+            device=args.device,
+            output_dir=str(args.output_dir),
+            smoke=bool(args.smoke),
+            corpus_version="v2",
+            step_a_path=str(STAGE_A_V2_STEP_A_PATH),
+            step_b_path=str(STAGE_A_V2_STEP_B_PATH),
+        )
+    else:
+        expected = (
+            args.expected_fingerprint
+            if args.expected_fingerprint is not None
+            else EXPECTED_STAGE_A_SPLIT_FINGERPRINT
+        )
+        config = TrainConfig(
+            seed=args.seed,
+            epochs=args.epochs,
+            batch_size=args.batch_size,
+            lr=args.lr,
+            device=args.device,
+            output_dir=str(args.output_dir),
+            smoke=bool(args.smoke),
+        )
+    if expected == "":
+        expected = None
+    return expected, config
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    expected, config = _resolve_cli_defaults(args)
     if args.eval_only:
         if args.checkpoint is None:
             print("ERROR: --eval-only requires --checkpoint", file=sys.stderr)
             return 2
-        expected = args.expected_fingerprint or None
+        split = None
+        if args.v2:
+            split, _before_a, _before_b = load_and_split_for_config(config)
         result = evaluate_checkpoint(
             args.checkpoint,
             split_name=args.split,
-            seed=args.seed,
+            seed=config.seed,
             device=args.device,
-            batch_size=args.batch_size,
+            batch_size=config.batch_size,
             expected_fingerprint=expected,
+            split=split,
             eval_mode=args.eval_mode,
         )
         print("mode: eval-only")
@@ -105,15 +161,6 @@ def main(argv: list[str] | None = None) -> int:
         print("metrics:", json.dumps(result.metrics.to_dict(), sort_keys=True))
         return 0
 
-    config = TrainConfig(
-        seed=args.seed,
-        epochs=args.epochs,
-        batch_size=args.batch_size,
-        lr=args.lr,
-        device=args.device,
-        output_dir=str(args.output_dir),
-        smoke=bool(args.smoke),
-    )
     print("config:", json.dumps(config.to_dict(), sort_keys=True))
     result = run_training(config)
     print(f"device: {config.device}")
@@ -127,6 +174,12 @@ def main(argv: list[str] | None = None) -> int:
         print(f"smoke_last_loss: {result.smoke_last_loss:.6f}")
     if result.best_dev_metrics is not None:
         print("best_dev:", json.dumps(result.best_dev_metrics, sort_keys=True))
+    if result.history:
+        best_epoch = min(
+            range(len(result.history)),
+            key=lambda index: result.history[index]["dev"]["mean_loss"]["total"],
+        )
+        print(f"best_epoch: {best_epoch}")
     print(f"checkpoint: {result.checkpoint_path}")
     return 0
 

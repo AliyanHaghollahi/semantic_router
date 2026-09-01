@@ -40,6 +40,17 @@ from tiergraph.planner.stage_a_split import (
     group_holdout_split,
 )
 from tiergraph.planner.stage_a_to_corpus import load_stage_a_planner_examples
+from tiergraph.planner.stage_a_v2_spec import (
+    STAGE_A_V2_CORPUS_SIZE,
+    STAGE_A_V2_DEV_SIZE,
+    STAGE_A_V2_SPLIT_FINGERPRINT,
+    STAGE_A_V2_SPLIT_SEED,
+    STAGE_A_V2_STEP_A_PATH,
+    STAGE_A_V2_STEP_B_PATH,
+    STAGE_A_V2_TEST_SIZE,
+    STAGE_A_V2_TRAIN_SIZE,
+)
+from tiergraph.planner.stage_a_v2_split import regenerate_stage_a_v2_split_report
 
 
 DEFAULT_LR = 1e-3
@@ -65,6 +76,7 @@ class TrainConfig:
     encoder_model_name: str = DEFAULT_MINILM_MODEL
     step_a_path: str = str(DEFAULT_STEP_A_ANNOTATIONS_PATH)
     step_b_path: str = str(DEFAULT_STEP_B_ANNOTATIONS_PATH)
+    corpus_version: str = "v1"
 
     def to_dict(self) -> dict[str, Any]:
         return {key: str(value) if isinstance(value, Path) else value for key, value in asdict(self).items()}
@@ -208,6 +220,55 @@ def load_and_split_stage_a(
         before_b=before_b,
     )
     return split, before_a, before_b
+
+
+def load_and_split_stage_a_v2(
+    config: TrainConfig,
+) -> tuple[StageASplitResult, tuple[int, str], tuple[int, str]]:
+    """Load 480 v2 examples and apply the frozen publication split."""
+    step_a_path = Path(config.step_a_path)
+    step_b_path = Path(config.step_b_path)
+    before_a = fingerprint_file(step_a_path)
+    before_b = fingerprint_file(step_b_path)
+    result = regenerate_stage_a_v2_split_report(
+        step_a_path=step_a_path,
+        step_b_path=step_b_path,
+        seed=STAGE_A_V2_SPLIT_SEED,
+    )
+    if (
+        len(result.train) != STAGE_A_V2_TRAIN_SIZE
+        or len(result.dev) != STAGE_A_V2_DEV_SIZE
+        or len(result.test) != STAGE_A_V2_TEST_SIZE
+    ):
+        raise RuntimeError(
+            f"unexpected v2 split sizes train={len(result.train)} "
+            f"dev={len(result.dev)} test={len(result.test)}"
+        )
+    if len(result.train) + len(result.dev) + len(result.test) != STAGE_A_V2_CORPUS_SIZE:
+        raise RuntimeError(
+            f"expected {STAGE_A_V2_CORPUS_SIZE} examples across splits, "
+            f"got {len(result.train) + len(result.dev) + len(result.test)}"
+        )
+    if result.fingerprint != STAGE_A_V2_SPLIT_FINGERPRINT:
+        raise RuntimeError(
+            "v2 split fingerprint mismatch: "
+            f"got {result.fingerprint}, expected {STAGE_A_V2_SPLIT_FINGERPRINT}"
+        )
+    assert_annotations_unchanged(
+        step_a_path=step_a_path,
+        step_b_path=step_b_path,
+        before_a=before_a,
+        before_b=before_b,
+    )
+    return result, before_a, before_b
+
+
+def load_and_split_for_config(
+    config: TrainConfig,
+) -> tuple[StageASplitResult, tuple[int, str], tuple[int, str]]:
+    if config.corpus_version == "v2":
+        return load_and_split_stage_a_v2(config)
+    return load_and_split_stage_a(config)
 
 
 def head_parameters(model: PlannerModel) -> list[nn.Parameter]:
@@ -663,7 +724,7 @@ def evaluate_checkpoint(
     set_seed(config.seed)
 
     if split is None:
-        split, _before_a, _before_b = load_and_split_stage_a(config)
+        split, _before_a, _before_b = load_and_split_for_config(config)
     if expected_fingerprint is not None and split.fingerprint != expected_fingerprint:
         raise RuntimeError(
             "split fingerprint mismatch: "
@@ -674,10 +735,16 @@ def evaluate_checkpoint(
         "dev": split.dev,
         "test": split.test,
     }[split_name]
-    if split_name == "test" and len(examples) != DEFAULT_TEST_SIZE:
-        raise RuntimeError(
-            f"expected {DEFAULT_TEST_SIZE} test examples, got {len(examples)}"
-        )
+    expected_test_sizes = {
+        EXPECTED_STAGE_A_SPLIT_FINGERPRINT: DEFAULT_TEST_SIZE,
+        STAGE_A_V2_SPLIT_FINGERPRINT: STAGE_A_V2_TEST_SIZE,
+    }
+    if split_name == "test" and expected_fingerprint in expected_test_sizes:
+        expected_n = expected_test_sizes[expected_fingerprint]
+        if len(examples) != expected_n:
+            raise RuntimeError(
+                f"expected {expected_n} test examples, got {len(examples)}"
+            )
 
     if model is None:
         model = build_model(config)
@@ -758,7 +825,7 @@ def run_training(
     step_a_path = Path(config.step_a_path)
     step_b_path = Path(config.step_b_path)
     if split is None:
-        split, before_a, before_b = load_and_split_stage_a(config)
+        split, before_a, before_b = load_and_split_for_config(config)
     else:
         if annotation_fingerprints is None:
             before_a = fingerprint_file(step_a_path)
@@ -902,6 +969,7 @@ __all__ = [
     "DEFAULT_EPOCHS",
     "DEFAULT_LR",
     "EXPECTED_STAGE_A_SPLIT_FINGERPRINT",
+    "STAGE_A_V2_SPLIT_FINGERPRINT",
     "CheckpointEvalResult",
     "EvalMetrics",
     "LossMeter",
@@ -921,6 +989,8 @@ __all__ = [
     "head_parameters",
     "iter_example_batches",
     "load_and_split_stage_a",
+    "load_and_split_stage_a_v2",
+    "load_and_split_for_config",
     "load_checkpoint",
     "run_training",
     "save_checkpoint",
