@@ -377,4 +377,4 @@ def test_v2_paths_are_separate_from_v1():
     assert (ROOT / STAGE_A_V1_STEP_B_PATH).is_file()
     assert "v2" in STAGE_A_V2_SELECTION_PATH.name
     assert STAGE_A_V2_SELECTION_PATH != STAGE_A_V1_SELECTION_PATH
-    assert not (ROOT / STAGE_A_V2_SELECTION_PATH).exists()
+    assert STAGE_A_V2_SELECTION_PATH.name == "stage_a_v2_final_selection.jsonl"

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 from pathlib import Path
@@ -53,6 +54,10 @@ FROZEN_V1 = (
 )
 
 
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 @pytest.fixture(scope="module")
 def reviewed_batch():
     return build_authored_reviews()
@@ -71,8 +76,16 @@ def test_v1_frozen_unchanged():
         assert diff.stdout == ""
 
 
-def test_no_final_selection_created():
-    assert not (ROOT / STAGE_A_V2_SELECTION_PATH).exists()
+def test_review_writer_does_not_mutate_v2_selection():
+    """Todo-3B review write must not mutate the Todo-4 frozen selection artifact."""
+    assert STAGE_A_V2_SELECTION_PATH.name == "stage_a_v2_final_selection.jsonl"
+    assert STAGE_A_V2_SELECTION_PATH != STAGE_A_V1_SELECTION_PATH
+    selection_path = ROOT / STAGE_A_V2_SELECTION_PATH
+    assert selection_path.is_file()
+    before = _sha256_file(selection_path)
+    write_authored_reviews()
+    after = _sha256_file(selection_path)
+    assert after == before
 
 
 def test_review_status_validity():

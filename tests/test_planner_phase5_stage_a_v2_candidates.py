@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 from pathlib import Path
@@ -17,6 +18,7 @@ from tiergraph.planner.stage_a_v2_candidates import (
     build_candidate_inventory,
     load_v1_frozen_index,
     validate_candidate_row,
+    write_candidate_inventory,
 )
 from tiergraph.planner.stage_a_v2_spec import (
     STAGE_A_V1_SELECTION_PATH,
@@ -35,6 +37,10 @@ FROZEN_V1_PATHS = (
     STAGE_A_V1_STEP_A_PATH,
     STAGE_A_V1_STEP_B_PATH,
 )
+
+
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 @pytest.fixture(scope="module")
@@ -64,8 +70,16 @@ def test_v1_frozen_files_unchanged():
         assert untracked.stdout.strip() == ""
 
 
-def test_no_final_selection_artifact_created():
-    assert not (ROOT / STAGE_A_V2_SELECTION_PATH).exists()
+def test_inventory_writer_does_not_mutate_v2_selection():
+    """Todo-2 inventory must not mutate the Todo-4 frozen selection artifact."""
+    assert STAGE_A_V2_SELECTION_PATH.name == "stage_a_v2_final_selection.jsonl"
+    assert STAGE_A_V2_SELECTION_PATH != STAGE_A_V1_SELECTION_PATH
+    selection_path = ROOT / STAGE_A_V2_SELECTION_PATH
+    assert selection_path.is_file()
+    before = _sha256_file(selection_path)
+    write_candidate_inventory()
+    after = _sha256_file(selection_path)
+    assert after == before
 
 
 def test_no_duplicate_normalized_query_against_frozen_v1(inventory):
