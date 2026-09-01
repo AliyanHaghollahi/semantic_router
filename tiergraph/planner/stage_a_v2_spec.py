@@ -78,6 +78,15 @@ STAGE_A_V2_STEP_B_PATH: Final[Path] = Path(
 STAGE_A_V2_STEP_B_REPORT_PATH: Final[Path] = Path(
     "dataset/planner/stage_a_v2_step_b_audit_report.json"
 )
+STAGE_A_V2_SPLIT_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_split.jsonl"
+)
+STAGE_A_V2_SPLIT_REPORT_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_split_report.json"
+)
+STAGE_A_V2_TEST_IDS_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_test_ids.json"
+)
 
 # Soft-adjacent authored families: may train/dev but not publication test.
 # Checked by example_is_quarantined_for_publication_test (single eligibility path).
