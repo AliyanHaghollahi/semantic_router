@@ -198,6 +198,29 @@ def test_load_planner_for_physical_pilot_strict(tmp_path: Path, monkeypatch):
     assert loaded.hidden_size == 8
 
 
+def test_learned_planner_checkpoint_metadata(tmp_path: Path):
+    from scripts.run_end_to_end_tiergraph_pilot import (
+        PI_CHECKPOINT_DEST,
+        describe_learned_planner_checkpoint,
+    )
+
+    checkpoint = tmp_path / "best.pt"
+    checkpoint.write_bytes(b"fake-checkpoint")
+    metadata = describe_learned_planner_checkpoint(
+        ROOT,
+        checkpoint_path=checkpoint,
+    )
+    assert metadata["used_in_current_pilot"] is True
+    assert metadata["required_for_this_pilot"] is True
+    assert metadata["checkpoint_used"] == str(checkpoint)
+    assert metadata["exists_on_this_device"] is True
+    assert "Learned H1-H7" in metadata["note"]
+    assert "gold DEV example.graph" in metadata["note"]
+    assert PI_CHECKPOINT_DEST in metadata["transfer_command_example"]
+    assert "semantic_router_tiergraph" in metadata["transfer_command_example"]
+    assert "semantic_router_current" not in metadata["transfer_command_example"]
+
+
 def test_preflight_learned_script_offline(tmp_path: Path):
     async def _run() -> None:
         from scripts.run_end_to_end_tiergraph_pilot import run_preflight
@@ -209,6 +232,12 @@ def test_preflight_learned_script_offline(tmp_path: Path):
         )
         assert result["pilot_mode"] == "learned_h1_h7_predicted_graph"
         assert result["graph_source"]["graph_source"] == GRAPH_SOURCE_LEARNED
+        checkpoint_meta = result["planner_checkpoint"]
+        assert checkpoint_meta["used_in_current_pilot"] is True
+        assert checkpoint_meta["required_for_this_pilot"] is True
+        assert "Learned H1-H7" in checkpoint_meta["note"]
+        assert "semantic_router_tiergraph" in checkpoint_meta["transfer_command_example"]
+        assert "gold graphs" not in checkpoint_meta["note"].lower()
 
     asyncio.run(_run())
 

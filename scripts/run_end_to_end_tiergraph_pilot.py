@@ -54,6 +54,41 @@ EDGE_URL = PI_EDGE_URL
 FOG_URL = PI_FOG_URL
 EDGE_MODEL = PI_EDGE_MODEL
 FOG_MODEL = PI_FOG_MODEL
+PI_CHECKPOINT_DEST = "~/semantic_router_tiergraph/artifacts/planner_v2_run1/best.pt"
+
+
+def describe_learned_planner_checkpoint(
+    repo_root: Path,
+    *,
+    checkpoint_path: Path,
+) -> dict[str, Any]:
+    """Checkpoint metadata for the learned H1-H7 end-to-end pilot."""
+    base = describe_planner_checkpoint(repo_root)
+    resolved_checkpoint = checkpoint_path if checkpoint_path.is_absolute() else repo_root / checkpoint_path
+    payload = {
+        **base,
+        "used_in_current_pilot": True,
+        "required_for_this_pilot": True,
+        "checkpoint_used": str(checkpoint_path),
+        "exists_on_this_device": resolved_checkpoint.is_file(),
+        "encoder_model": "sentence-transformers/all-MiniLM-L6-v2",
+        "max_length": 128,
+        "load_strict": True,
+        "device": "cpu",
+        "transfer_command_example": (
+            "scp artifacts/planner_v2_run1/best.pt "
+            f"aliyan@172.20.10.9:{PI_CHECKPOINT_DEST}"
+        ),
+        "note": (
+            "Learned H1-H7 planner checkpoint is loaded on Raspberry Pi CPU for "
+            "predict_execution_graph(); execution graphs are decoded from model "
+            "predictions, not gold DEV example.graph."
+        ),
+    }
+    if resolved_checkpoint.is_file():
+        payload["size_bytes"] = resolved_checkpoint.stat().st_size
+        payload["absolute_path"] = str(resolved_checkpoint.resolve())
+    return payload
 
 
 async def execute_learned_trial(
@@ -116,7 +151,10 @@ async def run_learned_pilot(
 
     topology = build_pi_topology()
     graph_source = describe_learned_graph_source()
-    planner_checkpoint = describe_planner_checkpoint(ROOT)
+    planner_checkpoint = describe_learned_planner_checkpoint(
+        ROOT,
+        checkpoint_path=checkpoint_path,
+    )
     deployment_locations = build_learned_deployment_locations(
         checkpoint_path=str(checkpoint_path),
     )
@@ -227,14 +265,7 @@ async def run_learned_pilot(
         },
         "deployment_locations": deployment_locations,
         "graph_source": graph_source,
-        "planner_checkpoint": {
-            **planner_checkpoint,
-            "checkpoint_used": str(checkpoint_path),
-            "encoder_model": "sentence-transformers/all-MiniLM-L6-v2",
-            "max_length": 128,
-            "load_strict": True,
-            "device": "cpu",
-        },
+        "planner_checkpoint": planner_checkpoint,
         "topology": topology,
         "endpoint_checks": endpoint_checks,
         "warmup": warmup,
@@ -291,9 +322,10 @@ async def run_preflight(
     result["deployment_locations"] = build_learned_deployment_locations(
         checkpoint_path=str(checkpoint_path),
     )
-    result["planner_checkpoint"]["checkpoint_used"] = str(checkpoint_path)
-    result["planner_checkpoint"]["required_for_this_pilot"] = True
-    result["planner_checkpoint"]["exists_on_this_device"] = checkpoint_path.is_file()
+    result["planner_checkpoint"] = describe_learned_planner_checkpoint(
+        ROOT,
+        checkpoint_path=checkpoint_path,
+    )
     out_path = output_dir / "end_to_end_tiergraph_preflight.json"
     out_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     result["preflight_report"] = str(out_path)
