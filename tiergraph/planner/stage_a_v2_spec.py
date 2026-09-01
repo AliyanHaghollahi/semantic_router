@@ -66,6 +66,13 @@ STAGE_A_V2_NEW_PER_BUCKET: Final[int] = 72
 STAGE_A_V2_LEGACY_PER_BUCKET: Final[int] = 24
 STAGE_A_V2_SELECTION_SEED: Final[int] = 20260901
 
+STAGE_A_V2_STEP_A_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_step_a_annotations.jsonl"
+)
+STAGE_A_V2_STEP_A_REPORT_PATH: Final[Path] = Path(
+    "dataset/planner/stage_a_v2_step_a_audit_report.json"
+)
+
 # Soft-adjacent authored families: may train/dev but not publication test.
 # Checked by example_is_quarantined_for_publication_test (single eligibility path).
 PUBLICATION_TEST_INELIGIBLE_AUTHORED_FAMILIES: Final[frozenset[str]] = frozenset(

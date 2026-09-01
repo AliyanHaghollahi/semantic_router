@@ -1,0 +1,519 @@
+{
+  "ambiguous_count": 0,
+  "ambiguous_rows": [],
+  "authored_operator_mismatches": [
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_allergy_menu_safe_01",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is this plated dish safe given my shellfish allergy profile?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0265"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_allergy_menu_safe_02",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Would this dessert trigger the peanut allergy saved in my profile?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0266"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_allergy_menu_safe_03",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is this soup compatible with my lactose intolerance record?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0267"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_allergy_menu_safe_04",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Does this sandwich contain anything flagged in my gluten-restriction profile?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0268"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_allergy_menu_safe_05",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is this salad dressing safe for my tree-nut allergy list?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0269"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_appointment_entrance_cue_01",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is this glass doorway the entrance for my cardiology appointment?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0270"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_appointment_entrance_cue_02",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Does this lobby door lead to the clinic listed on my appointment?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0271"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_appointment_entrance_cue_03",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is this side entrance the one my dermatology visit says to use?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0272"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_appointment_entrance_cue_04",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Does this numbered door match the building entrance for my therapy session?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0273"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_appointment_entrance_cue_05",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is this revolving door the arrival point saved for my specialist visit?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0274"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_boarding_pass_gate_board_01",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Does this gate board show the gate printed on my boarding pass?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0275"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_boarding_pass_gate_board_02",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is this departure screen listing the flight on my boarding pass?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0276"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_boarding_pass_gate_board_03",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Does this boarding-zone sign match the zone on my boarding pass?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0277"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_boarding_pass_gate_board_04",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is this jet-bridge entrance the gate shown on my boarding pass?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0278"
+    },
+    {
+      "annotated_operators": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "candidate_id": "auth_v2_my_boarding_pass_gate_board_05",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=DESCRIBE_ENVIRONMENT"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL",
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Does this flight status panel match the itinerary on my boarding pass?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0279"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_dietary_restriction_dish_01",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "query": "Does this stew respect the vegetarian restriction in my profile?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0285"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_dietary_restriction_dish_02",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "query": "Is this curry compatible with the halal preference saved for me?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0286"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_dietary_restriction_dish_03",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "query": "Would this broth violate the low-sodium limit in my dietary profile?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0287"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_dietary_restriction_dish_04",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "query": "Does this pastry fit the egg-free restriction listed under my account?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0288"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_dietary_restriction_dish_05",
+      "flags": [
+        "operator_hint_mismatch:hint=DESCRIBE_ENVIRONMENT:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "query": "Is this side dish compliant with the vegan diet stored in my profile?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0289"
+    },
+    {
+      "annotated_operators": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "candidate_id": "auth_v2_my_hotel_room_key_panel_04",
+      "flags": [
+        "operator_hint_mismatch:hint=IDENTIFY_ENVIRONMENTAL:annotated=DESCRIBE_ENVIRONMENT"
+      ],
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL",
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Does this hallway plaque match the room number on my hotel reservation?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0293"
+    },
+    {
+      "annotated_operators": [
+        "DESCRIBE_ENVIRONMENT"
+      ],
+      "candidate_id": "auth_v2_my_medication_scene_match_03",
+      "flags": [
+        "operator_hint_mismatch:hint=IDENTIFY_ENVIRONMENTAL:annotated=DESCRIBE_ENVIRONMENT"
+      ],
+      "operator_family": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "query": "Is the blister pack in my hand the prescription refill listed in my profile?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0302"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_order_pickup_window_01",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Is this counter the pickup window for my online order?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0310"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_order_pickup_window_02",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Does this numbered hatch match the pickup location for my takeout?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0311"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_order_pickup_window_04",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Does this bag rack correspond to the pickup spot for my cafe order?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0313"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_order_pickup_window_05",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Is this will-call desk the pickup point listed for my pharmacy order?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0314"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_package_locker_bank_01",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Is this locker bank where my delivery package should be retrieved?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0315"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_package_locker_bank_02",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Does this parcel locker match the pickup code sent for my shipment?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0316"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_package_locker_bank_03",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Is this Amazon locker the unit linked to my delivery notice?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0317"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_package_locker_bank_04",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Does this outdoor locker wall hold the package listed in my account?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0318"
+    },
+    {
+      "annotated_operators": [
+        "IDENTIFY_ENVIRONMENTAL"
+      ],
+      "candidate_id": "auth_v2_my_package_locker_bank_05",
+      "flags": [
+        "operator_hint_mismatch:hint=LOCATE_ENVIRONMENTAL:annotated=IDENTIFY_ENVIRONMENTAL"
+      ],
+      "operator_family": [
+        "LOCATE_ENVIRONMENTAL"
+      ],
+      "query": "Is this apartment mailroom locker the one assigned for my parcel?",
+      "reason": "surface semantics preferred over authored operator_family hint",
+      "stage_a_id": "sa_0319"
+    }
+  ],
+  "batch_errors": [],
+  "complete_count": 480,
+  "fingerprint": "501ca403a8891999eef1153c570ac5e1b9c90fc2e52e9d4524778ee6c284549d",
+  "legacy_copied": 120,
+  "legacy_step_a_path": "dataset\\planner\\stage_a_step_a_annotations.jsonl",
+  "method": "agent_assisted_rule_guided",
+  "new_agent_assisted": 360,
+  "ontology_blocked_count": 0,
+  "ontology_blocked_rows": [],
+  "operator_counts": {
+    "DESCRIBE_ENVIRONMENT": 140,
+    "IDENTIFY_ENVIRONMENTAL": 290,
+    "LOCATE_ENVIRONMENTAL": 82,
+    "NAVIGATE_TO": 32,
+    "RETRIEVE_PERSONAL": 125
+  },
+  "output_path": "dataset\\planner\\stage_a_v2_step_a_annotations.jsonl",
+  "rows_with_multiple_anchors": 199,
+  "rows_with_multiple_operations": 179,
+  "second_pass_fixes": [],
+  "selection_path": "dataset\\planner\\stage_a_v2_final_selection.jsonl",
+  "semantic_correction_log": [],
+  "status_counts": {
+    "COMPLETE": 480
+  },
+  "step_b_not_started": true,
+  "total_anchors": 710,
+  "total_explicit_operations": 669,
+  "total_rows": 480,
+  "v1_files_unchanged": true,
+  "validation_errors": [],
+  "validation_failures_corrected_during_second_pass": []
+}
