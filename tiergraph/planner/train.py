@@ -30,7 +30,12 @@ from tiergraph.planner.batching import (
 )
 from tiergraph.planner.encoder import DEFAULT_MINILM_MODEL, MiniLMFeatureEncoder
 from tiergraph.planner.loss import HEAD_KEYS, PlannerLossBreakdown, planner_loss
-from tiergraph.planner.model import PlannerHeadOutputs, PlannerModel, decode_bio_spans
+from tiergraph.planner.model import (
+    BIO_DECODE_MODES,
+    PlannerHeadOutputs,
+    PlannerModel,
+    decode_bio_spans,
+)
 from tiergraph.planner.stage_a_split import (
     DEFAULT_DEV_SIZE,
     DEFAULT_SPLIT_SEED,
@@ -78,6 +83,7 @@ class TrainConfig:
     step_b_path: str = str(DEFAULT_STEP_B_ANNOTATIONS_PATH)
     corpus_version: str = "v1"
     disabled_heads: tuple[str, ...] = ()
+    bio_decode_mode: str = "argmax"
 
     def active_heads(self) -> frozenset[str]:
         disabled = frozenset(self.disabled_heads)
@@ -715,11 +721,14 @@ def evaluate_checkpoint(
     model: PlannerModel | None = None,
     split: StageASplitResult | None = None,
     eval_mode: str = "teacher-forced",
+    bio_decode_mode: str | None = None,
 ) -> CheckpointEvalResult:
     """Load a head checkpoint and evaluate one split.
 
     ``eval_mode='teacher-forced'`` uses gold structures (unchanged).
     ``eval_mode='free'`` uses ``predict_structures`` → ``GraphDecoder``.
+    ``bio_decode_mode`` applies only to free evaluation (default: config /
+    ``argmax``). Teacher-forced metrics and checkpoint selection are unchanged.
     """
     if split_name not in {"train", "dev", "test"}:
         raise ValueError(f"split_name must be train/dev/test, got {split_name!r}")
@@ -769,6 +778,14 @@ def evaluate_checkpoint(
         )
     assert_encoder_frozen(model)
 
+    free_bio_mode = (
+        bio_decode_mode if bio_decode_mode is not None else config.bio_decode_mode
+    )
+    if free_bio_mode not in BIO_DECODE_MODES:
+        raise ValueError(
+            f"bio_decode_mode must be one of {BIO_DECODE_MODES}, got {free_bio_mode!r}"
+        )
+
     if eval_mode == "teacher-forced":
         metrics: EvalMetrics | Any = evaluate_examples(
             model,
@@ -786,6 +803,7 @@ def evaluate_checkpoint(
             batch_size=config.batch_size,
             seed=config.seed,
             max_batches=None,
+            bio_decode_mode=free_bio_mode,
         )
     return CheckpointEvalResult(
         checkpoint_path=str(checkpoint_path),

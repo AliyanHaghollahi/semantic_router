@@ -8,7 +8,6 @@ in :class:`~tiergraph.planner.decode.GraphDecoder`.
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 from tiergraph.enums import OperatorType
@@ -36,16 +35,8 @@ from tiergraph.planner.corpus import (
     semantic_annotation_to_planner_example,
 )
 from tiergraph.planner.decode import GraphDecoder
-from tiergraph.planner.naming import SlotNamingError, normalize_base_name
+from tiergraph.planner.naming import derive_anchor_normalized_name
 
-
-# Determiners / possessives commonly prefixed on Stage-A H4 phrases. Stripped
-# only when raw ``normalize_base_name`` rejects the surface (apostrophe, etc.).
-_LEADING_DET = re.compile(
-    r"^(?:my|your|his|her|their|our|this|that|these|those|the|a|an)\s+",
-    re.IGNORECASE,
-)
-_NON_V1_CHARS = re.compile(r"[^a-zA-Z0-9\s]+")
 
 FINAL_BUCKET_TO_PLANNER_BUCKET: dict[str, PlannerBucket] = {
     "Personal": PlannerBucket.PERSONAL,
@@ -76,29 +67,6 @@ def final_bucket_to_classification_label(final_bucket: str) -> str:
         return FINAL_BUCKET_TO_CLASSIFICATION[final_bucket]
     except KeyError as exc:
         raise ValueError(f"unknown final_bucket: {final_bucket!r}") from exc
-
-
-def derive_anchor_normalized_name(anchor_text: str) -> str:
-    """Derive a SLOT_NAMING_V1 base from an H4 surface string.
-
-    Prefers ``normalize_base_name`` on the literal text. When punctuation or
-    leading determiners block V1, strips those minimally and retries. Does not
-    invent corpus-specific synonyms.
-    """
-    if type(anchor_text) is not str or not anchor_text.strip():
-        raise ValueError("anchor_text must be a nonblank string")
-    try:
-        return normalize_base_name(anchor_text)
-    except SlotNamingError:
-        stripped = _LEADING_DET.sub("", anchor_text).strip() or anchor_text
-        cleaned = _NON_V1_CHARS.sub(" ", stripped)
-        try:
-            return normalize_base_name(cleaned)
-        except SlotNamingError as exc:
-            raise ValueError(
-                f"cannot derive SLOT_NAMING_V1 normalized_name from "
-                f"anchor text {anchor_text!r}"
-            ) from exc
 
 
 def validate_step_ab_linkage(

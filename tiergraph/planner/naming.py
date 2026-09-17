@@ -74,6 +74,38 @@ def normalize_base_name(text: str) -> str:
     return collapsed
 
 
+# Determiners / possessives commonly prefixed on H4 phrases. Stripped only when
+# raw ``normalize_base_name`` rejects the surface (apostrophe, hyphen, etc.).
+_LEADING_DET = re.compile(
+    r"^(?:my|your|his|her|their|our|this|that|these|those|the|a|an)\s+",
+    re.IGNORECASE,
+)
+_NON_V1_CHARS = re.compile(r"[^a-zA-Z0-9\s]+")
+
+
+def derive_anchor_normalized_name(anchor_text: str) -> str:
+    """Derive a SLOT_NAMING_V1 base from an H4 surface string.
+
+    Prefers ``normalize_base_name`` on the literal text. When punctuation or
+    leading determiners block V1, strips those minimally and retries. Does not
+    invent corpus-specific synonyms. Does not truncate or repair span geometry.
+    """
+    if type(anchor_text) is not str or not anchor_text.strip():
+        raise ValueError("anchor_text must be a nonblank string")
+    try:
+        return normalize_base_name(anchor_text)
+    except SlotNamingError:
+        stripped = _LEADING_DET.sub("", anchor_text).strip() or anchor_text
+        cleaned = _NON_V1_CHARS.sub(" ", stripped)
+        try:
+            return normalize_base_name(cleaned)
+        except SlotNamingError as exc:
+            raise ValueError(
+                f"cannot derive SLOT_NAMING_V1 normalized_name from "
+                f"anchor text {anchor_text!r}"
+            ) from exc
+
+
 def default_base_for_operator(operator: OperatorType) -> str:
     """Return the V1 default slot base for an anchorless answer operator."""
     if operator is OperatorType.FUSE:
@@ -162,6 +194,7 @@ __all__ = [
     "NAMING_VERSION",
     "SlotNamingError",
     "default_base_for_operator",
+    "derive_anchor_normalized_name",
     "fuse_input_slot_name",
     "fuse_output_slot_name",
     "normalize_base_name",

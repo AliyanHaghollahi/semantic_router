@@ -27,6 +27,7 @@ from tiergraph.planner.annotations import (
 )
 from tiergraph.planner.naming import (
     SlotNamingError,
+    derive_anchor_normalized_name,
     fuse_input_slot_name,
     fuse_output_slot_name,
     normalize_base_name,
@@ -493,7 +494,10 @@ def _validate_anchors(
 def _anchor_base_name(anchor: PredictedAnchor) -> str:
     if anchor.normalized_name is not None:
         return normalize_base_name(anchor.normalized_name)
-    return normalize_base_name(anchor.text)
+    try:
+        return derive_anchor_normalized_name(anchor.text)
+    except ValueError as exc:
+        raise PlannerDecodeError(str(exc)) from exc
 
 
 def _base_names_for_operations(

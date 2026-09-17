@@ -74,6 +74,15 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
+        "--bio-decode-mode",
+        choices=("argmax", "viterbi"),
+        default="argmax",
+        help=(
+            "free-eval BIO label decoding only: argmax (baseline) or "
+            "viterbi (constrained). Ignored for teacher-forced eval."
+        ),
+    )
+    parser.add_argument(
         "--disable-heads",
         type=str,
         default="",
@@ -119,6 +128,7 @@ def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainCo
             step_a_path=str(STAGE_A_V2_STEP_A_PATH),
             step_b_path=str(STAGE_A_V2_STEP_B_PATH),
             disabled_heads=_parse_disabled_heads(args.disable_heads),
+            bio_decode_mode=args.bio_decode_mode,
         )
     else:
         expected = (
@@ -135,6 +145,7 @@ def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainCo
             output_dir=str(args.output_dir),
             smoke=bool(args.smoke),
             disabled_heads=_parse_disabled_heads(args.disable_heads),
+            bio_decode_mode=args.bio_decode_mode,
         )
     if expected == "":
         expected = None
@@ -160,6 +171,7 @@ def main(argv: list[str] | None = None) -> int:
             expected_fingerprint=expected,
             split=split,
             eval_mode=args.eval_mode,
+            bio_decode_mode=args.bio_decode_mode,
         )
         print("mode: eval-only")
         print(f"eval_mode: {result.eval_mode}")

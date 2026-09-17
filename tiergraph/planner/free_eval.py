@@ -315,11 +315,13 @@ class FreeEvalMetrics:
 def predict_batch(
     model: PlannerModel,
     examples: Sequence[PlannerExample],
+    *,
+    bio_decode_mode: str = "argmax",
 ) -> tuple[Any, tuple[PlannerPredictions, ...]]:
     """One encoder forward + free structure prediction (no gold structure)."""
     texts = [example.query for example in examples]
     features = model.encode(texts)
-    predicted = model.predict_structures(features)
+    predicted = model.predict_structures(features, bio_decode_mode=bio_decode_mode)
     return features, predicted.items
 
 
@@ -331,6 +333,7 @@ def evaluate_free_examples(
     seed: int,
     max_batches: int | None = None,
     decoder: GraphDecoder | None = None,
+    bio_decode_mode: str = "argmax",
 ) -> FreeEvalMetrics:
     """Run free predicted-graph evaluation over examples."""
     _ = seed  # kept for API symmetry with teacher-forced eval
@@ -344,7 +347,11 @@ def evaluate_free_examples(
     )
     with torch.no_grad():
         for batch in batches:
-            _features, items = predict_batch(model, batch)
+            _features, items = predict_batch(
+                model,
+                batch,
+                bio_decode_mode=bio_decode_mode,
+            )
             for example, predictions in zip(batch, items, strict=True):
                 _accumulate_example(counters, example, predictions, decoder)
     return _finalize(counters)

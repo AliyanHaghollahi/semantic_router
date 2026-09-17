@@ -33,6 +33,7 @@ from tiergraph.planner.decode import (
     PredictedOperation,
 )
 from tiergraph.planner.encoder import EncoderBatch, MiniLMFeatureEncoder
+from tiergraph.planner.naming import derive_anchor_normalized_name
 
 
 @dataclass(frozen=True, slots=True)
@@ -89,6 +90,17 @@ def masked_mean_pool(
     return summed / counts
 
 
+BIO_DECODE_MODES: tuple[str, ...] = ("argmax", "viterbi")
+
+# Legal BIO transitions: from_label -> allowed to_labels.
+# O -> O|B ; B -> O|B|I ; I -> O|B|I
+_BIO_LEGAL_TRANSITIONS: tuple[tuple[int, ...], ...] = (
+    (BIO_O, BIO_B),
+    (BIO_O, BIO_B, BIO_I),
+    (BIO_O, BIO_B, BIO_I),
+)
+
+
 def decode_bio_spans(
     labels: Sequence[int],
     tokens: Sequence[TokenCharSpan],
@@ -137,6 +149,117 @@ def decode_bio_spans(
         _close()
     _close()
     return tuple(spans)
+
+
+def viterbi_bio_labels(
+    logits: torch.Tensor,
+    tokens: Sequence[TokenCharSpan],
+) -> list[int]:
+    """Viterbi BIO label path maximizing total sequence log-score.
+
+    Legal transitions
+    -----------------
+    * ``O -> O | B``
+    * ``B -> O | B | I``
+    * ``I -> O | B | I``
+
+    Non-content positions are forced to ``O``. Sequence start may only be
+    ``O`` or ``B`` (``I`` is illegal with no prior span state).
+    """
+    if logits.ndim != 2 or logits.shape[-1] != 3:
+        raise ValueError("logits must have shape [T, 3]")
+    if len(tokens) != logits.shape[0]:
+        raise ValueError("tokens length must match logits length")
+
+    length = logits.shape[0]
+    if length == 0:
+        return []
+
+    log_emit = torch.log_softmax(logits.detach().float(), dim=-1)
+    neg_inf = float("-inf")
+    # Force non-content tokens to O by masking other emissions.
+    for token_index, token in enumerate(tokens):
+        if not token.is_content:
+            log_emit[token_index, BIO_B] = neg_inf
+            log_emit[token_index, BIO_I] = neg_inf
+
+    # dp[t][s] = best total log-score ending at token t in state s
+    dp = [[neg_inf, neg_inf, neg_inf] for _ in range(length)]
+    back: list[list[int | None]] = [[None, None, None] for _ in range(length)]
+
+    # Start: only O/B (or O-only when non-content).
+    for state in (BIO_O, BIO_B, BIO_I):
+        score = float(log_emit[0, state].item())
+        if state == BIO_I:
+            continue
+        if not tokens[0].is_content and state != BIO_O:
+            continue
+        dp[0][state] = score
+
+    for token_index in range(1, length):
+        for to_state in (BIO_O, BIO_B, BIO_I):
+            emit = float(log_emit[token_index, to_state].item())
+            if emit == neg_inf:
+                continue
+            best_score = neg_inf
+            best_from: int | None = None
+            for from_state in (BIO_O, BIO_B, BIO_I):
+                if to_state not in _BIO_LEGAL_TRANSITIONS[from_state]:
+                    continue
+                prev = dp[token_index - 1][from_state]
+                if prev == neg_inf:
+                    continue
+                candidate = prev + emit
+                if candidate > best_score:
+                    best_score = candidate
+                    best_from = from_state
+            if best_from is not None:
+                dp[token_index][to_state] = best_score
+                back[token_index][to_state] = best_from
+
+    end_state = max(range(3), key=lambda state: dp[length - 1][state])
+    if dp[length - 1][end_state] == neg_inf:
+        # Degenerate (e.g. empty/all-masked): fall back to all O.
+        return [BIO_O] * length
+
+    path = [BIO_O] * length
+    path[length - 1] = end_state
+    for token_index in range(length - 1, 0, -1):
+        prev_state = back[token_index][path[token_index]]
+        if prev_state is None:
+            path[token_index - 1] = BIO_O
+        else:
+            path[token_index - 1] = prev_state
+
+    # Hard-enforce non-content → O in the returned labels.
+    return [
+        BIO_O if not token.is_content else int(label)
+        for label, token in zip(path, tokens, strict=True)
+    ]
+
+
+def select_bio_labels(
+    logits: torch.Tensor,
+    tokens: Sequence[TokenCharSpan],
+    *,
+    bio_decode_mode: str = "argmax",
+) -> list[int]:
+    """Select per-token BIO labels for free inference.
+
+    ``argmax`` preserves the historical tokenwise-argmax + non-content→O path.
+    ``viterbi`` uses :func:`viterbi_bio_labels`.
+    """
+    if bio_decode_mode not in BIO_DECODE_MODES:
+        raise ValueError(
+            f"bio_decode_mode must be one of {BIO_DECODE_MODES}, got {bio_decode_mode!r}"
+        )
+    if bio_decode_mode == "argmax":
+        labels = logits.argmax(dim=-1).tolist()
+        return [
+            BIO_O if not token.is_content else int(label)
+            for label, token in zip(labels, tokens, strict=True)
+        ]
+    return viterbi_bio_labels(logits, tokens)
 
 
 class PlannerModel(nn.Module):
@@ -326,12 +449,22 @@ class PlannerModel(nn.Module):
         features: EncoderBatch,
         *,
         token_views: Sequence[Sequence[TokenCharSpan]] | None = None,
+        bio_decode_mode: str = "argmax",
     ) -> PlannerPredictionsBatch:
         """Inference structure prediction (no GraphDecoder).
 
         Uses one already-computed ``EncoderBatch``. Builds token views from the
         encoder tokenizer when ``token_views`` is omitted.
+
+        ``bio_decode_mode`` selects free BIO label decoding only:
+        ``argmax`` (baseline default) or ``viterbi`` (constrained ablation).
+        Teacher-forced metrics do not use this path.
         """
+        if bio_decode_mode not in BIO_DECODE_MODES:
+            raise ValueError(
+                f"bio_decode_mode must be one of {BIO_DECODE_MODES}, "
+                f"got {bio_decode_mode!r}"
+            )
         if token_views is None:
             token_views = self.encoder.token_char_spans_for_batch(features)
         if len(token_views) != features.batch_size:
@@ -391,17 +524,16 @@ class PlannerModel(nn.Module):
         pred_op_spans: list[list[tuple[int, int]]] = []
         pred_anc_spans: list[list[tuple[int, int]]] = []
         for batch_index, tokens in enumerate(token_views):
-            op_labels = bio_outputs.op_bio_logits[batch_index].argmax(dim=-1).tolist()
-            anc_labels = bio_outputs.anc_bio_logits[batch_index].argmax(dim=-1).tolist()
-            # Force non-content tokens to O for decoding stability.
-            op_labels = [
-                BIO_O if not token.is_content else int(label)
-                for label, token in zip(op_labels, tokens, strict=True)
-            ]
-            anc_labels = [
-                BIO_O if not token.is_content else int(label)
-                for label, token in zip(anc_labels, tokens, strict=True)
-            ]
+            op_labels = select_bio_labels(
+                bio_outputs.op_bio_logits[batch_index],
+                tokens,
+                bio_decode_mode=bio_decode_mode,
+            )
+            anc_labels = select_bio_labels(
+                bio_outputs.anc_bio_logits[batch_index],
+                tokens,
+                bio_decode_mode=bio_decode_mode,
+            )
             pred_op_spans.append(list(decode_bio_spans(op_labels, tokens)))
             pred_anc_spans.append(list(decode_bio_spans(anc_labels, tokens)))
 
@@ -504,6 +636,12 @@ class PlannerModel(nn.Module):
                         owner_index = 0
                     else:
                         owner_index = int(masked_scores.argmax().item())
+                normalized_name: str | None = None
+                if span_text:
+                    try:
+                        normalized_name = derive_anchor_normalized_name(span_text)
+                    except ValueError:
+                        normalized_name = None
                 anchors.append(
                     PredictedAnchor(
                         start=start,
@@ -511,7 +649,7 @@ class PlannerModel(nn.Module):
                         text=span_text,
                         owner_index=owner_index,
                         implicit_resolution=INDEX_TO_IMPLICIT[impl_index],
-                        normalized_name=None,
+                        normalized_name=normalized_name,
                     )
                 )
 
@@ -543,9 +681,12 @@ class PlannerModel(nn.Module):
 
 
 __all__ = [
+    "BIO_DECODE_MODES",
     "PlannerHeadOutputs",
     "PlannerModel",
     "PlannerPredictionsBatch",
     "decode_bio_spans",
     "masked_mean_pool",
+    "select_bio_labels",
+    "viterbi_bio_labels",
 ]
