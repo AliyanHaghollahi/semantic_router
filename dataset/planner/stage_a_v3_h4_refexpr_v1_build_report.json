@@ -1,0 +1,550 @@
+{
+  "affected_revalidated": {
+    "dev": [
+      "sa_0216",
+      "sa_0237",
+      "sa_0262",
+      "sa_0393",
+      "sa_0404",
+      "sa_0464"
+    ],
+    "train": [
+      "sa_0138",
+      "sa_0141",
+      "sa_0160",
+      "sa_0166",
+      "sa_0167",
+      "sa_0168",
+      "sa_0263",
+      "sa_0265",
+      "sa_0267",
+      "sa_0269",
+      "sa_0288",
+      "sa_0314",
+      "sa_0322",
+      "sa_0330",
+      "sa_0339",
+      "sa_0342",
+      "sa_0369",
+      "sa_0371",
+      "sa_0383",
+      "sa_0398",
+      "sa_0399",
+      "sa_0405",
+      "sa_0456"
+    ]
+  },
+  "approved_human_review": {
+    "final_changes": [
+      {
+        "h7_preserved": [],
+        "n_anchors_after": 1,
+        "n_anchors_before": 1,
+        "new_anchors": [
+          {
+            "char_end": 7,
+            "char_start": 5,
+            "h5": "NONE",
+            "h6": 0,
+            "text": "it"
+          }
+        ],
+        "old_char_end": 4,
+        "old_char_start": 0,
+        "old_text": "Does",
+        "operation": "approved_final_replace",
+        "stage_a_id": "sa_0262"
+      },
+      {
+        "h7_preserved": [],
+        "n_anchors_after": 2,
+        "n_anchors_before": 1,
+        "new_anchors": [
+          {
+            "char_end": 11,
+            "char_start": 3,
+            "h5": "NONE",
+            "h6": 0,
+            "text": "this bus"
+          },
+          {
+            "char_end": 29,
+            "char_start": 21,
+            "h5": "IMPLICIT_RESOLVE_PERSONAL",
+            "h6": 0,
+            "text": "my hotel"
+          }
+        ],
+        "old_char_end": 33,
+        "old_char_start": 3,
+        "old_text": "this bus going to my hotel and",
+        "operation": "approved_final_replace",
+        "stage_a_id": "sa_0339"
+      },
+      {
+        "h7_preserved": [
+          {
+            "source_operation_index": 0,
+            "target_operation_index": 1
+          }
+        ],
+        "n_anchors_after": 1,
+        "n_anchors_before": 1,
+        "new_anchors": [
+          {
+            "char_end": 35,
+            "char_start": 29,
+            "h5": "IMPLICIT_RESOLVE_PERSONAL",
+            "h6": 0,
+            "text": "bottle"
+          }
+        ],
+        "old_char_end": 28,
+        "old_char_start": 23,
+        "old_text": "which",
+        "operation": "approved_final_replace",
+        "stage_a_id": "sa_0456"
+      },
+      {
+        "h7_preserved": [
+          {
+            "source_operation_index": 0,
+            "target_operation_index": 1
+          }
+        ],
+        "n_anchors_after": 1,
+        "n_anchors_before": 1,
+        "new_anchors": [
+          {
+            "char_end": 53,
+            "char_start": 31,
+            "h5": "IMPLICIT_RESOLVE_PERSONAL",
+            "h6": 0,
+            "text": "the assigned exam room"
+          }
+        ],
+        "old_char_end": 27,
+        "old_char_start": 22,
+        "old_text": "where",
+        "operation": "approved_final_replace",
+        "stage_a_id": "sa_0464"
+      }
+    ],
+    "final_net_anchor_delta": 1,
+    "final_replaced": 4,
+    "r4_kept": [
+      "sa_0404"
+    ],
+    "r5_changes": [
+      {
+        "anchor_index": 0,
+        "anchors_remaining": 0,
+        "h5_removed_with_anchor": "NONE",
+        "h6_removed_with_anchor": 0,
+        "new_text": null,
+        "old_char_end": 4,
+        "old_char_start": 0,
+        "old_text": "What",
+        "operation": "approved_r5_remove",
+        "stage_a_id": "sa_0138"
+      },
+      {
+        "anchor_index": 0,
+        "anchors_remaining": 0,
+        "h5_removed_with_anchor": "NONE",
+        "h6_removed_with_anchor": 0,
+        "new_text": null,
+        "old_char_end": 4,
+        "old_char_start": 0,
+        "old_text": "What",
+        "operation": "approved_r5_remove",
+        "stage_a_id": "sa_0141"
+      },
+      {
+        "anchor_index": 0,
+        "anchors_remaining": 0,
+        "h5_removed_with_anchor": "NONE",
+        "h6_removed_with_anchor": 0,
+        "new_text": null,
+        "old_char_end": 4,
+        "old_char_start": 0,
+        "old_text": "What",
+        "operation": "approved_r5_remove",
+        "stage_a_id": "sa_0160"
+      },
+      {
+        "anchor_index": 0,
+        "anchors_remaining": 0,
+        "h5_removed_with_anchor": "NONE",
+        "h6_removed_with_anchor": 0,
+        "new_text": null,
+        "old_char_end": 4,
+        "old_char_start": 0,
+        "old_text": "What",
+        "operation": "approved_r5_remove",
+        "stage_a_id": "sa_0166"
+      },
+      {
+        "anchor_index": 0,
+        "anchors_remaining": 0,
+        "h5_removed_with_anchor": "NONE",
+        "h6_removed_with_anchor": 0,
+        "new_text": null,
+        "old_char_end": 4,
+        "old_char_start": 0,
+        "old_text": "What",
+        "operation": "approved_r5_remove",
+        "stage_a_id": "sa_0167"
+      },
+      {
+        "anchor_index": 0,
+        "anchors_remaining": 0,
+        "h5_removed_with_anchor": "NONE",
+        "h6_removed_with_anchor": 0,
+        "new_text": null,
+        "old_char_end": 4,
+        "old_char_start": 0,
+        "old_text": "What",
+        "operation": "approved_r5_remove",
+        "stage_a_id": "sa_0168"
+      },
+      {
+        "anchor_index": 0,
+        "anchors_remaining": 0,
+        "h5_removed_with_anchor": "NONE",
+        "h6_removed_with_anchor": 0,
+        "new_text": null,
+        "old_char_end": 5,
+        "old_char_start": 0,
+        "old_text": "Which",
+        "operation": "approved_r5_remove",
+        "stage_a_id": "sa_0216"
+      }
+    ],
+    "r5_removed": 7,
+    "r6_changes": [
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 16,
+        "new_char_start": 3,
+        "new_text": "the TV screen",
+        "old_char_end": 26,
+        "old_char_start": 3,
+        "old_text": "the TV screen on or off",
+        "operation": "approved_r6_shorten",
+        "stage_a_id": "sa_0237"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 19,
+        "new_char_start": 3,
+        "new_text": "this plated dish",
+        "old_char_end": 24,
+        "old_char_start": 3,
+        "old_text": "this plated dish safe",
+        "operation": "approved_r6_shorten",
+        "stage_a_id": "sa_0265"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 12,
+        "new_char_start": 3,
+        "new_text": "this soup",
+        "old_char_end": 23,
+        "old_char_start": 3,
+        "old_text": "this soup compatible",
+        "operation": "approved_r6_shorten",
+        "stage_a_id": "sa_0267"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 22,
+        "new_char_start": 3,
+        "new_text": "this salad dressing",
+        "old_char_end": 27,
+        "old_char_start": 3,
+        "old_text": "this salad dressing safe",
+        "operation": "approved_r6_shorten",
+        "stage_a_id": "sa_0269"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 16,
+        "new_char_start": 5,
+        "new_text": "this pastry",
+        "old_char_end": 52,
+        "old_char_start": 5,
+        "old_text": "this pastry fit the egg-free restriction listed",
+        "operation": "approved_r6_shorten",
+        "stage_a_id": "sa_0288"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 22,
+        "new_char_start": 3,
+        "new_text": "this will-call desk",
+        "old_char_end": 46,
+        "old_char_start": 3,
+        "old_text": "this will-call desk the pickup point listed",
+        "operation": "approved_r6_shorten",
+        "stage_a_id": "sa_0314"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 26,
+        "new_char_start": 5,
+        "new_text": "this pharmacy sticker",
+        "old_char_end": 52,
+        "old_char_start": 5,
+        "old_text": "this pharmacy sticker show the frequency listed",
+        "operation": "approved_r6_shorten",
+        "stage_a_id": "sa_0322"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 20,
+        "new_char_start": 5,
+        "new_text": "this track sign",
+        "old_char_end": 46,
+        "old_char_start": 5,
+        "old_text": "this track sign match the platform listed",
+        "operation": "approved_r6_shorten",
+        "stage_a_id": "sa_0330"
+      }
+    ],
+    "r6_shortened": 8
+  },
+  "dev_count": 48,
+  "h4_anchor_contract": "H4_REFEXPR_V1",
+  "human_review": {
+    "dev_examples": [
+      "sa_0216",
+      "sa_0237",
+      "sa_0262",
+      "sa_0404",
+      "sa_0464"
+    ],
+    "human_approved_edits_only": true,
+    "queue_count": 20,
+    "train_examples": [
+      "sa_0138",
+      "sa_0141",
+      "sa_0160",
+      "sa_0166",
+      "sa_0167",
+      "sa_0168",
+      "sa_0265",
+      "sa_0267",
+      "sa_0269",
+      "sa_0288",
+      "sa_0314",
+      "sa_0322",
+      "sa_0330",
+      "sa_0339",
+      "sa_0456"
+    ],
+    "unresolved_count": 0,
+    "unresolved_ids": []
+  },
+  "n_dev": 48,
+  "n_step_a_rows_parsed": 432,
+  "n_step_a_rows_written": 432,
+  "n_step_b_rows_parsed": 432,
+  "n_step_b_rows_written": 432,
+  "n_test_annotations_materialized": 0,
+  "n_train": 384,
+  "paths": {
+    "build_report": "dataset/planner/stage_a_v3_h4_refexpr_v1_build_report.json",
+    "human_review_queue": "dataset/planner/stage_a_v3_h4_refexpr_v1_human_review_queue.jsonl",
+    "split": "dataset/planner/stage_a_v3_split.jsonl",
+    "step_a": "dataset/planner/stage_a_v3_step_a_annotations.jsonl",
+    "step_b": "dataset/planner/stage_a_v3_step_b_annotations.jsonl",
+    "unresolved_review": "dataset/planner/stage_a_v3_h4_refexpr_v1_unresolved_review.jsonl"
+  },
+  "safe_mechanical": {
+    "anchors_expanded": 1,
+    "anchors_removed": 0,
+    "anchors_shortened_dev": 1,
+    "anchors_shortened_train": 8,
+    "changes": [
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 7,
+        "new_char_start": 3,
+        "new_text": "this",
+        "old_char_end": 26,
+        "old_char_start": 3,
+        "old_text": "this the right terminal",
+        "operation": "shorten",
+        "stage_a_id": "sa_0263"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 7,
+        "new_char_start": 3,
+        "new_text": "this",
+        "old_char_end": 26,
+        "old_char_start": 3,
+        "old_text": "this the correct dosage",
+        "operation": "shorten",
+        "stage_a_id": "sa_0342"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 1,
+        "new_char_end": 41,
+        "new_char_start": 37,
+        "new_text": "this",
+        "old_char_end": 60,
+        "old_char_start": 37,
+        "old_text": "this the right terminal",
+        "operation": "shorten",
+        "stage_a_id": "sa_0369"
+      },
+      {
+        "anchor_index": 1,
+        "h5_preserved": "NONE",
+        "h6_preserved": 1,
+        "new_char_end": 36,
+        "new_char_start": 32,
+        "new_text": "this",
+        "old_char_end": 55,
+        "old_char_start": 32,
+        "old_text": "this the right terminal",
+        "operation": "shorten",
+        "stage_a_id": "sa_0371"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 7,
+        "new_char_start": 3,
+        "new_text": "this",
+        "old_char_end": 24,
+        "old_char_start": 3,
+        "old_text": "this the correct form",
+        "operation": "shorten",
+        "stage_a_id": "sa_0383"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 7,
+        "new_char_start": 3,
+        "new_text": "this",
+        "old_char_end": 24,
+        "old_char_start": 3,
+        "old_text": "this the right locker",
+        "operation": "shorten",
+        "stage_a_id": "sa_0393"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 7,
+        "new_char_start": 3,
+        "new_text": "this",
+        "old_char_end": 28,
+        "old_char_start": 3,
+        "old_text": "this the correct entrance",
+        "operation": "shorten",
+        "stage_a_id": "sa_0398"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 7,
+        "new_char_start": 3,
+        "new_text": "this",
+        "old_char_end": 21,
+        "old_char_start": 3,
+        "old_text": "this the right bus",
+        "operation": "shorten",
+        "stage_a_id": "sa_0399"
+      },
+      {
+        "anchor_index": 0,
+        "h5_preserved": "NONE",
+        "h6_preserved": 0,
+        "new_char_end": 7,
+        "new_char_start": 3,
+        "new_text": "this",
+        "old_char_end": 26,
+        "old_char_start": 3,
+        "old_text": "this the right platform",
+        "operation": "shorten",
+        "stage_a_id": "sa_0405"
+      }
+    ],
+    "dev_examples": [
+      "sa_0393"
+    ],
+    "train_examples": [
+      "sa_0263",
+      "sa_0342",
+      "sa_0369",
+      "sa_0371",
+      "sa_0383",
+      "sa_0398",
+      "sa_0399",
+      "sa_0405"
+    ]
+  },
+  "source_corpus": "stage_a_v2",
+  "test_annotation_migration": "pending_blind_migration",
+  "totals": {
+    "anchors_expanded": 1,
+    "anchors_final_net_delta": 1,
+    "anchors_final_replaced_examples": 4,
+    "anchors_removed_approved_r5": 7,
+    "anchors_removed_total": 7,
+    "anchors_shortened_approved_r6": 8,
+    "anchors_shortened_safe_mechanical": 9
+  },
+  "train_count": 384,
+  "train_dev_h4_status": "frozen",
+  "v2_annotation_fingerprint": "d17a48bfb8e6a6025422a121aa8186d856a53f8155a880deb1b12b3c07ebe743",
+  "v2_step_a_fingerprint": {
+    "nbytes": 599370,
+    "sha256": "af091f05fee14d0b194549cf31b955c8a769a2982635959b4d0df1e30a721c80"
+  },
+  "v2_step_b_fingerprint": {
+    "nbytes": 255604,
+    "sha256": "d9de1d3907d87b979c9a5e5b44ea06e5e3695ebb73c60766ae3eeecac907b3c8"
+  },
+  "v2_unchanged": true,
+  "v3_annotation_fingerprint": "1af0b450623eb2ed9d26e0bcf42fa255fe1a26e6a0e1118582c0603abb3af9ca",
+  "v3_step_a_fingerprint": {
+    "nbytes": 543781,
+    "sha256": "ff21db645c235bef6c89283b386568ebdcf4a93e6f08129590de663e06aa780f"
+  },
+  "v3_step_b_fingerprint": {
+    "nbytes": 229206,
+    "sha256": "03acd23f9452173e1ce84f65efb69b592b0a134500fd557db59b5640310f9263"
+  }
+}
