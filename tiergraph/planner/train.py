@@ -16,7 +16,7 @@ from typing import Any
 import torch
 from torch import nn
 
-from tiergraph.planner.align import BIO_IGNORE, BIO_O, TokenCharSpan
+from tiergraph.planner.align import BIO_B, BIO_I, BIO_IGNORE, BIO_O, TokenCharSpan
 from tiergraph.planner.annotation_step_a import (
     DEFAULT_STEP_A_ANNOTATIONS_PATH,
     EXPECTED_STAGE_A_COUNT,
@@ -29,7 +29,13 @@ from tiergraph.planner.batching import (
     build_gold_batch_from_examples,
 )
 from tiergraph.planner.encoder import DEFAULT_MINILM_MODEL, MiniLMFeatureEncoder
-from tiergraph.planner.loss import HEAD_KEYS, PlannerLossBreakdown, planner_loss
+from tiergraph.planner.loss import (
+    BIO_CLASS_WEIGHT_LABELS,
+    HEAD_KEYS,
+    PlannerLossBreakdown,
+    planner_loss,
+    validate_bio_class_weights,
+)
 from tiergraph.planner.model import (
     BIO_DECODE_MODES,
     PlannerHeadOutputs,
@@ -84,6 +90,26 @@ class TrainConfig:
     corpus_version: str = "v1"
     disabled_heads: tuple[str, ...] = ()
     bio_decode_mode: str = "argmax"
+    h2_bio_class_weights: tuple[float, float, float] | None = None
+    h4_bio_class_weights: tuple[float, float, float] | None = None
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "h2_bio_class_weights",
+            validate_bio_class_weights(
+                self.h2_bio_class_weights,
+                name="h2_bio_class_weights",
+            ),
+        )
+        object.__setattr__(
+            self,
+            "h4_bio_class_weights",
+            validate_bio_class_weights(
+                self.h4_bio_class_weights,
+                name="h4_bio_class_weights",
+            ),
+        )
 
     def active_heads(self) -> frozenset[str]:
         disabled = frozenset(self.disabled_heads)
@@ -93,7 +119,10 @@ class TrainConfig:
         return frozenset(HEAD_KEYS) - disabled
 
     def to_dict(self) -> dict[str, Any]:
-        return {key: str(value) if isinstance(value, Path) else value for key, value in asdict(self).items()}
+        return {
+            key: str(value) if isinstance(value, Path) else value
+            for key, value in asdict(self).items()
+        }
 
 
 @dataclass
@@ -369,19 +398,172 @@ def encode_gold_batch(
     return features, token_views, gold
 
 
+BIO_CLASS_WEIGHT_FORMULA = "w_c = N / (3 * n_c)"
+_BIO_INDEX_TO_LABEL: dict[int, str] = {
+    BIO_O: "O",
+    BIO_B: "B",
+    BIO_I: "I",
+}
+
+
+@dataclass(frozen=True, slots=True)
+class BioClassWeightResult:
+    """Inverse-frequency BIO class weights derived from caller-supplied examples."""
+
+    head: str
+    counts: dict[str, int]
+    weights: tuple[float, float, float]
+    formula: str = BIO_CLASS_WEIGHT_FORMULA
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "head": self.head,
+            "counts": dict(self.counts),
+            "weights": list(self.weights),
+            "formula": self.formula,
+            "labels": list(BIO_CLASS_WEIGHT_LABELS),
+        }
+
+
+def count_supervised_bio_labels(
+    labels: torch.Tensor,
+    token_loss_mask: torch.Tensor,
+) -> dict[str, int]:
+    """Count O/B/I on supervised content tokens only (mask + not BIO_IGNORE)."""
+    counts = {label: 0 for label in BIO_CLASS_WEIGHT_LABELS}
+    flat_labels = labels.reshape(-1)
+    flat_mask = token_loss_mask.reshape(-1)
+    if flat_labels.numel() != flat_mask.numel():
+        raise ValueError("labels and token_loss_mask must have the same number of elements")
+    for index in range(flat_labels.numel()):
+        if not bool(flat_mask[index].item()):
+            continue
+        value = int(flat_labels[index].item())
+        if value == BIO_IGNORE:
+            continue
+        name = _BIO_INDEX_TO_LABEL.get(value)
+        if name is None:
+            raise ValueError(f"unexpected BIO label id {value} (expected O/B/I)")
+        counts[name] += 1
+    counts["N"] = counts["O"] + counts["B"] + counts["I"]
+    return counts
+
+
+def inverse_frequency_bio_weights(
+    counts: Mapping[str, int],
+) -> tuple[float, float, float]:
+    """Compute ``w_c = N / (3 * n_c)`` for O/B/I; all class counts must be > 0."""
+    missing = [label for label in BIO_CLASS_WEIGHT_LABELS if label not in counts]
+    if missing:
+        raise ValueError(f"counts missing BIO labels: {missing}")
+    n_total = int(counts.get("N", counts["O"] + counts["B"] + counts["I"]))
+    if n_total <= 0:
+        raise ValueError(
+            "cannot derive BIO class weights: N=0 supervised content tokens"
+        )
+    weights: list[float] = []
+    for label in BIO_CLASS_WEIGHT_LABELS:
+        n_c = int(counts[label])
+        if n_c <= 0:
+            raise ValueError(
+                f"cannot derive BIO class weights: class {label} has count 0 "
+                f"(need strictly positive n_c for {BIO_CLASS_WEIGHT_FORMULA})"
+            )
+        weights.append(n_total / (3.0 * n_c))
+    return (weights[0], weights[1], weights[2])
+
+
+def compute_bio_class_weights_from_examples(
+    examples: Sequence[PlannerExample],
+    *,
+    model: PlannerModel,
+    head: str,
+    batch_size: int = DEFAULT_BATCH_SIZE,
+) -> BioClassWeightResult:
+    """Derive inverse-frequency BIO weights from explicitly supplied examples.
+
+    Caller must pass the intended split (typically TRAIN). This helper never
+    loads DEV or TEST itself.
+    """
+    if head not in {"h2", "h4"}:
+        raise ValueError(f"head must be 'h2' or 'h4', got {head!r}")
+    if not examples:
+        raise ValueError("examples must be non-empty")
+    if batch_size <= 0:
+        raise ValueError(f"batch_size must be positive, got {batch_size}")
+
+    counts = {label: 0 for label in BIO_CLASS_WEIGHT_LABELS}
+    for start in range(0, len(examples), batch_size):
+        batch = list(examples[start : start + batch_size])
+        _features, _token_views, gold = encode_gold_batch(model, batch)
+        labels = gold.op_bio_labels if head == "h2" else gold.anc_bio_labels
+        batch_counts = count_supervised_bio_labels(labels, gold.token_loss_mask)
+        for label in BIO_CLASS_WEIGHT_LABELS:
+            counts[label] += batch_counts[label]
+    counts["N"] = counts["O"] + counts["B"] + counts["I"]
+    weights = inverse_frequency_bio_weights(counts)
+    return BioClassWeightResult(head=head, counts=counts, weights=weights)
+
+
+def compute_h2_h4_bio_class_weights_from_examples(
+    examples: Sequence[PlannerExample],
+    *,
+    model: PlannerModel,
+    batch_size: int = DEFAULT_BATCH_SIZE,
+) -> tuple[BioClassWeightResult, BioClassWeightResult]:
+    """Single-pass H2 and H4 weight derivation over caller-supplied examples."""
+    if not examples:
+        raise ValueError("examples must be non-empty")
+    if batch_size <= 0:
+        raise ValueError(f"batch_size must be positive, got {batch_size}")
+
+    h2_counts = {label: 0 for label in BIO_CLASS_WEIGHT_LABELS}
+    h4_counts = {label: 0 for label in BIO_CLASS_WEIGHT_LABELS}
+    for start in range(0, len(examples), batch_size):
+        batch = list(examples[start : start + batch_size])
+        _features, _token_views, gold = encode_gold_batch(model, batch)
+        batch_h2 = count_supervised_bio_labels(gold.op_bio_labels, gold.token_loss_mask)
+        batch_h4 = count_supervised_bio_labels(gold.anc_bio_labels, gold.token_loss_mask)
+        for label in BIO_CLASS_WEIGHT_LABELS:
+            h2_counts[label] += batch_h2[label]
+            h4_counts[label] += batch_h4[label]
+    h2_counts["N"] = h2_counts["O"] + h2_counts["B"] + h2_counts["I"]
+    h4_counts["N"] = h4_counts["O"] + h4_counts["B"] + h4_counts["I"]
+    return (
+        BioClassWeightResult(
+            head="h2",
+            counts=h2_counts,
+            weights=inverse_frequency_bio_weights(h2_counts),
+        ),
+        BioClassWeightResult(
+            head="h4",
+            counts=h4_counts,
+            weights=inverse_frequency_bio_weights(h4_counts),
+        ),
+    )
+
+
 def train_step(
     model: PlannerModel,
     optimizer: torch.optim.Optimizer,
     examples: Sequence[PlannerExample],
     *,
     active_heads: frozenset[str] | None = None,
+    h2_bio_class_weights: Sequence[float] | None = None,
+    h4_bio_class_weights: Sequence[float] | None = None,
 ) -> PlannerLossBreakdown:
     """One forward/backward/optimizer step on a gold batch."""
     model.train()
     assert_encoder_frozen(model)
     features, _token_views, gold = encode_gold_batch(model, examples)
     outputs = model.forward_train(features, gold)
-    breakdown = planner_loss(outputs, gold, active_heads=active_heads)
+    breakdown = planner_loss(
+        outputs,
+        gold,
+        active_heads=active_heads,
+        h2_bio_class_weights=h2_bio_class_weights,
+        h4_bio_class_weights=h4_bio_class_weights,
+    )
     if not torch.isfinite(breakdown.total):
         raise RuntimeError(f"non-finite total loss: {breakdown.total.item()!r}")
     optimizer.zero_grad(set_to_none=True)
@@ -530,6 +712,8 @@ def evaluate_examples(
     seed: int,
     max_batches: int | None = None,
     active_heads: frozenset[str] | None = None,
+    h2_bio_class_weights: Sequence[float] | None = None,
+    h4_bio_class_weights: Sequence[float] | None = None,
 ) -> EvalMetrics:
     """Teacher-forced evaluation on gold structures (not free decode)."""
     model.eval()
@@ -548,7 +732,13 @@ def evaluate_examples(
         for batch in batches:
             features, token_views, gold = encode_gold_batch(model, batch)
             outputs = model.forward_train(features, gold)
-            breakdown = planner_loss(outputs, gold, active_heads=active_heads)
+            breakdown = planner_loss(
+                outputs,
+                gold,
+                active_heads=active_heads,
+                h2_bio_class_weights=h2_bio_class_weights,
+                h4_bio_class_weights=h4_bio_class_weights,
+            )
             if not torch.isfinite(breakdown.total):
                 raise RuntimeError("non-finite eval loss")
             meter.update(breakdown)
@@ -659,6 +849,9 @@ def config_from_checkpoint(
     filtered = {key: value for key, value in raw.items() if key in allowed}
     if "seed" not in filtered and "seed" in payload:
         filtered["seed"] = int(payload["seed"])
+    for key in ("h2_bio_class_weights", "h4_bio_class_weights"):
+        if key in filtered and filtered[key] is not None:
+            filtered[key] = validate_bio_class_weights(filtered[key], name=key)
     return TrainConfig(**filtered)
 
 
@@ -793,6 +986,7 @@ def evaluate_checkpoint(
             batch_size=config.batch_size,
             seed=config.seed,
             max_batches=None,
+            active_heads=config.active_heads(),
         )
     else:
         from tiergraph.planner.free_eval import evaluate_free_examples
@@ -842,12 +1036,59 @@ class TrainRunResult:
     smoke_last_loss: float | None = None
 
 
+def _ensure_bio_class_weight_report(
+    existing: Mapping[str, Any] | None,
+    *,
+    train_examples: Sequence[PlannerExample],
+    model: PlannerModel,
+    config: TrainConfig,
+) -> dict[str, Any]:
+    """Build/refresh reproducibility metadata for a weighted training run.
+
+    Always records TRAIN O/B/I counts (recomputed from ``train_examples`` when
+    missing) and the final H2/H4 weights actually used in ``config``.
+    """
+    report: dict[str, Any] = dict(existing) if existing is not None else {}
+    needs_counts = (
+        "h2_train_bio_counts" not in report or "h4_train_bio_counts" not in report
+    )
+    if needs_counts:
+        h2_stats, h4_stats = compute_h2_h4_bio_class_weights_from_examples(
+            train_examples,
+            model=model,
+            batch_size=config.batch_size,
+        )
+        report["h2_train_bio_counts"] = dict(h2_stats.counts)
+        report["h4_train_bio_counts"] = dict(h4_stats.counts)
+        report.setdefault("formula", h2_stats.formula)
+        report.setdefault("labels", list(BIO_CLASS_WEIGHT_LABELS))
+        report.setdefault("source", "train_split")
+        report.setdefault("n_train_examples", len(train_examples))
+    report["h2_bio_class_weights"] = (
+        list(config.h2_bio_class_weights)
+        if config.h2_bio_class_weights is not None
+        else None
+    )
+    report["h4_bio_class_weights"] = (
+        list(config.h4_bio_class_weights)
+        if config.h4_bio_class_weights is not None
+        else None
+    )
+    report["formula"] = report.get("formula", BIO_CLASS_WEIGHT_FORMULA)
+    report["labels"] = list(report.get("labels") or BIO_CLASS_WEIGHT_LABELS)
+    report["n_train_examples"] = int(
+        report.get("n_train_examples", len(train_examples))
+    )
+    return report
+
+
 def run_training(
     config: TrainConfig,
     *,
     model: PlannerModel | None = None,
     split: StageASplitResult | None = None,
     annotation_fingerprints: tuple[tuple[int, str], tuple[int, str]] | None = None,
+    bio_class_weight_report: Mapping[str, Any] | None = None,
 ) -> TrainRunResult:
     """Run the thin Stage-A training loop (supports ``--smoke``)."""
     set_seed(config.seed)
@@ -866,6 +1107,19 @@ def run_training(
         model = build_model(config)
         _ = model.encode([split.train[0].query])
         assert_encoder_frozen(model)
+
+    # For any weighted run, record TRAIN O/B/I counts + final weights used.
+    # Counts always come from caller-supplied TRAIN examples only (split.train).
+    if (
+        config.h2_bio_class_weights is not None
+        or config.h4_bio_class_weights is not None
+    ):
+        bio_class_weight_report = _ensure_bio_class_weight_report(
+            bio_class_weight_report,
+            train_examples=split.train,
+            model=model,
+            config=config,
+        )
 
     optimizer = build_optimizer(model, lr=config.lr)
     trainable_n, _ = count_parameters(head_parameters(model))
@@ -901,6 +1155,8 @@ def run_training(
                 optimizer,
                 batch,
                 active_heads=config.active_heads(),
+                h2_bio_class_weights=config.h2_bio_class_weights,
+                h4_bio_class_weights=config.h4_bio_class_weights,
             )
             loss_value = float(breakdown.total.detach().item())
             if smoke_first_loss is None:
@@ -909,6 +1165,8 @@ def run_training(
             train_meter.update(breakdown)
         final_train_loss = train_meter.means()
 
+        # Checkpoint selection uses the original unweighted teacher-forced
+        # DEV loss, matching baseline runs. Training weights are not applied.
         dev_metrics = evaluate_examples(
             model,
             split.dev,
@@ -938,6 +1196,11 @@ def run_training(
                 extra={
                     "trainable_params": trainable_n,
                     "frozen_encoder_params": frozen_n,
+                    "bio_class_weight_report": (
+                        dict(bio_class_weight_report)
+                        if bio_class_weight_report is not None
+                        else None
+                    ),
                 },
             )
 
@@ -961,23 +1224,44 @@ def run_training(
             "trainable_params": trainable_n,
             "frozen_encoder_params": frozen_n,
             "history": history,
+            "bio_class_weight_report": (
+                dict(bio_class_weight_report)
+                if bio_class_weight_report is not None
+                else None
+            ),
         },
     )
     if checkpoint_path is None:
         checkpoint_path = final_path
 
+    report_payload: dict[str, Any] = {
+        "config": config.to_dict(),
+        "split_fingerprint": split.fingerprint,
+        "device": str(config.device),
+        "trainable_params": trainable_n,
+        "frozen_encoder_params": frozen_n,
+        "best_dev_loss": best_dev_loss,
+        "best_dev_metrics": best_dev_metrics,
+        "bio_class_weight_formula": BIO_CLASS_WEIGHT_FORMULA,
+        "bio_class_weight_labels": list(BIO_CLASS_WEIGHT_LABELS),
+        "h2_bio_class_weights": (
+            list(config.h2_bio_class_weights)
+            if config.h2_bio_class_weights is not None
+            else None
+        ),
+        "h4_bio_class_weights": (
+            list(config.h4_bio_class_weights)
+            if config.h4_bio_class_weights is not None
+            else None
+        ),
+    }
+    if bio_class_weight_report is not None:
+        report_payload["bio_class_weight_report"] = dict(bio_class_weight_report)
+
     config_path = output_dir / "train_config.json"
     config_path.write_text(
         json.dumps(
-            {
-                "config": config.to_dict(),
-                "split_fingerprint": split.fingerprint,
-                "device": str(config.device),
-                "trainable_params": trainable_n,
-                "frozen_encoder_params": frozen_n,
-                "best_dev_loss": best_dev_loss,
-                "best_dev_metrics": best_dev_metrics,
-            },
+            report_payload,
             indent=2,
             sort_keys=True,
         ),
@@ -1000,11 +1284,13 @@ def run_training(
 
 
 __all__ = [
+    "BIO_CLASS_WEIGHT_FORMULA",
     "DEFAULT_BATCH_SIZE",
     "DEFAULT_EPOCHS",
     "DEFAULT_LR",
     "EXPECTED_STAGE_A_SPLIT_FINGERPRINT",
     "STAGE_A_V2_SPLIT_FINGERPRINT",
+    "BioClassWeightResult",
     "CheckpointEvalResult",
     "EvalMetrics",
     "LossMeter",
@@ -1015,13 +1301,17 @@ __all__ = [
     "assert_encoder_frozen",
     "build_model",
     "build_optimizer",
+    "compute_bio_class_weights_from_examples",
+    "compute_h2_h4_bio_class_weights_from_examples",
     "config_from_checkpoint",
     "count_parameters",
+    "count_supervised_bio_labels",
     "encode_gold_batch",
     "encoder_parameters",
     "evaluate_checkpoint",
     "evaluate_examples",
     "head_parameters",
+    "inverse_frequency_bio_weights",
     "iter_example_batches",
     "load_and_split_stage_a",
     "load_and_split_stage_a_v2",

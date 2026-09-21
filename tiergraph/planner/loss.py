@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 
 import torch
@@ -12,6 +13,8 @@ from tiergraph.planner.batching import GoldStructureBatch
 from tiergraph.planner.model import PlannerHeadOutputs
 
 HEAD_KEYS: tuple[str, ...] = ("h1", "h2", "h3", "h4", "h5", "h6", "h7")
+# Explicit O/B/I order for optional H2/H4 class weights (matches BIO_O/B/I indices).
+BIO_CLASS_WEIGHT_LABELS: tuple[str, str, str] = ("O", "B", "I")
 
 
 @dataclass(frozen=True, slots=True)
@@ -32,12 +35,39 @@ def _zero_like_loss(reference: torch.Tensor) -> torch.Tensor:
     return reference.new_zeros(())
 
 
+def validate_bio_class_weights(
+    weights: Sequence[float] | None,
+    *,
+    name: str = "bio_class_weights",
+) -> tuple[float, float, float] | None:
+    """Validate optional length-3 positive O/B/I weights; ``None`` means unweighted."""
+    if weights is None:
+        return None
+    if len(weights) != 3:
+        raise ValueError(
+            f"{name} must be length 3 (O, B, I), got length {len(weights)}"
+        )
+    validated = (float(weights[0]), float(weights[1]), float(weights[2]))
+    if any(value <= 0.0 for value in validated):
+        raise ValueError(
+            f"{name} values must be strictly positive (O, B, I), got {validated!r}"
+        )
+    if any(not (value == value) for value in validated):  # NaN check
+        raise ValueError(f"{name} values must be finite, got {validated!r}")
+    return validated
+
+
 def _masked_token_ce(
     logits: torch.Tensor,
     labels: torch.Tensor,
     token_loss_mask: torch.Tensor,
+    *,
+    weight: torch.Tensor | None = None,
 ) -> torch.Tensor:
-    """CE over content tokens; labels use BIO_IGNORE on non-supervised positions."""
+    """CE over content tokens; labels use BIO_IGNORE on non-supervised positions.
+
+    ``weight=None`` preserves the historical unweighted CE call.
+    """
     flat_logits = logits.reshape(-1, logits.shape[-1])
     flat_labels = labels.reshape(-1)
     # Combine ignore index with content mask.
@@ -45,7 +75,14 @@ def _masked_token_ce(
     safe_labels = safe_labels.masked_fill(~token_loss_mask.reshape(-1), BIO_IGNORE)
     if not bool((safe_labels != BIO_IGNORE).any()):
         return _zero_like_loss(logits)
-    return F.cross_entropy(flat_logits, safe_labels, ignore_index=BIO_IGNORE)
+    if weight is None:
+        return F.cross_entropy(flat_logits, safe_labels, ignore_index=BIO_IGNORE)
+    return F.cross_entropy(
+        flat_logits,
+        safe_labels,
+        weight=weight,
+        ignore_index=BIO_IGNORE,
+    )
 
 
 def _masked_ce(
@@ -104,13 +141,36 @@ def _masked_bce(
     return F.binary_cross_entropy_with_logits(logits[mask], labels[mask])
 
 
+def _weight_tensor(
+    weights: Sequence[float] | None,
+    *,
+    reference: torch.Tensor,
+    name: str,
+) -> torch.Tensor | None:
+    validated = validate_bio_class_weights(weights, name=name)
+    if validated is None:
+        return None
+    return torch.tensor(
+        validated,
+        dtype=reference.dtype,
+        device=reference.device,
+    )
+
+
 def planner_loss(
     outputs: PlannerHeadOutputs,
     gold: GoldStructureBatch,
     *,
     active_heads: frozenset[str] | None = None,
+    h2_bio_class_weights: Sequence[float] | None = None,
+    h4_bio_class_weights: Sequence[float] | None = None,
 ) -> PlannerLossBreakdown:
-    """Equal-weight multi-task loss. Empty heads contribute scalar 0, never NaN."""
+    """Equal-weight multi-task loss. Empty heads contribute scalar 0, never NaN.
+
+    Optional ``h2_bio_class_weights`` / ``h4_bio_class_weights`` are length-3
+    ``(w_O, w_B, w_I)`` for class-weighted BIO CE. ``None`` keeps the
+    historical unweighted CE path.
+    """
     active = active_heads or frozenset(HEAD_KEYS)
     unknown = active - frozenset(HEAD_KEYS)
     if unknown:
@@ -121,11 +181,21 @@ def planner_loss(
         outputs.op_bio_logits,
         gold.op_bio_labels,
         gold.token_loss_mask,
+        weight=_weight_tensor(
+            h2_bio_class_weights,
+            reference=outputs.op_bio_logits,
+            name="h2_bio_class_weights",
+        ),
     )
     h4 = _masked_token_ce(
         outputs.anc_bio_logits,
         gold.anc_bio_labels,
         gold.token_loss_mask,
+        weight=_weight_tensor(
+            h4_bio_class_weights,
+            reference=outputs.anc_bio_logits,
+            name="h4_bio_class_weights",
+        ),
     )
     h3 = _masked_ce(outputs.op_type_logits, gold.op_type_labels, gold.op_valid)
     h5 = _masked_ce(outputs.impl_logits, gold.impl_labels, gold.anc_valid)
@@ -161,7 +231,9 @@ def planner_loss(
 
 
 __all__ = [
+    "BIO_CLASS_WEIGHT_LABELS",
     "HEAD_KEYS",
     "PlannerLossBreakdown",
     "planner_loss",
+    "validate_bio_class_weights",
 ]
