@@ -20,6 +20,12 @@ from tiergraph.planner.stage_a_v2_spec import (
     STAGE_A_V2_STEP_A_PATH,
     STAGE_A_V2_STEP_B_PATH,
 )
+from tiergraph.planner.stage_a_v3_spec import (
+    STAGE_A_V3_SPLIT_FINGERPRINT,
+    STAGE_A_V3_SPLIT_SEED,
+    STAGE_A_V3_STEP_A_PATH,
+    STAGE_A_V3_STEP_B_PATH,
+)
 from tiergraph.planner.train import (
     DEFAULT_BATCH_SIZE,
     DEFAULT_EPOCHS,
@@ -113,10 +119,19 @@ def build_parser() -> argparse.ArgumentParser:
             "explicit --h2/--h4-bio-class-weights"
         ),
     )
-    parser.add_argument(
+    corpus = parser.add_mutually_exclusive_group()
+    corpus.add_argument(
         "--v2",
         action="store_true",
-        help="use Stage-A v2 corpus (480 examples, frozen 384/48/48 split)",
+        help="use Stage-A v2 frozen corpus (480 examples, 384/48/48 split)",
+    )
+    corpus.add_argument(
+        "--v3",
+        action="store_true",
+        help=(
+            "use Stage-A v3 frozen H4_REFEXPR_V1 TRAIN+DEV corpus "
+            "(384/48; TEST annotation migration pending)"
+        ),
     )
     parser.add_argument(
         "--expected-fingerprint",
@@ -168,6 +183,19 @@ def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainCo
             "explicit --h2-bio-class-weights / --h4-bio-class-weights"
         )
 
+    shared = dict(
+        epochs=args.epochs,
+        batch_size=args.batch_size,
+        lr=args.lr,
+        device=args.device,
+        output_dir=str(args.output_dir),
+        smoke=bool(args.smoke),
+        disabled_heads=_parse_disabled_heads(args.disable_heads),
+        bio_decode_mode=args.bio_decode_mode,
+        h2_bio_class_weights=h2_weights,
+        h4_bio_class_weights=h4_weights,
+    )
+
     if args.v2:
         expected = (
             args.expected_fingerprint
@@ -177,19 +205,24 @@ def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainCo
         seed = args.seed if args.seed != DEFAULT_SPLIT_SEED else STAGE_A_V2_SPLIT_SEED
         config = TrainConfig(
             seed=seed,
-            epochs=args.epochs,
-            batch_size=args.batch_size,
-            lr=args.lr,
-            device=args.device,
-            output_dir=str(args.output_dir),
-            smoke=bool(args.smoke),
             corpus_version="v2",
             step_a_path=str(STAGE_A_V2_STEP_A_PATH),
             step_b_path=str(STAGE_A_V2_STEP_B_PATH),
-            disabled_heads=_parse_disabled_heads(args.disable_heads),
-            bio_decode_mode=args.bio_decode_mode,
-            h2_bio_class_weights=h2_weights,
-            h4_bio_class_weights=h4_weights,
+            **shared,
+        )
+    elif args.v3:
+        expected = (
+            args.expected_fingerprint
+            if args.expected_fingerprint is not None
+            else STAGE_A_V3_SPLIT_FINGERPRINT
+        )
+        seed = args.seed if args.seed != DEFAULT_SPLIT_SEED else STAGE_A_V3_SPLIT_SEED
+        config = TrainConfig(
+            seed=seed,
+            corpus_version="v3",
+            step_a_path=str(STAGE_A_V3_STEP_A_PATH),
+            step_b_path=str(STAGE_A_V3_STEP_B_PATH),
+            **shared,
         )
     else:
         expected = (
@@ -197,19 +230,7 @@ def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainCo
             if args.expected_fingerprint is not None
             else EXPECTED_STAGE_A_SPLIT_FINGERPRINT
         )
-        config = TrainConfig(
-            seed=args.seed,
-            epochs=args.epochs,
-            batch_size=args.batch_size,
-            lr=args.lr,
-            device=args.device,
-            output_dir=str(args.output_dir),
-            smoke=bool(args.smoke),
-            disabled_heads=_parse_disabled_heads(args.disable_heads),
-            bio_decode_mode=args.bio_decode_mode,
-            h2_bio_class_weights=h2_weights,
-            h4_bio_class_weights=h4_weights,
-        )
+        config = TrainConfig(seed=args.seed, **shared)
     if expected == "":
         expected = None
     return expected, config
@@ -222,8 +243,16 @@ def main(argv: list[str] | None = None) -> int:
         if args.checkpoint is None:
             print("ERROR: --eval-only requires --checkpoint", file=sys.stderr)
             return 2
+        if args.v3 and args.split == "test":
+            print(
+                "ERROR: --v3 TEST annotations are not materialized yet "
+                "(test_annotation_migration=pending_blind_migration). "
+                "Use --split train or --split dev.",
+                file=sys.stderr,
+            )
+            return 2
         split = None
-        if args.v2:
+        if args.v2 or args.v3:
             split, _before_a, _before_b = load_and_split_for_config(config)
         result = evaluate_checkpoint(
             args.checkpoint,

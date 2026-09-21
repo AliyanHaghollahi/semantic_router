@@ -20,9 +20,13 @@ from tiergraph.planner.align import BIO_B, BIO_I, BIO_IGNORE, BIO_O, TokenCharSp
 from tiergraph.planner.annotation_step_a import (
     DEFAULT_STEP_A_ANNOTATIONS_PATH,
     EXPECTED_STAGE_A_COUNT,
+    StageAStepAAnnotation,
     fingerprint_file,
 )
-from tiergraph.planner.annotation_step_b import DEFAULT_STEP_B_ANNOTATIONS_PATH
+from tiergraph.planner.annotation_step_b import (
+    DEFAULT_STEP_B_ANNOTATIONS_PATH,
+    StageAStepBAnnotation,
+)
 from tiergraph.planner.annotations import PlannerExample
 from tiergraph.planner.batching import (
     GoldStructureBatch,
@@ -48,9 +52,13 @@ from tiergraph.planner.stage_a_split import (
     DEFAULT_TEST_SIZE,
     DEFAULT_TRAIN_SIZE,
     StageASplitResult,
+    _assignment_fingerprint,
     group_holdout_split,
 )
-from tiergraph.planner.stage_a_to_corpus import load_stage_a_planner_examples
+from tiergraph.planner.stage_a_to_corpus import (
+    load_stage_a_planner_examples,
+    step_ab_to_planner_example,
+)
 from tiergraph.planner.stage_a_v2_spec import (
     STAGE_A_V2_CORPUS_SIZE,
     STAGE_A_V2_DEV_SIZE,
@@ -62,6 +70,24 @@ from tiergraph.planner.stage_a_v2_spec import (
     STAGE_A_V2_TRAIN_SIZE,
 )
 from tiergraph.planner.stage_a_v2_split import regenerate_stage_a_v2_split_report
+from tiergraph.planner.stage_a_v3_h4_build import (
+    annotation_corpus_fingerprint,
+    load_annotation_rows_for_ids,
+    load_train_dev_split_ids,
+)
+from tiergraph.planner.stage_a_v3_spec import (
+    STAGE_A_V3_ANNOTATION_FINGERPRINT,
+    STAGE_A_V3_DEV_SIZE,
+    STAGE_A_V3_MATERIALIZED_SIZE,
+    STAGE_A_V3_SPLIT_FINGERPRINT,
+    STAGE_A_V3_SPLIT_PATH,
+    STAGE_A_V3_SPLIT_SEED,
+    STAGE_A_V3_STEP_A_PATH,
+    STAGE_A_V3_STEP_B_PATH,
+    STAGE_A_V3_TEST_ANNOTATION_MIGRATION,
+    STAGE_A_V3_TRAIN_DEV_H4_STATUS,
+    STAGE_A_V3_TRAIN_SIZE,
+)
 
 
 DEFAULT_LR = 1e-3
@@ -306,11 +332,131 @@ def load_and_split_stage_a_v2(
     return result, before_a, before_b
 
 
+def _load_full_split_assignment(split_path: Path) -> dict[str, str]:
+    """Load train/dev/test membership from the split manifest (ids only)."""
+    assignment: dict[str, str] = {}
+    with split_path.open(encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            split_name = str(row["split"])
+            stage_a_id = str(row["stage_a_id"])
+            if split_name not in {"train", "dev", "test"}:
+                raise ValueError(f"unknown split {split_name!r} for {stage_a_id}")
+            if stage_a_id in assignment:
+                raise ValueError(f"duplicate stage_a_id in split: {stage_a_id}")
+            assignment[stage_a_id] = split_name
+    return assignment
+
+
+def load_and_split_stage_a_v3(
+    config: TrainConfig,
+) -> tuple[StageASplitResult, tuple[int, str], tuple[int, str]]:
+    """Load frozen H4_REFEXPR_V1 TRAIN+DEV annotations (no TEST materialization).
+
+    Parses Step-A/Step-B rows for TRAIN∪DEV only. Split membership (including
+    TEST ids) is read from the frozen split manifest for fingerprinting, but
+    TEST annotation content is never loaded.
+    """
+    step_a_path = Path(config.step_a_path)
+    step_b_path = Path(config.step_b_path)
+    split_path = Path(STAGE_A_V3_SPLIT_PATH)
+    before_a = fingerprint_file(step_a_path)
+    before_b = fingerprint_file(step_b_path)
+
+    ann_fp = annotation_corpus_fingerprint(step_a_path, step_b_path)
+    if ann_fp != STAGE_A_V3_ANNOTATION_FINGERPRINT:
+        raise RuntimeError(
+            "v3 annotation fingerprint mismatch: "
+            f"got {ann_fp}, expected {STAGE_A_V3_ANNOTATION_FINGERPRINT}"
+        )
+
+    assignment = _load_full_split_assignment(split_path)
+    fingerprint = _assignment_fingerprint(assignment, STAGE_A_V3_SPLIT_SEED)
+    if fingerprint != STAGE_A_V3_SPLIT_FINGERPRINT:
+        raise RuntimeError(
+            "v3 split fingerprint mismatch: "
+            f"got {fingerprint}, expected {STAGE_A_V3_SPLIT_FINGERPRINT}"
+        )
+
+    train_ids, dev_ids = load_train_dev_split_ids(split_path)
+    if len(train_ids) != STAGE_A_V3_TRAIN_SIZE:
+        raise RuntimeError(
+            f"v3 train size {len(train_ids)} != {STAGE_A_V3_TRAIN_SIZE}"
+        )
+    if len(dev_ids) != STAGE_A_V3_DEV_SIZE:
+        raise RuntimeError(f"v3 dev size {len(dev_ids)} != {STAGE_A_V3_DEV_SIZE}")
+    keep = train_ids | dev_ids
+    if len(keep) != STAGE_A_V3_MATERIALIZED_SIZE:
+        raise RuntimeError(
+            f"v3 TRAIN+DEV size {len(keep)} != {STAGE_A_V3_MATERIALIZED_SIZE}"
+        )
+
+    by_a = load_annotation_rows_for_ids(
+        step_a_path, keep, model_cls=StageAStepAAnnotation
+    )
+    by_b = load_annotation_rows_for_ids(
+        step_b_path, keep, model_cls=StageAStepBAnnotation
+    )
+    if len(by_a) != STAGE_A_V3_MATERIALIZED_SIZE or len(by_b) != STAGE_A_V3_MATERIALIZED_SIZE:
+        raise RuntimeError("v3 annotation load did not return TRAIN+DEV only")
+
+    examples_by_id: dict[str, PlannerExample] = {}
+    for stage_a_id in sorted(keep):
+        examples_by_id[stage_a_id] = step_ab_to_planner_example(
+            by_a[stage_a_id], by_b[stage_a_id]
+        )
+
+    train = tuple(
+        examples_by_id[eid]
+        for eid in sorted(eid for eid, split in assignment.items() if split == "train")
+    )
+    dev = tuple(
+        examples_by_id[eid]
+        for eid in sorted(eid for eid, split in assignment.items() if split == "dev")
+    )
+    if len(train) != STAGE_A_V3_TRAIN_SIZE or len(dev) != STAGE_A_V3_DEV_SIZE:
+        raise RuntimeError(
+            f"unexpected v3 materialized sizes train={len(train)} dev={len(dev)}"
+        )
+
+    report: dict[str, object] = {
+        "corpus_version": "v3",
+        "h4_anchor_contract": "H4_REFEXPR_V1",
+        "train_dev_h4_status": STAGE_A_V3_TRAIN_DEV_H4_STATUS,
+        "test_annotation_migration": STAGE_A_V3_TEST_ANNOTATION_MIGRATION,
+        "n_test_annotations_materialized": 0,
+        "annotation_fingerprint": STAGE_A_V3_ANNOTATION_FINGERPRINT,
+        "example_to_split": dict(sorted(assignment.items())),
+        "n_train": len(train),
+        "n_dev": len(dev),
+        "n_test": 0,
+    }
+    result = StageASplitResult(
+        train=train,
+        dev=dev,
+        test=(),
+        seed=STAGE_A_V3_SPLIT_SEED,
+        fingerprint=fingerprint,
+        report=report,
+    )
+    assert_annotations_unchanged(
+        step_a_path=step_a_path,
+        step_b_path=step_b_path,
+        before_a=before_a,
+        before_b=before_b,
+    )
+    return result, before_a, before_b
+
+
 def load_and_split_for_config(
     config: TrainConfig,
 ) -> tuple[StageASplitResult, tuple[int, str], tuple[int, str]]:
     if config.corpus_version == "v2":
         return load_and_split_stage_a_v2(config)
+    if config.corpus_version == "v3":
+        return load_and_split_stage_a_v3(config)
     return load_and_split_stage_a(config)
 
 
@@ -948,6 +1094,12 @@ def evaluate_checkpoint(
         "dev": split.dev,
         "test": split.test,
     }[split_name]
+    if split_name == "test" and len(examples) == 0:
+        raise RuntimeError(
+            "TEST split is empty: Stage-A v3 TEST annotations are not "
+            "materialized yet (test_annotation_migration="
+            f"{STAGE_A_V3_TEST_ANNOTATION_MIGRATION})"
+        )
     expected_test_sizes = {
         EXPECTED_STAGE_A_SPLIT_FINGERPRINT: DEFAULT_TEST_SIZE,
         STAGE_A_V2_SPLIT_FINGERPRINT: STAGE_A_V2_TEST_SIZE,
@@ -1290,6 +1442,8 @@ __all__ = [
     "DEFAULT_LR",
     "EXPECTED_STAGE_A_SPLIT_FINGERPRINT",
     "STAGE_A_V2_SPLIT_FINGERPRINT",
+    "STAGE_A_V3_SPLIT_FINGERPRINT",
+    "STAGE_A_V3_ANNOTATION_FINGERPRINT",
     "BioClassWeightResult",
     "CheckpointEvalResult",
     "EvalMetrics",
@@ -1315,6 +1469,7 @@ __all__ = [
     "iter_example_batches",
     "load_and_split_stage_a",
     "load_and_split_stage_a_v2",
+    "load_and_split_stage_a_v3",
     "load_and_split_for_config",
     "load_checkpoint",
     "run_training",
