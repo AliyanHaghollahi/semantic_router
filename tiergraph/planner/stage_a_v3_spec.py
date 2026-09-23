@@ -67,7 +67,7 @@ STAGE_A_V3_UNRESOLVED_REVIEW_PATH: Final[Path] = Path(
 
 # Frozen TRAIN+DEV H4_REFEXPR_V1 annotation fingerprint (Step-A ∥ Step-B).
 STAGE_A_V3_ANNOTATION_FINGERPRINT: Final[str] = (
-    "1af0b450623eb2ed9d26e0bcf42fa255fe1a26e6a0e1118582c0603abb3af9ca"
+    "30ffae30f24c987c5a77a50fa2d9faa9054198e3d4273ccbecdf09d4a7e0c397"
 )
 
 __all__ = [

@@ -1,0 +1,668 @@
+{
+  "audit_version": "1.0",
+  "audit_stage": "stage_a_v3_final_semantic_corrections",
+  "created_utc": "2026-09-22T22:45:22Z",
+  "status": "APPLIED_AND_VERIFIED",
+  "before_source": {
+    "git_commit": "b06be6f947f1",
+    "recovery_method": "load committed annotations and round-trip with authoritative annotation writers"
+  },
+  "before": {
+    "annotation_fingerprint": "1af0b450623eb2ed9d26e0bcf42fa255fe1a26e6a0e1118582c0603abb3af9ca",
+    "step_a_sha256": "ff21db645c235bef6c89283b386568ebdcf4a93e6f08129590de663e06aa780f",
+    "step_a_bytes": 543781,
+    "step_b_sha256": "03acd23f9452173e1ce84f65efb69b592b0a134500fd557db59b5640310f9263",
+    "step_b_bytes": 229206
+  },
+  "after": {
+    "annotation_fingerprint": "30ffae30f24c987c5a77a50fa2d9faa9054198e3d4273ccbecdf09d4a7e0c397",
+    "step_a_sha256": "653b374a89ce7d5872857cccd7eb11a71d24698a1a981183dcc5c153850f6bdb",
+    "step_b_sha256": "8f8ca7f0e81c7463ce5c1bc23e34700b6d83ff7cc7a660b356a8e586041d39a9"
+  },
+  "validation": {
+    "train": 384,
+    "dev": 48,
+    "materialized_total": 432,
+    "test_materialized": 0,
+    "focused_tests_passed": 42,
+    "linkage_errors": 0,
+    "span_mismatches": 0
+  },
+  "corrections": [
+    {
+      "stage_a_id": "sa_0249",
+      "source_id": "src_0092",
+      "candidate_id": "v2c_4ea6a1105977",
+      "exact_query": "Do I have enough space to walk through the room safely? Tell me now.",
+      "split": "train",
+      "before_step_a": {
+        "anchors": [
+          {
+            "anchor_index": 0,
+            "char_end": 54,
+            "char_start": 39,
+            "text": "the room safely"
+          }
+        ],
+        "candidate_id": "v2c_4ea6a1105977",
+        "derived_query_type": "Environmental",
+        "final_bucket": "Environmental",
+        "operations": [
+          {
+            "char_end": 54,
+            "char_start": 0,
+            "operation_index": 0,
+            "operator_type": "RETRIEVE_PERSONAL",
+            "text": "Do I have enough space to walk through the room safely"
+          }
+        ],
+        "provenance": {
+          "domain": "personal_profile",
+          "origin": "training_data_unique_pool",
+          "path": "dataset/training_data.json",
+          "publication_test_eligible": true,
+          "selection_origin": "stage_a_v2_selection",
+          "selection_rank": 110,
+          "selection_seed": 20260901,
+          "step_a_method": "agent_assisted_rule_guided",
+          "step_a_origin": "stage_a_v2_step_a_agent_assisted"
+        },
+        "query": "Do I have enough space to walk through the room safely? Tell me now.",
+        "semantic_group": "personal_profile__do_did_i_X",
+        "source_id": "src_0092",
+        "source_kind": "natural",
+        "stage_a_id": "sa_0249",
+        "step_a_status": "COMPLETE",
+        "template_group": "do_did_i_X"
+      },
+      "before_step_b": {
+        "anchor_decisions": [
+          {
+            "anchor_index": 0,
+            "implicit_resolution": "NONE",
+            "owner_operation_index": 0,
+            "text": "the room safely"
+          }
+        ],
+        "candidate_id": "v2c_4ea6a1105977",
+        "dependencies": [],
+        "final_bucket": "Environmental",
+        "n_anchors": 1,
+        "n_operations": 1,
+        "operation_types": [
+          "RETRIEVE_PERSONAL"
+        ],
+        "query": "Do I have enough space to walk through the room safely? Tell me now.",
+        "source_id": "src_0092",
+        "stage_a_id": "sa_0249",
+        "step_b_status": "COMPLETE"
+      },
+      "after_step_a": {
+        "anchors": [
+          {
+            "anchor_index": 0,
+            "char_end": 47,
+            "char_start": 39,
+            "text": "the room"
+          }
+        ],
+        "candidate_id": "v2c_4ea6a1105977",
+        "derived_query_type": "Environmental",
+        "final_bucket": "Environmental",
+        "operations": [
+          {
+            "char_end": 54,
+            "char_start": 0,
+            "operation_index": 0,
+            "operator_type": "DESCRIBE_ENVIRONMENT",
+            "text": "Do I have enough space to walk through the room safely"
+          }
+        ],
+        "provenance": {
+          "domain": "personal_profile",
+          "origin": "training_data_unique_pool",
+          "path": "dataset/training_data.json",
+          "publication_test_eligible": true,
+          "selection_origin": "stage_a_v2_selection",
+          "selection_rank": 110,
+          "selection_seed": 20260901,
+          "step_a_method": "agent_assisted_rule_guided",
+          "step_a_origin": "stage_a_v2_step_a_agent_assisted"
+        },
+        "query": "Do I have enough space to walk through the room safely? Tell me now.",
+        "semantic_group": "personal_profile__do_did_i_X",
+        "source_id": "src_0092",
+        "source_kind": "natural",
+        "stage_a_id": "sa_0249",
+        "step_a_status": "COMPLETE",
+        "template_group": "do_did_i_X"
+      },
+      "after_step_b": {
+        "anchor_decisions": [
+          {
+            "anchor_index": 0,
+            "implicit_resolution": "NONE",
+            "owner_operation_index": 0,
+            "text": "the room"
+          }
+        ],
+        "candidate_id": "v2c_4ea6a1105977",
+        "dependencies": [],
+        "final_bucket": "Environmental",
+        "n_anchors": 1,
+        "n_operations": 1,
+        "operation_types": [
+          "DESCRIBE_ENVIRONMENT"
+        ],
+        "query": "Do I have enough space to walk through the room safely? Tell me now.",
+        "source_id": "src_0092",
+        "stage_a_id": "sa_0249",
+        "step_b_status": "COMPLETE"
+      },
+      "h1_h7_delta": {
+        "H1": {
+          "before": "Environmental",
+          "after": "Environmental",
+          "changed": false
+        },
+        "H2": {
+          "changed": false,
+          "note": "operation spans unchanged"
+        },
+        "H3": {
+          "before": [
+            "RETRIEVE_PERSONAL"
+          ],
+          "after": [
+            "DESCRIBE_ENVIRONMENT"
+          ],
+          "changed": true
+        },
+        "H4": {
+          "before": [
+            {
+              "text": "the room safely",
+              "char_start": 39,
+              "char_end": 54
+            }
+          ],
+          "after": [
+            {
+              "text": "the room",
+              "char_start": 39,
+              "char_end": 47
+            }
+          ],
+          "changed": true
+        },
+        "H5": {
+          "before": [
+            "NONE"
+          ],
+          "after": [
+            "NONE"
+          ],
+          "changed": false
+        },
+        "H6": {
+          "before": [
+            0
+          ],
+          "after": [
+            0
+          ],
+          "changed": false,
+          "note": "op0 unchanged"
+        },
+        "H7": {
+          "before": [],
+          "after": [],
+          "changed": false
+        }
+      },
+      "rationale": "The query asks about current physical room clearance/safety rather than a stored personal fact. RETRIEVE_PERSONAL was semantically incorrect. DESCRIBE_ENVIRONMENT matches the scene-state task. \"the room safely\" was a non-minimal H4 span; \"the room\" is the minimal environmental anchor.",
+      "decision_source": "manual_semantic_review",
+      "final_status": "APPROVED_APPLIED_VERIFIED"
+    },
+    {
+      "stage_a_id": "sa_0258",
+      "source_id": "src_0529",
+      "candidate_id": "v2c_c0ee9e7b24ed",
+      "exact_query": "What is my position relative to the entrance?",
+      "split": "train",
+      "before_step_a": {
+        "anchors": [
+          {
+            "anchor_index": 0,
+            "char_end": 19,
+            "char_start": 8,
+            "text": "my position"
+          }
+        ],
+        "candidate_id": "v2c_c0ee9e7b24ed",
+        "derived_query_type": "Environmental",
+        "final_bucket": "Environmental",
+        "operations": [
+          {
+            "char_end": 44,
+            "char_start": 0,
+            "operation_index": 0,
+            "operator_type": "LOCATE_ENVIRONMENTAL",
+            "text": "What is my position relative to the entrance"
+          }
+        ],
+        "provenance": {
+          "domain": "personal_profile",
+          "origin": "training_data_unique_pool",
+          "path": "dataset/training_data.json",
+          "publication_test_eligible": false,
+          "publication_test_ineligibility_reason": "quarantined_template_group:what_is_my_X",
+          "selection_origin": "stage_a_v2_selection",
+          "selection_rank": 112,
+          "selection_seed": 20260901,
+          "step_a_method": "agent_assisted_rule_guided",
+          "step_a_origin": "stage_a_v2_step_a_agent_assisted"
+        },
+        "query": "What is my position relative to the entrance?",
+        "semantic_group": "personal_profile__what_is_my_X",
+        "source_id": "src_0529",
+        "source_kind": "natural",
+        "stage_a_id": "sa_0258",
+        "step_a_status": "COMPLETE",
+        "template_group": "what_is_my_X"
+      },
+      "before_step_b": {
+        "anchor_decisions": [
+          {
+            "anchor_index": 0,
+            "implicit_resolution": "IMPLICIT_RESOLVE_PERSONAL",
+            "owner_operation_index": 0,
+            "text": "my position"
+          }
+        ],
+        "candidate_id": "v2c_c0ee9e7b24ed",
+        "dependencies": [],
+        "final_bucket": "Environmental",
+        "n_anchors": 1,
+        "n_operations": 1,
+        "operation_types": [
+          "LOCATE_ENVIRONMENTAL"
+        ],
+        "query": "What is my position relative to the entrance?",
+        "source_id": "src_0529",
+        "stage_a_id": "sa_0258",
+        "step_b_status": "COMPLETE"
+      },
+      "after_step_a": {
+        "anchors": [
+          {
+            "anchor_index": 0,
+            "char_end": 44,
+            "char_start": 32,
+            "text": "the entrance"
+          }
+        ],
+        "candidate_id": "v2c_c0ee9e7b24ed",
+        "derived_query_type": "Environmental",
+        "final_bucket": "Environmental",
+        "operations": [
+          {
+            "char_end": 44,
+            "char_start": 0,
+            "operation_index": 0,
+            "operator_type": "LOCATE_ENVIRONMENTAL",
+            "text": "What is my position relative to the entrance"
+          }
+        ],
+        "provenance": {
+          "domain": "personal_profile",
+          "origin": "training_data_unique_pool",
+          "path": "dataset/training_data.json",
+          "publication_test_eligible": false,
+          "publication_test_ineligibility_reason": "quarantined_template_group:what_is_my_X",
+          "selection_origin": "stage_a_v2_selection",
+          "selection_rank": 112,
+          "selection_seed": 20260901,
+          "step_a_method": "agent_assisted_rule_guided",
+          "step_a_origin": "stage_a_v2_step_a_agent_assisted"
+        },
+        "query": "What is my position relative to the entrance?",
+        "semantic_group": "personal_profile__what_is_my_X",
+        "source_id": "src_0529",
+        "source_kind": "natural",
+        "stage_a_id": "sa_0258",
+        "step_a_status": "COMPLETE",
+        "template_group": "what_is_my_X"
+      },
+      "after_step_b": {
+        "anchor_decisions": [
+          {
+            "anchor_index": 0,
+            "implicit_resolution": "NONE",
+            "owner_operation_index": 0,
+            "text": "the entrance"
+          }
+        ],
+        "candidate_id": "v2c_c0ee9e7b24ed",
+        "dependencies": [],
+        "final_bucket": "Environmental",
+        "n_anchors": 1,
+        "n_operations": 1,
+        "operation_types": [
+          "LOCATE_ENVIRONMENTAL"
+        ],
+        "query": "What is my position relative to the entrance?",
+        "source_id": "src_0529",
+        "stage_a_id": "sa_0258",
+        "step_b_status": "COMPLETE"
+      },
+      "h1_h7_delta": {
+        "H1": {
+          "before": "Environmental",
+          "after": "Environmental",
+          "changed": false
+        },
+        "H2": {
+          "changed": false,
+          "note": "operation spans unchanged"
+        },
+        "H3": {
+          "before": [
+            "LOCATE_ENVIRONMENTAL"
+          ],
+          "after": [
+            "LOCATE_ENVIRONMENTAL"
+          ],
+          "changed": false
+        },
+        "H4": {
+          "before": [
+            {
+              "text": "my position",
+              "char_start": 8,
+              "char_end": 19
+            }
+          ],
+          "after": [
+            {
+              "text": "the entrance",
+              "char_start": 32,
+              "char_end": 44
+            }
+          ],
+          "changed": true
+        },
+        "H5": {
+          "before": [
+            "IMPLICIT_RESOLVE_PERSONAL"
+          ],
+          "after": [
+            "NONE"
+          ],
+          "changed": true
+        },
+        "H6": {
+          "before": [
+            0
+          ],
+          "after": [
+            0
+          ],
+          "changed": false,
+          "note": "op0 unchanged"
+        },
+        "H7": {
+          "before": [],
+          "after": [],
+          "changed": false
+        }
+      },
+      "rationale": "The task is environmental relative localization, so Environmental and LOCATE_ENVIRONMENTAL remain correct. \"my position\" does not require retrieval of a personal record and should not use IMPLICIT_RESOLVE_PERSONAL. The environmental landmark \"the entrance\" is the appropriate H4 anchor.",
+      "decision_source": "manual_semantic_review",
+      "final_status": "APPROVED_APPLIED_VERIFIED"
+    },
+    {
+      "stage_a_id": "sa_0344",
+      "source_id": "src_0598",
+      "candidate_id": "v2c_10663d174b33",
+      "exact_query": "What is written on this receipt and does it match what I ordered?",
+      "split": "dev",
+      "before_step_a": {
+        "anchors": [
+          {
+            "anchor_index": 0,
+            "char_end": 31,
+            "char_start": 19,
+            "text": "this receipt"
+          }
+        ],
+        "candidate_id": "v2c_10663d174b33",
+        "derived_query_type": "Mixed",
+        "final_bucket": "MIXED_PARALLEL",
+        "operations": [
+          {
+            "char_end": 31,
+            "char_start": 0,
+            "operation_index": 0,
+            "operator_type": "IDENTIFY_ENVIRONMENTAL",
+            "text": "What is written on this receipt"
+          },
+          {
+            "char_end": 64,
+            "char_start": 36,
+            "operation_index": 1,
+            "operator_type": "IDENTIFY_ENVIRONMENTAL",
+            "text": "does it match what I ordered"
+          }
+        ],
+        "provenance": {
+          "explicit_h7": false,
+          "origin": "stage_a_spares",
+          "original_review_bucket": "MIXED_SEQUENTIAL",
+          "path": "dataset/planner/stage_a_spares.jsonl",
+          "publication_test_eligible": true,
+          "reclassified_from_sequential": true,
+          "selection_origin": "stage_a_v2_selection",
+          "selection_rank": 7,
+          "selection_seed": 20260901,
+          "step_a_method": "agent_assisted_rule_guided",
+          "step_a_origin": "stage_a_v2_step_a_agent_assisted"
+        },
+        "query": "What is written on this receipt and does it match what I ordered?",
+        "semantic_group": "shopping_finance__coord_what_is_written_and",
+        "source_id": "src_0598",
+        "source_kind": "natural",
+        "stage_a_id": "sa_0344",
+        "step_a_status": "COMPLETE",
+        "template_group": "coord_what_is_written_and"
+      },
+      "before_step_b": {
+        "anchor_decisions": [
+          {
+            "anchor_index": 0,
+            "implicit_resolution": "NONE",
+            "owner_operation_index": 0,
+            "text": "this receipt"
+          }
+        ],
+        "candidate_id": "v2c_10663d174b33",
+        "dependencies": [],
+        "final_bucket": "MIXED_PARALLEL",
+        "n_anchors": 1,
+        "n_operations": 2,
+        "operation_types": [
+          "IDENTIFY_ENVIRONMENTAL",
+          "IDENTIFY_ENVIRONMENTAL"
+        ],
+        "query": "What is written on this receipt and does it match what I ordered?",
+        "source_id": "src_0598",
+        "stage_a_id": "sa_0344",
+        "step_b_status": "COMPLETE"
+      },
+      "after_step_a": {
+        "anchors": [
+          {
+            "anchor_index": 0,
+            "char_end": 31,
+            "char_start": 19,
+            "text": "this receipt"
+          },
+          {
+            "anchor_index": 1,
+            "char_end": 64,
+            "char_start": 50,
+            "text": "what I ordered"
+          }
+        ],
+        "candidate_id": "v2c_10663d174b33",
+        "derived_query_type": "Mixed",
+        "final_bucket": "MIXED_PARALLEL",
+        "operations": [
+          {
+            "char_end": 31,
+            "char_start": 0,
+            "operation_index": 0,
+            "operator_type": "DESCRIBE_ENVIRONMENT",
+            "text": "What is written on this receipt"
+          },
+          {
+            "char_end": 64,
+            "char_start": 36,
+            "operation_index": 1,
+            "operator_type": "IDENTIFY_ENVIRONMENTAL",
+            "text": "does it match what I ordered"
+          }
+        ],
+        "provenance": {
+          "explicit_h7": false,
+          "origin": "stage_a_spares",
+          "original_review_bucket": "MIXED_SEQUENTIAL",
+          "path": "dataset/planner/stage_a_spares.jsonl",
+          "publication_test_eligible": true,
+          "reclassified_from_sequential": true,
+          "selection_origin": "stage_a_v2_selection",
+          "selection_rank": 7,
+          "selection_seed": 20260901,
+          "step_a_method": "agent_assisted_rule_guided",
+          "step_a_origin": "stage_a_v2_step_a_agent_assisted"
+        },
+        "query": "What is written on this receipt and does it match what I ordered?",
+        "semantic_group": "shopping_finance__coord_what_is_written_and",
+        "source_id": "src_0598",
+        "source_kind": "natural",
+        "stage_a_id": "sa_0344",
+        "step_a_status": "COMPLETE",
+        "template_group": "coord_what_is_written_and"
+      },
+      "after_step_b": {
+        "anchor_decisions": [
+          {
+            "anchor_index": 0,
+            "implicit_resolution": "NONE",
+            "owner_operation_index": 0,
+            "text": "this receipt"
+          },
+          {
+            "anchor_index": 1,
+            "implicit_resolution": "IMPLICIT_RESOLVE_PERSONAL",
+            "owner_operation_index": 1,
+            "text": "what I ordered"
+          }
+        ],
+        "candidate_id": "v2c_10663d174b33",
+        "dependencies": [],
+        "final_bucket": "MIXED_PARALLEL",
+        "n_anchors": 2,
+        "n_operations": 2,
+        "operation_types": [
+          "DESCRIBE_ENVIRONMENT",
+          "IDENTIFY_ENVIRONMENTAL"
+        ],
+        "query": "What is written on this receipt and does it match what I ordered?",
+        "source_id": "src_0598",
+        "stage_a_id": "sa_0344",
+        "step_b_status": "COMPLETE"
+      },
+      "h1_h7_delta": {
+        "H1": {
+          "before": "Mixed",
+          "after": "Mixed",
+          "changed": false
+        },
+        "H2": {
+          "changed": false,
+          "note": "operation spans unchanged"
+        },
+        "H3": {
+          "before": [
+            "IDENTIFY_ENVIRONMENTAL",
+            "IDENTIFY_ENVIRONMENTAL"
+          ],
+          "after": [
+            "DESCRIBE_ENVIRONMENT",
+            "IDENTIFY_ENVIRONMENTAL"
+          ],
+          "changed": true,
+          "note": "op0 IDENTIFY_ENVIRONMENTAL -> DESCRIBE_ENVIRONMENT; op1 unchanged"
+        },
+        "H4": {
+          "before": [
+            {
+              "text": "this receipt",
+              "char_start": 19,
+              "char_end": 31
+            }
+          ],
+          "after": [
+            {
+              "text": "this receipt",
+              "char_start": 19,
+              "char_end": 31
+            },
+            {
+              "text": "what I ordered",
+              "char_start": 50,
+              "char_end": 64
+            }
+          ],
+          "changed": true,
+          "note": "keep this receipt; add what I ordered"
+        },
+        "H5": {
+          "before": [
+            "NONE"
+          ],
+          "after": [
+            "NONE",
+            "IMPLICIT_RESOLVE_PERSONAL"
+          ],
+          "changed": true,
+          "note": "what I ordered = IMPLICIT_RESOLVE_PERSONAL"
+        },
+        "H6": {
+          "before": {
+            "this receipt": 0
+          },
+          "after": {
+            "this receipt": 0,
+            "what I ordered": 1
+          },
+          "changed": true
+        },
+        "H7": {
+          "before": [],
+          "after": [],
+          "changed": false
+        },
+        "final_bucket": {
+          "before": "MIXED_PARALLEL",
+          "after": "MIXED_PARALLEL",
+          "changed": false
+        }
+      },
+      "rationale": "\"What is written on this receipt\" is a read-text task and therefore DESCRIBE_ENVIRONMENT. The match clause requires the user's prior order as a personal match key, represented by \"what I ordered\" with IMPLICIT_RESOLVE_PERSONAL owned by operation 1. Keep MIXED_PARALLEL and no H7 because the compare/fusion relation is not encoded as an H7 dependency under the current operator I/O contract.",
+      "decision_source": "manual_semantic_review",
+      "final_status": "APPROVED_APPLIED_VERIFIED"
+    }
+  ]
+}

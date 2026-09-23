@@ -137,7 +137,7 @@ def test_load_and_split_stage_a_v3_train_dev_only_no_test_annotations():
     assert (
         annotation_corpus_fingerprint(step_a, step_b)
         == STAGE_A_V3_ANNOTATION_FINGERPRINT
-        == "1af0b450623eb2ed9d26e0bcf42fa255fe1a26e6a0e1118582c0603abb3af9ca"
+        == "30ffae30f24c987c5a77a50fa2d9faa9054198e3d4273ccbecdf09d4a7e0c397"
     )
     assert split.report["n_test_annotations_materialized"] == 0
     assert split.report["test_annotation_migration"] == "pending_blind_migration"

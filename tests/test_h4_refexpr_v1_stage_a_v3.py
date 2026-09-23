@@ -255,7 +255,7 @@ def test_v2_files_unchanged_byte_for_byte():
 
 
 def test_frozen_annotation_fingerprint_exact():
-    expected = "1af0b450623eb2ed9d26e0bcf42fa255fe1a26e6a0e1118582c0603abb3af9ca"
+    expected = "30ffae30f24c987c5a77a50fa2d9faa9054198e3d4273ccbecdf09d4a7e0c397"
     assert STAGE_A_V3_ANNOTATION_FINGERPRINT == expected
     v3_a = ROOT / STAGE_A_V3_STEP_A_PATH
     v3_b = ROOT / STAGE_A_V3_STEP_B_PATH

@@ -515,6 +515,80 @@
       "sa_0405"
     ]
   },
+  "semantic_audit_corrections": {
+    "after_fingerprint": "30ffae30f24c987c5a77a50fa2d9faa9054198e3d4273ccbecdf09d4a7e0c397",
+    "applied": {
+      "sa_0249": {
+        "anchors": [
+          {
+            "end": 47,
+            "h5": "NONE",
+            "owner": 0,
+            "start": 39,
+            "text": "the room"
+          }
+        ],
+        "final_bucket": "Environmental",
+        "n_h7": 0,
+        "operators": [
+          "DESCRIBE_ENVIRONMENT"
+        ],
+        "planner_query_type": "Environmental",
+        "query": "Do I have enough space to walk through the room safely? Tell me now."
+      },
+      "sa_0258": {
+        "anchors": [
+          {
+            "end": 44,
+            "h5": "NONE",
+            "owner": 0,
+            "start": 32,
+            "text": "the entrance"
+          }
+        ],
+        "final_bucket": "Environmental",
+        "n_h7": 0,
+        "operators": [
+          "LOCATE_ENVIRONMENTAL"
+        ],
+        "planner_query_type": "Environmental",
+        "query": "What is my position relative to the entrance?"
+      },
+      "sa_0344": {
+        "anchors": [
+          {
+            "end": 31,
+            "h5": "NONE",
+            "owner": 0,
+            "start": 19,
+            "text": "this receipt"
+          },
+          {
+            "end": 64,
+            "h5": "IMPLICIT_RESOLVE_PERSONAL",
+            "owner": 1,
+            "start": 50,
+            "text": "what I ordered"
+          }
+        ],
+        "final_bucket": "MIXED_PARALLEL",
+        "n_h7": 0,
+        "operators": [
+          "DESCRIBE_ENVIRONMENT",
+          "IDENTIFY_ENVIRONMENTAL"
+        ],
+        "planner_query_type": "Mixed",
+        "query": "What is written on this receipt and does it match what I ordered?"
+      }
+    },
+    "before_fingerprint": "1af0b450623eb2ed9d26e0bcf42fa255fe1a26e6a0e1118582c0603abb3af9ca",
+    "corrected_ids": [
+      "sa_0249",
+      "sa_0258",
+      "sa_0344"
+    ],
+    "source": "stage_a_v3_semantic_audit_sa_0249_0258_0344"
+  },
   "source_corpus": "stage_a_v2",
   "test_annotation_migration": "pending_blind_migration",
   "totals": {
@@ -538,7 +612,7 @@
     "sha256": "d9de1d3907d87b979c9a5e5b44ea06e5e3695ebb73c60766ae3eeecac907b3c8"
   },
   "v2_unchanged": true,
-  "v3_annotation_fingerprint": "1af0b450623eb2ed9d26e0bcf42fa255fe1a26e6a0e1118582c0603abb3af9ca",
+  "v3_annotation_fingerprint": "30ffae30f24c987c5a77a50fa2d9faa9054198e3d4273ccbecdf09d4a7e0c397",
   "v3_step_a_fingerprint": {
     "nbytes": 543781,
     "sha256": "ff21db645c235bef6c89283b386568ebdcf4a93e6f08129590de663e06aa780f"
