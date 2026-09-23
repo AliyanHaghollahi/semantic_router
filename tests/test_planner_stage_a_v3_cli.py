@@ -190,3 +190,86 @@ def test_cli_v3_rejects_eval_only_test_split():
     )
     assert completed.returncode == 2
     assert "TEST annotations are not materialized" in completed.stderr
+
+
+def test_v3_loader_uses_semantic_h1_not_graph_query_type():
+    """v3 train loader must take H1 from derived_query_type."""
+    from collections import Counter
+
+    from tiergraph.enums import QueryType
+    from tiergraph.planner.annotation_step_a import load_step_a_annotations
+    from tiergraph.planner.annotation_step_b import load_step_b_annotations
+    from tiergraph.planner.stage_a_to_corpus import step_ab_to_planner_example
+    from tiergraph.planner.stage_a_v3_h4_build import load_train_dev_split_ids
+    from tiergraph.planner.stage_a_v3_spec import STAGE_A_V3_SPLIT_PATH
+
+    step_a = ROOT / STAGE_A_V3_STEP_A_PATH
+    step_b = ROOT / STAGE_A_V3_STEP_B_PATH
+    if not step_a.is_file() or not step_b.is_file():
+        pytest.skip("v3 corpus not built yet")
+
+    split, _, _ = load_and_split_stage_a_v3(
+        TrainConfig(
+            corpus_version="v3",
+            step_a_path=str(step_a),
+            step_b_path=str(step_b),
+            device="cpu",
+        )
+    )
+    assert len(split.test) == 0
+
+    by_a = {r.stage_a_id: r for r in load_step_a_annotations(step_a)}
+    loaded = {ex.example_id: ex for ex in (*split.train, *split.dev)}
+
+    # A: loader H1 matches semantic derived_query_type for every TRAIN/DEV row.
+    for stage_a_id, example in loaded.items():
+        assert example.planner_labels.query_type is by_a[stage_a_id].derived_query_type
+
+    # B: representative graph-vs-semantic disagreements.
+    # Environmental graph -> Mixed semantic (MIXED_PARALLEL).
+    env_to_mixed = loaded["sa_0340"]
+    assert env_to_mixed.graph.query_type is QueryType.ENVIRONMENTAL
+    assert env_to_mixed.planner_labels.query_type is QueryType.MIXED
+    assert by_a["sa_0340"].derived_query_type is QueryType.MIXED
+
+    # Mixed graph -> Environmental semantic.
+    mixed_to_env = loaded["sa_0229"]
+    assert mixed_to_env.graph.query_type is QueryType.MIXED
+    assert mixed_to_env.planner_labels.query_type is QueryType.ENVIRONMENTAL
+    assert by_a["sa_0229"].derived_query_type is QueryType.ENVIRONMENTAL
+
+    # C: False vs True differs on exactly 69 H1 labels (66 train / 3 dev); H2-H7 same.
+    by_b = {r.stage_a_id: r for r in load_step_b_annotations(step_b)}
+    train_ids, dev_ids = load_train_dev_split_ids(STAGE_A_V3_SPLIT_PATH)
+    keep = train_ids | dev_ids
+    changed: list[str] = []
+    for stage_a_id in sorted(keep):
+        graph_h1 = step_ab_to_planner_example(
+            by_a[stage_a_id], by_b[stage_a_id], use_semantic_h1=False
+        )
+        semantic_h1 = step_ab_to_planner_example(
+            by_a[stage_a_id], by_b[stage_a_id], use_semantic_h1=True
+        )
+        assert loaded[stage_a_id].planner_labels.query_type is (
+            semantic_h1.planner_labels.query_type
+        )
+        dump_g = graph_h1.planner_labels.model_dump(mode="json")
+        dump_s = semantic_h1.planner_labels.model_dump(mode="json")
+        h1_g = dump_g.pop("query_type")
+        h1_s = dump_s.pop("query_type")
+        assert dump_g == dump_s
+        if h1_g != h1_s:
+            changed.append(stage_a_id)
+    assert len(changed) == 69
+    assert sum(1 for sid in changed if sid in train_ids) == 66
+    assert sum(1 for sid in changed if sid in dev_ids) == 3
+
+    # D: semantic-H1 distributions on the loader output.
+    train_h1 = Counter(ex.planner_labels.query_type.value for ex in split.train)
+    dev_h1 = Counter(ex.planner_labels.query_type.value for ex in split.dev)
+    assert train_h1 == {"Personal": 77, "Environmental": 77, "Mixed": 230}
+    assert dev_h1 == {"Personal": 9, "Environmental": 9, "Mixed": 30}
+
+    # E: still no TEST examples.
+    assert split.test == ()
+    assert len(loaded) == STAGE_A_V3_MATERIALIZED_SIZE

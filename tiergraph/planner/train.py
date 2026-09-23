@@ -404,8 +404,11 @@ def load_and_split_stage_a_v3(
 
     examples_by_id: dict[str, PlannerExample] = {}
     for stage_a_id in sorted(keep):
+        # Stage-A v3 H1 gold is semantic derived_query_type, not graph.query_type.
         examples_by_id[stage_a_id] = step_ab_to_planner_example(
-            by_a[stage_a_id], by_b[stage_a_id]
+            by_a[stage_a_id],
+            by_b[stage_a_id],
+            use_semantic_h1=True,
         )
 
     train = tuple(

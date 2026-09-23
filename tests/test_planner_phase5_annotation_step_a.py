@@ -453,3 +453,36 @@ def test_demo_omits_resolve_personal_and_uses_my_gate_anchor():
     assert any("NAVIGATE_TO" in line for line in preview_ops)
     assert not any("RESOLVE_PERSONAL" in line for line in preview_ops)
     assert ANNOTATIONS_PATH.is_file()
+
+def test_derived_query_type_is_independent_h1_label():
+    """H1 semantic route may differ from structural final_bucket."""
+    query = "Find the room and describe the layout"
+
+    op1 = create_operation_from_substring(
+        query,
+        "Find the room",
+        OperatorType.LOCATE_ENVIRONMENTAL,
+    )
+    op2 = create_operation_from_substring(
+        query,
+        "describe the layout",
+        OperatorType.DESCRIBE_ENVIRONMENT,
+    )
+
+    record = StageAStepAAnnotation(
+        stage_a_id="demo_independent_h1",
+        source_id="demo",
+        query=query,
+        final_bucket="MIXED_SEQUENTIAL",
+        source_kind="demo",
+        semantic_group="demo_group",
+        template_group="demo_template",
+        provenance={},
+        derived_query_type=QueryType.ENVIRONMENTAL,
+        operations=reindex_operations((op1, op2)),
+        anchors=(),
+        step_a_status=StepAStatus.COMPLETE,
+    )
+
+    assert record.final_bucket == "MIXED_SEQUENTIAL"
+    assert record.derived_query_type is QueryType.ENVIRONMENTAL

@@ -171,9 +171,7 @@ def step_ab_to_semantic_annotation(
         source_query_id=step_a.stage_a_id,
         semantic_group_id=step_a.semantic_group,
         query=step_a.query,
-        source_classification_label=final_bucket_to_classification_label(
-            step_a.final_bucket
-        ),
+        source_classification_label=step_a.derived_query_type.value,
         planner_bucket=final_bucket_to_planner_bucket(step_a.final_bucket),
         operations=operations,
         anchors=anchors,
@@ -206,6 +204,7 @@ def step_ab_to_planner_example(
     step_b: StageAStepBAnnotation,
     *,
     decoder: GraphDecoder | None = None,
+    use_semantic_h1: bool = False,
 ) -> PlannerExample:
     """Step-A+B → semantic annotation → GraphDecoder → ``PlannerExample``."""
     annotation = step_ab_to_semantic_annotation(step_a, step_b)
@@ -213,6 +212,7 @@ def step_ab_to_planner_example(
         annotation,
         decoder=decoder,
         example_id=step_a.stage_a_id,
+        use_semantic_h1=use_semantic_h1,
     )
     return _enrich_planner_example_metadata(example, step_a)
 

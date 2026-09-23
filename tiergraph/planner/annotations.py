@@ -215,10 +215,9 @@ class PlannerExample(_ValidatedAnnotationSchema):
 
         if graph.original_query != self.query:
             raise ValueError("graph.original_query must equal query exactly")
-        if labels.query_type is not graph.query_type:
-            raise ValueError(
-                "planner_labels.query_type must equal graph.query_type"
-            )
+        # planner_labels.query_type is independent semantic H1 gold.
+        # graph.query_type remains validated separately from answer-node
+        # semantics below.
 
         answer_nodes = tuple(
             node

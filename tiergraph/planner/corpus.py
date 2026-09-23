@@ -440,6 +440,7 @@ def semantic_annotation_to_planner_example(
     *,
     decoder: GraphDecoder | None = None,
     example_id: str | None = None,
+    use_semantic_h1: bool = False,
 ) -> PlannerExample:
     """Convert semantic annotation → GraphDecoder → validated PlannerExample.
 
@@ -518,7 +519,11 @@ def semantic_annotation_to_planner_example(
                 else decoded.fusion_plan.model_dump(mode="json")
             ),
             "planner_labels": {
-                "query_type": decoded.graph.query_type.value,
+                "query_type": (
+                    annotation.source_classification_label
+                    if use_semantic_h1
+                    else decoded.graph.query_type.value
+                ),
                 "operation_spans": [
                     label.model_dump(mode="json") for label in operation_labels
                 ],

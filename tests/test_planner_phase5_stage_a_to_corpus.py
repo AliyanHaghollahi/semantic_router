@@ -218,3 +218,32 @@ def test_full_checked_in_corpus_conversion():
     assert fingerprint_file(STEP_B_PATH) == step_b_before
     assert STEP_A_PATH.read_bytes() == step_a_bytes
     assert STEP_B_PATH.read_bytes() == step_b_bytes
+
+def test_semantic_h1_can_differ_from_graph_query_type(
+    step_a_by_id,
+    step_b_by_id,
+):
+    """Semantic H1 is independent from GraphDecoder answer-node semantics."""
+
+    # Existing MIXED_SEQUENTIAL graph is useful because its decoded
+    # graph type remains Mixed. Override only semantic H1.
+    step_a = step_a_by_id["sa_0101"].model_copy(
+        update={"derived_query_type": QueryType.ENVIRONMENTAL}
+    )
+    step_b = step_b_by_id["sa_0101"]
+
+    annotation = step_ab_to_semantic_annotation(step_a, step_b)
+
+    assert annotation.source_classification_label == "Environmental"
+
+    example = step_ab_to_planner_example(
+        step_a,
+        step_b,
+        use_semantic_h1=True,
+    )
+
+    # Independent H1 supervision.
+    assert example.planner_labels.query_type is QueryType.ENVIRONMENTAL
+
+    # GraphDecoder semantics remain independently valid.
+    assert example.graph.query_type is QueryType.MIXED

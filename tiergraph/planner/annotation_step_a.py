@@ -223,13 +223,9 @@ class StageAStepAAnnotation(_StepASchema):
     def _validate_record(self) -> "StageAStepAAnnotation":
         if self.source_id is None and self.candidate_id is None:
             raise ValueError("source_id or candidate_id is required")
-        expected_qt = derive_query_type(self.final_bucket)
-        if self.derived_query_type is not expected_qt:
-            raise ValueError(
-                f"derived_query_type {self.derived_query_type.value!r} does not "
-                f"match final_bucket {self.final_bucket!r} "
-                f"(expected {expected_qt.value!r})"
-            )
+        # derived_query_type is the independently reviewed H1 semantic
+        # routing label. It may intentionally differ from final_bucket,
+        # which describes corpus/graph composition.
         _validate_annotation_spans(self, require_complete=False)
         if self.step_a_status is StepAStatus.COMPLETE:
             _validate_annotation_spans(self, require_complete=True)
@@ -747,8 +743,8 @@ def validate_step_a_corpus(
             errors.append(f"{stage_a_id}: source_id differs from frozen selection")
         if item.candidate_id != frozen.get("candidate_id"):
             errors.append(f"{stage_a_id}: candidate_id differs from frozen selection")
-        if item.derived_query_type is not derive_query_type(item.final_bucket):
-            errors.append(f"{stage_a_id}: bad derived_query_type")
+        # derived_query_type is independent H1 gold and is therefore
+        # not required to match final_bucket.
         try:
             _validate_annotation_spans(
                 item,

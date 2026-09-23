@@ -753,8 +753,9 @@ def test_planner_example_model_copy_reruns_all_consistency_validation():
         gate.model_copy(update={"query": "A different query"})
     with pytest.raises(ValidationError, match="graph.original_query"):
         gate.model_copy(update={"graph": wrong_query_graph})
-    with pytest.raises(ValidationError, match="planner_labels.query_type"):
-        gate.model_copy(update={"planner_labels": wrong_labels})
+    relabeled = gate.model_copy(update={"planner_labels": wrong_labels})
+    assert relabeled.planner_labels.query_type is wrong_labels.query_type
+    assert relabeled.graph.query_type is gate.graph.query_type
     with pytest.raises(ValidationError, match="Extra inputs are not permitted"):
         gate.model_copy(update={"unknown": True})
 
@@ -1116,12 +1117,15 @@ def test_graph_query_type_must_match_answer_node_semantics():
         PlannerExample.model_validate(data)
 
 
-def test_planner_label_query_type_must_match_graph():
-    data = _gate_data()
-    data["planner_labels"]["query_type"] = "Personal"
+def test_planner_label_query_type_may_differ_from_graph():
+    """Semantic H1 may differ from graph-derived query type."""
+    data = _single_environmental_data()
+    data["planner_labels"]["query_type"] = "Mixed"
 
-    with pytest.raises(ValidationError, match="planner_labels.query_type"):
-        PlannerExample.model_validate(data)
+    example = PlannerExample.model_validate(data)
+
+    assert example.planner_labels.query_type.value == "Mixed"
+    assert example.graph.query_type.value == "Environmental"
 
 
 def test_one_answer_sink_rejects_fuse():
