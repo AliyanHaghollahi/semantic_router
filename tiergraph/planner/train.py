@@ -7,6 +7,7 @@ APIs. Does not redefine targets, batching, or architecture.
 from __future__ import annotations
 
 import json
+import math
 import random
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass, field
@@ -118,6 +119,8 @@ class TrainConfig:
     bio_decode_mode: str = "argmax"
     h2_bio_class_weights: tuple[float, float, float] | None = None
     h4_bio_class_weights: tuple[float, float, float] | None = None
+    h4_boundary_lambda_start: float = 0.0
+    h4_boundary_lambda_end: float = 0.0
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -136,6 +139,11 @@ class TrainConfig:
                 name="h4_bio_class_weights",
             ),
         )
+        for name in ("h4_boundary_lambda_start", "h4_boundary_lambda_end"):
+            value = float(getattr(self, name))
+            if not math.isfinite(value) or value < 0.0:
+                raise ValueError(f"{name} must be finite and >= 0, got {value!r}")
+            object.__setattr__(self, name, value)
 
     def active_heads(self) -> frozenset[str]:
         disabled = frozenset(self.disabled_heads)
@@ -700,6 +708,8 @@ def train_step(
     active_heads: frozenset[str] | None = None,
     h2_bio_class_weights: Sequence[float] | None = None,
     h4_bio_class_weights: Sequence[float] | None = None,
+    h4_boundary_lambda_start: float = 0.0,
+    h4_boundary_lambda_end: float = 0.0,
 ) -> PlannerLossBreakdown:
     """One forward/backward/optimizer step on a gold batch."""
     model.train()
@@ -712,6 +722,8 @@ def train_step(
         active_heads=active_heads,
         h2_bio_class_weights=h2_bio_class_weights,
         h4_bio_class_weights=h4_bio_class_weights,
+        h4_boundary_lambda_start=h4_boundary_lambda_start,
+        h4_boundary_lambda_end=h4_boundary_lambda_end,
     )
     if not torch.isfinite(breakdown.total):
         raise RuntimeError(f"non-finite total loss: {breakdown.total.item()!r}")
@@ -863,6 +875,8 @@ def evaluate_examples(
     active_heads: frozenset[str] | None = None,
     h2_bio_class_weights: Sequence[float] | None = None,
     h4_bio_class_weights: Sequence[float] | None = None,
+    h4_boundary_lambda_start: float = 0.0,
+    h4_boundary_lambda_end: float = 0.0,
 ) -> EvalMetrics:
     """Teacher-forced evaluation on gold structures (not free decode)."""
     model.eval()
@@ -887,6 +901,8 @@ def evaluate_examples(
                 active_heads=active_heads,
                 h2_bio_class_weights=h2_bio_class_weights,
                 h4_bio_class_weights=h4_bio_class_weights,
+                h4_boundary_lambda_start=h4_boundary_lambda_start,
+                h4_boundary_lambda_end=h4_boundary_lambda_end,
             )
             if not torch.isfinite(breakdown.total):
                 raise RuntimeError("non-finite eval loss")
@@ -1142,6 +1158,8 @@ def evaluate_checkpoint(
             seed=config.seed,
             max_batches=None,
             active_heads=config.active_heads(),
+            h4_boundary_lambda_start=config.h4_boundary_lambda_start,
+            h4_boundary_lambda_end=config.h4_boundary_lambda_end,
         )
     else:
         from tiergraph.planner.free_eval import evaluate_free_examples
@@ -1312,6 +1330,8 @@ def run_training(
                 active_heads=config.active_heads(),
                 h2_bio_class_weights=config.h2_bio_class_weights,
                 h4_bio_class_weights=config.h4_bio_class_weights,
+                h4_boundary_lambda_start=config.h4_boundary_lambda_start,
+                h4_boundary_lambda_end=config.h4_boundary_lambda_end,
             )
             loss_value = float(breakdown.total.detach().item())
             if smoke_first_loss is None:
@@ -1329,6 +1349,8 @@ def run_training(
             seed=config.seed,
             max_batches=max_eval_batches,
             active_heads=config.active_heads(),
+            h4_boundary_lambda_start=config.h4_boundary_lambda_start,
+            h4_boundary_lambda_end=config.h4_boundary_lambda_end,
         )
         epoch_record = {
             "epoch": epoch,

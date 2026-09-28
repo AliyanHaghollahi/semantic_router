@@ -1,0 +1,1562 @@
+{
+  "annotation_fingerprint": "30ffae30f24c987c5a77a50fa2d9faa9054198e3d4273ccbecdf09d4a7e0c397",
+  "assignments": [
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0002"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0003"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0005"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0007"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0008"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0009"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0011"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0012"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0013"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0014"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0016"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0017"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0018"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0019"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0020"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0021"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0022"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0025"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0026"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0027"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0028"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0029"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0030"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0031"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0032"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0033"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0034"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0035"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0036"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0037"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0038"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0039"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0041"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0042"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0043"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0044"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0045"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0046"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0048"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0054"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0058"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0059"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0064"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0066"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0075"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0076"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0077"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0078"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0079"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0080"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0081"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0082"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0083"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0084"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0087"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0088"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0089"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0090"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0091"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0092"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0093"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0094"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0095"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0096"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0097"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0098"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0099"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0104"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0107"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0108"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0110"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0114"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0116"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0119"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0120"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0121"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0122"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0123"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0124"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0125"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0126"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0127"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0128"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0129"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0130"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0131"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0132"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0133"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0134"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0135"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0136"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0137"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0138"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0139"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0140"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0141"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0142"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0143"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0145"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0146"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0148"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0149"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0150"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0152"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0153"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0154"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0156"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0157"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0158"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0159"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0160"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0163"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0164"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0165"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0166"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0167"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0168"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0171"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0172"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0174"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0175"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0176"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0177"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0178"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0179"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0181"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0182"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0184"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0185"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0187"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0188"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0189"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0190"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0191"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0192"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0193"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0194"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0195"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0196"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0197"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0198"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0199"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0200"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0201"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0202"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0203"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0204"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0205"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0206"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0207"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0208"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0209"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0210"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0211"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0212"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0213"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0214"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0215"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0217"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0218"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0220"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0221"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0222"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0223"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0225"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0229"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0230"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0231"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0233"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0236"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0238"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0239"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0240"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0245"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0247"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0248"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0249"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0250"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0251"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0252"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0253"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0255"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0256"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0257"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0258"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0259"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0260"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0261"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0263"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0264"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0265"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0266"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0267"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0268"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0269"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0270"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0271"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0272"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0273"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0274"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0275"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0276"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0277"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0278"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0279"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0280"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0281"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0282"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0283"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0284"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0285"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0286"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0287"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0288"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0289"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0290"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0291"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0292"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0293"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0294"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0295"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0296"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0297"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0298"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0299"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0300"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0301"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0302"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0303"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0304"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0305"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0306"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0307"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0308"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0309"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0310"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0311"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0312"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0313"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0314"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0315"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0316"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0317"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0318"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0319"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0320"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0321"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0322"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0323"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0324"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0325"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0326"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0327"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0328"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0329"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0330"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0331"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0332"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0333"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0334"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0335"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0336"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0338"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0339"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0340"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0341"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0342"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0343"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0345"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0347"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0348"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0349"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0351"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0352"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0353"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0354"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0355"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0358"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0359"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0360"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0361"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0362"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0363"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0364"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0366"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0369"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0371"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0372"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0373"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0374"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0376"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0377"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0378"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0379"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0380"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0381"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0382"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0383"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0384"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0385"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0386"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0387"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0388"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0389"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0390"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0391"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0392"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0394"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0395"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0396"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0397"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0398"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0399"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0400"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0402"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0403"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0405"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0407"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0408"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0409"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0410"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0411"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0412"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0413"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0414"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0415"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0416"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0417"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0418"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0419"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0420"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0421"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0422"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0423"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0424"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0425"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0426"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0427"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0428"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0429"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0430"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0431"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0432"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0433"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0434"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0435"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0436"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0437"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0438"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0439"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0440"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0441"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0442"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0443"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0444"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0445"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0446"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0447"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0448"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0449"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0450"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0451"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0456"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0457"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0458"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0459"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0460"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0461"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0462"
+    },
+    {
+      "fold": 1,
+      "stage_a_id": "sa_0463"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0467"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0468"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0469"
+    },
+    {
+      "fold": 4,
+      "stage_a_id": "sa_0470"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0471"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0472"
+    },
+    {
+      "fold": 2,
+      "stage_a_id": "sa_0473"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0474"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0475"
+    },
+    {
+      "fold": 3,
+      "stage_a_id": "sa_0476"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0477"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0478"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0479"
+    },
+    {
+      "fold": 0,
+      "stage_a_id": "sa_0480"
+    }
+  ],
+  "cv_fold_fingerprint": "87d6bc26f2685a0abe10a5869405167f963245c0d5ccc3944b18efd55f4ff757",
+  "fold_sizes": [
+    77,
+    77,
+    77,
+    77,
+    76
+  ],
+  "grouping_rule": "connected components of template_group UNION authored_holdout_family",
+  "n_examples": 384,
+  "n_folds": 5,
+  "objective_definition": "For each fold of size n, sum over the five final_bucket counts of 4 * (count - global_count * n / 384)^2, plus the unweighted squared deviation of anchor buckets 0/1/2/3+ and of single-op versus multi-op. Assignment is largest-group-first greedy into folds 0..4, then best-improvement moves, pair swaps, and 2-for-1 exchanges while every fold size stays at most 77. This is the frozen procedure, not a search for a new map.",
+  "objective_value": 539.8899739583334,
+  "schema_version": "planner_h4_cv_folds_v1",
+  "split_fingerprint": "ad221c67fb08290582f863bad682e88d1de7bfd1e127c790aee868030229cd10",
+  "structural_imbalance_notes": [
+    "All 6 anchorless TRAIN examples sit in one leakage component, template other_pe, and therefore one fold.",
+    "what_is_my_X is one leakage component and forces one fold to contain at least 22 Personal examples.",
+    "coord_is_and is one leakage component and forces one fold to contain at least 20 MIXED_PARALLEL examples.",
+    "MIXED_SEQUENTIAL counts in the frozen map range from 13 to 17."
+  ]
+}

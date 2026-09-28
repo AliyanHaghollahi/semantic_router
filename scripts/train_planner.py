@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from dataclasses import replace
 from pathlib import Path
@@ -111,6 +112,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="optional H4 BIO CE weights as O,B,I (e.g. 0.57,2.79,1.12)",
     )
     parser.add_argument(
+        "--h4-boundary-lambda-start",
+        type=float,
+        default=0.0,
+        help="weight on the parameter-free H4 start loss (default 0)",
+    )
+    parser.add_argument(
+        "--h4-boundary-lambda-end",
+        type=float,
+        default=0.0,
+        help="weight on the parameter-free H4 end loss (default 0)",
+    )
+    parser.add_argument(
         "--bio-class-weights-from-train",
         action="store_true",
         help=(
@@ -166,6 +179,13 @@ def _parse_bio_class_weights(
         raise SystemExit(f"ERROR: {exc}") from exc
 
 
+def _parse_boundary_lambda(value: float, *, name: str) -> float:
+    numeric = float(value)
+    if not math.isfinite(numeric) or numeric < 0.0:
+        raise SystemExit(f"ERROR: {name} must be finite and >= 0, got {value!r}")
+    return numeric
+
+
 def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainConfig]:
     h2_weights = _parse_bio_class_weights(
         args.h2_bio_class_weights,
@@ -194,6 +214,14 @@ def _resolve_cli_defaults(args: argparse.Namespace) -> tuple[str | None, TrainCo
         bio_decode_mode=args.bio_decode_mode,
         h2_bio_class_weights=h2_weights,
         h4_bio_class_weights=h4_weights,
+        h4_boundary_lambda_start=_parse_boundary_lambda(
+            args.h4_boundary_lambda_start,
+            name="h4_boundary_lambda_start",
+        ),
+        h4_boundary_lambda_end=_parse_boundary_lambda(
+            args.h4_boundary_lambda_end,
+            name="h4_boundary_lambda_end",
+        ),
     )
 
     if args.v2:
