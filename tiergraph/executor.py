@@ -38,6 +38,7 @@ from tiergraph.enums import (
 from tiergraph.fusion import FusionPlan
 from tiergraph.graph import DependencyEdge, ExecutionGraph, SemanticNode
 from tiergraph.models import EvidenceItem, TierResult
+from tiergraph.response import compose_user_response
 
 PHASE3_TEMPORARY_FUSION_METHOD = "phase3_temporary_concatenate"
 _PHASE3_SUPPORTED_FUSION_STRATEGIES = frozenset({FusionStrategy.CONCATENATE})
@@ -93,6 +94,8 @@ class GraphExecutionResult:
     total_latency_ms: float
     final_response: str
     fusion_method: str | None
+    user_response: str
+    response_fusion_mode: str
 
 
 class GraphExecutor:
@@ -159,6 +162,7 @@ class GraphExecutor:
                     fusion_method = used_fusion_method
 
         final_response = _derive_final_response(graph, results)
+        composed = compose_user_response(graph, results)
         return GraphExecutionResult(
             graph_id=graph.graph_id,
             original_query=graph.original_query,
@@ -170,6 +174,8 @@ class GraphExecutor:
             total_latency_ms=(time.perf_counter() - t0) * 1000,
             final_response=final_response,
             fusion_method=fusion_method,
+            user_response=composed.text,
+            response_fusion_mode=composed.fusion.mode,
         )
 
     async def _execute_node(
