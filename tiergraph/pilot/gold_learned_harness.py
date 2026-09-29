@@ -1,8 +1,8 @@
 """Gold versus learned execution comparison on one deterministic backend.
 
 The stub result depends on the operator, tier, local anchor, and any resolved
-predecessor value. It never calls a model. The primary response metric is an
-order-independent semantic signature of those structured results.
+predecessor value. It never calls a model. The primary response metric compares
+task targets and dependency-produced values, not graph structure.
 ``user_response`` string equality is retained only as a secondary metric.
 """
 
@@ -11,7 +11,7 @@ from __future__ import annotations
 import asyncio
 import statistics
 import time
-from collections import Counter, deque
+from collections import Counter
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
@@ -163,33 +163,18 @@ def tier_signature(graph: ExecutionGraph) -> Counter[tuple[OperatorType, Tier]]:
 
 
 def semantic_response_signature(graph: ExecutionGraph, result: Any) -> tuple[Any, ...]:
-    """Canonical execution signature.
+    """Task-level outcome of one completed execution.
 
-    Parallel nodes inside one dependency wave are sorted, so node order alone
-    does not change the signature. Wave order preserves sequential dependencies.
-    Output values, predecessor values, and the fusion comparison are included.
-    Node ids are not.
+    Each answer step is the target read from that step's output, plus the task
+    results of the dependencies that produced its input. Parallel steps are
+    sorted, so node order is irrelevant. Nested predecessor results keep
+    sequential value order. Operator names, tier names, node ids, and fusion
+    topology are not compared.
     """
-    by_id = {node.node_id: node for node in _answer_nodes(graph)}
-    waves: list[tuple[Any, ...]] = []
-    for wave in _answer_waves(graph):
-        steps = []
-        for node_id in wave:
-            node = by_id[node_id]
-            slot_name = next(iter(node.produced_outputs))
-            slot_type = node.produced_outputs[slot_name]
-            output = normalize_text(result.results[node_id].outputs[slot_name])
-            steps.append(
-                (
-                    node.operator.value,
-                    node.tier.value,
-                    slot_type.value,
-                    output,
-                    _predecessor_step(graph, node, result),
-                )
-            )
-        waves.append(tuple(sorted(steps)))
-    return (tuple(waves), _fusion_outcome(graph, result))
+    outcomes = tuple(
+        sorted(_task_outcome(graph, node, result) for node in _answer_nodes(graph))
+    )
+    return (outcomes, _comparison_outcome(outcomes))
 
 
 def compare_pair(
@@ -282,94 +267,47 @@ def _answer_nodes(graph: ExecutionGraph) -> tuple[SemanticNode, ...]:
     )
 
 
-def _answer_waves(graph: ExecutionGraph) -> tuple[tuple[str, ...], ...]:
-    """Dependency waves over answer nodes. Node ids stay internal."""
-    answers = _answer_nodes(graph)
-    answer_ids = {node.node_id for node in answers}
-    successors: dict[str, list[str]] = {node_id: [] for node_id in answer_ids}
-    indegree = {node_id: 0 for node_id in answer_ids}
-    for edge in graph.edges:
-        if edge.source_node_id in answer_ids and edge.target_node_id in answer_ids:
-            successors[edge.source_node_id].append(edge.target_node_id)
-            indegree[edge.target_node_id] += 1
-    ready = deque(node_id for node_id, degree in indegree.items() if degree == 0)
-    waves: list[tuple[str, ...]] = []
-    while ready:
-        wave = tuple(ready)
-        waves.append(wave)
-        ready = deque()
-        for node_id in wave:
-            for successor_id in successors[node_id]:
-                indegree[successor_id] -= 1
-                if indegree[successor_id] == 0:
-                    ready.append(successor_id)
-    return tuple(waves)
-
-
-def _predecessor_step(
+def _task_outcome(
     graph: ExecutionGraph,
     node: SemanticNode,
     result: Any,
-) -> tuple[tuple[str, str, str, str], ...]:
-    steps = []
-    for edge in graph.edges:
-        if edge.target_node_id != node.node_id:
-            continue
-        source = graph.node_by_id(edge.source_node_id)
-        if source.operator is OperatorType.FUSE:
-            continue
-        slot_name = edge.source_slot
-        value = result.results[source.node_id].outputs[slot_name]
-        steps.append(
-            (
-                source.operator.value,
-                source.tier.value,
-                source.produced_outputs[slot_name].value,
-                normalize_text(value),
-            )
-        )
-    return tuple(sorted(steps))
+) -> tuple[Any, ...]:
+    """Target from the executed output, plus dependency targets.
 
-
-def _fusion_outcome(graph: ExecutionGraph, result: Any) -> tuple[Any, ...]:
-    edge_values = sorted(
-        _principal_text(node, result)
-        for node in _answer_nodes(graph)
-        if node.tier is Tier.EDGE
-    )
-    fog_values = sorted(
-        _principal_text(node, result)
-        for node in _answer_nodes(graph)
-        if node.tier is Tier.FOG
-    )
-    if not edge_values or not fog_values:
-        comparison = "not_applicable"
-    elif edge_values == fog_values:
-        comparison = "match"
-    else:
-        comparison = "mismatch"
-    consumed = tuple(
+    The target is the anchor field of the backend result. Predecessor outcomes
+    are those anchors, not source operator or tier names.
+    """
+    predecessors = tuple(
         sorted(
-            (
-                node.operator.value,
-                node.tier.value,
-                next(iter(node.produced_outputs.values())).value,
-                _principal_text(node, result),
-            )
-            for node in _answer_nodes(graph)
-            if any(
-                edge.source_node_id == node.node_id
-                and graph.node_by_id(edge.target_node_id).operator is OperatorType.FUSE
-                for edge in graph.edges
-            )
+            _task_outcome(graph, graph.node_by_id(edge.source_node_id), result)
+            for edge in graph.edges
+            if edge.target_node_id == node.node_id
+            and graph.node_by_id(edge.source_node_id).operator is not OperatorType.FUSE
         )
     )
-    return (result.response_fusion_mode, comparison, consumed)
+    return (_result_anchor(node, result), predecessors)
 
 
-def _principal_text(node: SemanticNode, result: Any) -> str:
+def _result_anchor(node: SemanticNode, result: Any) -> str:
+    """Read the task target out of a completed stub output."""
     slot_name = next(iter(node.produced_outputs))
-    return normalize_text(result.results[node.node_id].outputs[slot_name])
+    text = normalize_text(result.results[node.node_id].outputs[slot_name])
+    marker = "anchor="
+    start = text.index(marker) + len(marker)
+    end = text.index("|pred=", start)
+    return text[start:end]
+
+
+def _comparison_outcome(outcomes: tuple[tuple[Any, ...], ...]) -> str:
+    """Compare independent branch targets without using node order.
+
+    One branch, or a sequential chain with a single root, has no comparison.
+    Two or more independent targets match only when those targets are equal.
+    """
+    independent = sorted(target for target, predecessors in outcomes if not predecessors)
+    if len(independent) < 2:
+        return "not_applicable"
+    return "match" if len(set(independent)) == 1 else "mismatch"
 
 
 def _groups(

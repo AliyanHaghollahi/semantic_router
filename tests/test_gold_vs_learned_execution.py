@@ -224,6 +224,100 @@ def test_node_order_can_change_the_response_without_breaking_exact_graph():
     assert record.gold_user_response != record.learned_user_response
 
 
+def test_extra_fuse_is_not_an_exact_graph_but_keeps_the_task_result():
+    example = _personal()
+    answer = example.graph.nodes[0]
+    learned = _graph(
+        (
+            answer,
+            _node(
+                node_id="fuse",
+                semantic_type=NodeSemanticType.CONTROL,
+                operator=OperatorType.FUSE,
+                tier=Tier.EDGE,
+                task="Fuse the terminal answers",
+                required_inputs={"gate_identifier": SlotType.RESOLVED_REFERENCE},
+                produced_outputs={"response": SlotType.FINAL_RESPONSE},
+            ),
+        ),
+        graph_id="pred-fuse",
+        edges=(
+            DependencyEdge(
+                source_node_id="personal",
+                source_slot="gate_identifier",
+                target_node_id="fuse",
+                target_slot="gate_identifier",
+                transfer_policy=TransferPolicy.DIRECT,
+            ),
+        ),
+    )
+    record = compare_pair(example, learned, predict_ms=0.0)
+    assert record.exact_graph is False
+    assert record.gold_execution_success is True
+    assert record.learned_execution_success is True
+    assert record.response_semantic_match is True
+
+
+def test_wrong_comparison_fails_semantic_match():
+    gold = _parallel_targets("the item", "the item")
+    learned = _parallel_targets("the item", "the other item")
+    example = GoldExampleView("sa_cmp", gold.original_query, gold, "MIXED_PARALLEL")
+    record = compare_pair(example, learned, predict_ms=0.0)
+    assert record.gold_execution_success is True
+    assert record.learned_execution_success is True
+    assert record.response_semantic_match is False
+
+
+def _parallel_targets(order_task: str, receipt_task: str) -> ExecutionGraph:
+    return _graph(
+        (
+            _node(
+                node_id="order",
+                operator=OperatorType.RETRIEVE_PERSONAL,
+                task=order_task,
+                produced_outputs={"item_fact": SlotType.PERSONAL_FACT},
+            ),
+            _node(
+                node_id="receipt",
+                semantic_type=NodeSemanticType.ENVIRONMENTAL,
+                operator=OperatorType.DESCRIBE_ENVIRONMENT,
+                tier=Tier.FOG,
+                task=receipt_task,
+                produced_outputs={"item_scene": SlotType.SCENE_DESCRIPTION},
+            ),
+            _node(
+                node_id="fuse",
+                semantic_type=NodeSemanticType.CONTROL,
+                operator=OperatorType.FUSE,
+                tier=Tier.EDGE,
+                task="Combine the branches",
+                required_inputs={
+                    "item_fact": SlotType.PERSONAL_FACT,
+                    "item_scene": SlotType.SCENE_DESCRIPTION,
+                },
+                produced_outputs={"response": SlotType.FINAL_RESPONSE},
+            ),
+        ),
+        graph_id="gold-cmp",
+        original_query="Does this receipt match what I ordered?",
+        query_type=QueryType.MIXED,
+        edges=(
+            DependencyEdge(
+                source_node_id="order",
+                source_slot="item_fact",
+                target_node_id="fuse",
+                target_slot="item_fact",
+            ),
+            DependencyEdge(
+                source_node_id="receipt",
+                source_slot="item_scene",
+                target_node_id="fuse",
+                target_slot="item_scene",
+            ),
+        ),
+    )
+
+
 def test_missing_learned_graph_does_not_match_a_response():
     example = _personal()
     record = compare_pair(example, None, predict_ms=4.0)
@@ -418,13 +512,15 @@ def test_harness_does_not_call_a_model_or_retain_test_ids(
 def test_dry_run_prints_protocol_without_model_or_execution(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
 ):
     def _forbidden(*_args, **_kwargs):
         raise AssertionError("dry-run loaded examples, a model, or executed graphs")
 
+    output_dir = tmp_path / "gold_vs_learned_execution"
     monkeypatch.setattr(driver, "load_train_gold_examples", _forbidden)
     monkeypatch.setattr(driver, "run_comparison", _forbidden)
-    driver.run(["--dry-run"])
+    driver.run(["--dry-run", "--output-dir", str(output_dir)])
     captured = capsys.readouterr().out
     assert "CHECKPOINT artifacts/planner_h4_dev_confirmation/final.pt" in captured
     assert "N_TRAIN 384" in captured
@@ -432,4 +528,4 @@ def test_dry_run_prints_protocol_without_model_or_execution(
     assert "FUSION_PLAN none" in captured
     assert "DEV_USED false" in captured
     assert "TEST_USED false" in captured
-    assert not (ROOT / "artifacts" / "gold_vs_learned_execution").exists()
+    assert not output_dir.exists()
